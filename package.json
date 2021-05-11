@@ -1,0 +1,22 @@
+{
+  "name": "doyouwannabook-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinsojeong/DoYouWannaBook-v2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shinsojeong/DoYouWannaBook-v2/issues"
+  },
+  "homepage": "https://github.com/shinsojeong/DoYouWannaBook-v2#readme",
+  "dependencies": {
+    "create-react-app": "^4.0.3"
+  }
+}
