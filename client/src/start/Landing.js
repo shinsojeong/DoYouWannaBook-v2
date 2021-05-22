@@ -2,7 +2,7 @@ import React from 'react';
 
 const Landing = () => {
     return (
-        <div>
+        <div id="landing">
             
         </div>
     );

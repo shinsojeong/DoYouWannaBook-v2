@@ -2,8 +2,11 @@ import React from 'react';
 
 const Login = () => {
     return (
-        <div>
-            
+        <div id="login">
+            <form>
+                <input type="text" />
+                <input type="password" />
+            </form>
         </div>
     );
 };
