@@ -39,3 +39,4 @@ server//.nb-gradle/
 ### VS Code ###
 server/.vscode/
 client/.env
+.env
