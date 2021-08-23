@@ -23,6 +23,6 @@ module.exports = class Libimg extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Libimg.belongsTo(db.Libbook, { foreignKey: 'libb_code', targetKey: 'libb_code' });
+        db.Libimg.belongsTo(db.Libbook, { foreignKey: 'libb', targetKey: 'libb_code' });
     }
 };

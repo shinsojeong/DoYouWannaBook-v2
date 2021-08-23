@@ -6,7 +6,8 @@ module.exports = class Libbook extends Sequelize.Model {
             libb_code: {
                 type: Sequelize.STRING(15),
                 allowNull: false,
-                unique: true
+                unique: true,
+                autoIncrement: true
             },
             libb_title: {
                 type: Sequelize.STRING(40),
@@ -53,7 +54,7 @@ module.exports = class Libbook extends Sequelize.Model {
     }
     static associate(db) {
         db.Libbook.belongsTo(db.Libclass, { foreignKey: 'libb_class', targetKey: 'class_sign' });
-        db.Libbook.hasOne(db.Libimg, { foreignKey: 'libb_code', sourceKey: 'libb_code'});
+        db.Libbook.hasOne(db.Libimg, { foreignKey: 'libb', sourceKey: 'libb_code'});
         db.Libbook.belongsTo(db.User, { foreignKey: 'borrower', targetKey: 'std_num'});
     }
 };

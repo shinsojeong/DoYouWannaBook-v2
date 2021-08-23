@@ -6,7 +6,8 @@ module.exports = class Message extends Sequelize.Model {
             msg_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
-                unique: true
+                unique: true,
+                autoIncrement: true
             },
             msg: {
                 type: Sequelize.TEXT,

@@ -6,7 +6,8 @@ module.exports = class Stdbook extends Sequelize.Model {
             stdb_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
-                unique: true
+                unique: true,
+                autoIncrement: true
             },
             stdb_title: {
                 type: Sequelize.STRING(40),

@@ -6,7 +6,8 @@ module.exports = class Chat extends Sequelize.Model {
             chat_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
-                unique: true
+                unique: true,
+                autoIncrement: true
             }
         }, {
             sequelize,

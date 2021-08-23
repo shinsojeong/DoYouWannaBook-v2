@@ -28,10 +28,19 @@ module.exports = class User extends Sequelize.Model {
                 type: Sequelize.STRING(50),
                 allowNull: false
             },
-            pw: {
+            password: {
                 type: Sequelize.STRING(50),
                 allowNull: false
             },
+            provider: {
+                type: Sequelize.STRING(10),
+                allowNull: false,
+                defaultValue: 'local'
+            },
+            sns_id: {
+                type: Sequelize.STRING(30),
+                allowNull: true
+            }
         }, {
             sequelize,
             timestamps: false,  //createAt, updateAt 추가
