@@ -1,12 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Chat extends Sequelize.Model {
+export default class Chat extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             chat_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
                 unique: true,
+                primaryKey: true,
                 autoIncrement: true
             }
         }, {

@@ -1,12 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Libclass extends Sequelize.Model {
+export default class Libclass extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             class_sign: {
                 type: Sequelize.STRING(6),
                 allowNull: false,
-                unique: true
+                unique: true,
+                primaryKey: true
             },
             room: {
                 type: Sequelize.INTEGER.UNSIGNED,

@@ -1,18 +1,19 @@
-const Sequelize = require('sequelize');
-const Chat = require('./chat');
-const Libbook = require('./libbook');
-const Libclass = require('./libclass');
-const Libimg = require('./libimg');
-const Message = require('./message');
-const Stdbook = require('./stdbook');
-const Stdimg = require('./stdimg');
-const User = require('./user');
+import Sequelize from 'sequelize';
+import Chat from './chat.js';
+import Libbook from './libbook.js';
+import Libclass from './libclass.js';
+import Libimg from './libimg.js';
+import Message from './message.js';
+import Stdbook from './stdbook.js';
+import Stdimg from './stdimg.js';
+import User from './user.js';
 
-const env = process.env.NODE_ENV || 'development';
-const config = require('../config/config')[env];
+//const env = process.env.NODE_ENV || 'development';
+import { development } from '../config/config.js';
+//config[env];
 const db = {};
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(development.database, development.username, development.password, development);
 db.sequelize = sequelize;
 
 db.Chat = Chat;
@@ -42,4 +43,4 @@ Stdbook.associate(db);
 Stdimg.associate(db);
 User.associate(db);
 
-module.exports = db;
+export default db;

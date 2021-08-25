@@ -1,12 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Message extends Sequelize.Model {
+export default class Message extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             msg_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
                 unique: true,
+                primaryKey: true,
                 autoIncrement: true
             },
             msg: {

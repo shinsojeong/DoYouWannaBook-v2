@@ -1,6 +1,6 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Stdimg extends Sequelize.Model {
+export default class Stdimg extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             stdb_img: {
@@ -19,6 +19,6 @@ module.exports = class Stdimg extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Stdimg.belongsTo(db.stdbook, { foreignKey: 'stdb', targetKey: 'stdb_code' });
+        db.Stdimg.belongsTo(db.Stdbook, { foreignKey: 'stdb', targetKey: 'stdb_code', primaryKey: true });
     }
 };

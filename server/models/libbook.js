@@ -1,13 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Libbook extends Sequelize.Model {
+export default class Libbook extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             libb_code: {
                 type: Sequelize.STRING(15),
                 allowNull: false,
                 unique: true,
-                autoIncrement: true
+                primaryKey: true
             },
             libb_title: {
                 type: Sequelize.STRING(40),

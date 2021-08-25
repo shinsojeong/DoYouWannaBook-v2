@@ -1,12 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class User extends Sequelize.Model {
+export default class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             std_num: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
-                unique: true
+                unique: true,
+                primaryKey: true
             },
             name: {
                 type: Sequelize.STRING(20),
@@ -29,7 +30,7 @@ module.exports = class User extends Sequelize.Model {
                 allowNull: false
             },
             password: {
-                type: Sequelize.STRING(50),
+                type: Sequelize.STRING(100),
                 allowNull: false
             },
             provider: {

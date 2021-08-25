@@ -1,13 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Stdbook extends Sequelize.Model {
+export default class Stdbook extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             stdb_code: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
                 unique: true,
-                autoIncrement: true
+                primaryKey: true
             },
             stdb_title: {
                 type: Sequelize.STRING(40),

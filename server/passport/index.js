@@ -1,9 +1,9 @@
-const passport = require('passport');
-const local = require('./localStrategy');
-const kakao = require('./kakaoStrategy');
-const User = require('../models/user');
+import passport from 'passport';
+import local from './localStrategy.js';
+import kakao from './kakaoStrategy.js';
+import User from '../models/user.js';
 
-module.exports = () => {
+export default() => {
     //로그인 시 실행 (user 정보를 session에 저장)
     passport.serializeUser((user, done) => {
         done(null, user.std_num);

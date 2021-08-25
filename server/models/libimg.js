@@ -1,6 +1,6 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-module.exports = class Libimg extends Sequelize.Model {
+export default class Libimg extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             libb_title: {
@@ -23,6 +23,6 @@ module.exports = class Libimg extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Libimg.belongsTo(db.Libbook, { foreignKey: 'libb', targetKey: 'libb_code' });
+        db.Libimg.belongsTo(db.Libbook, { foreignKey: 'libb', targetKey: 'libb_code', primaryKey: true });
     }
 };
