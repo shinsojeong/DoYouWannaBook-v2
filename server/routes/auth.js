@@ -52,7 +52,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             return res.json({
                 status: "ERR",
                 code: 400,
-                message: "존재하지 않는 회원입니다."
+                message: "일치하는 회원 정보가 없습니다."
             });
         }
         return req.login(user, (loginError) => {

@@ -12,6 +12,7 @@ import authRouter from './routes/auth.js';
 import chatRouter from './routes/chat.js';
 import libbookRouter from './routes/libbook.js';
 import stdbookRouter from './routes/stdbook.js';
+import mailRouter from './routes/mail.js';
 
 import db from './models/index.js';
 import passportConfig from './passport/index.js';
@@ -35,13 +36,14 @@ app.use(express.json());
 app.use(cors());
 
 app.use(passport.initialize());  //req 객체에 passport 설정 심는 middleware
-app.use(passport.session());  //req.session 객체이 passport 정보 저장하는 middleware
+app.use(passport.session());  //req.session 객체에 passport 정보 저장하는 middleware
 
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
 app.use('/libbook', libbookRouter);
 app.use('/stdbook', stdbookRouter);
+app.use('/mail', mailRouter);
 
 app.use((err, req, res, next) => {
     res.locals.message = err.message;

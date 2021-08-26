@@ -17,7 +17,6 @@ const Login = () => {
         e.preventDefault();
         await dispatch(login(id, pw, history))
         .then(() => {
-            console.log("login test");
             //getRecBook();
         });
     };
@@ -25,6 +24,11 @@ const Login = () => {
     //카카오 로그인
     const kakaoLogin = () => {
         history.push('/auth/kakao');
+    };
+
+    //비밀번호 찾기
+    const goFindPw = () => {
+        history.push('/find_pw');
     };
 
     //회원가입
@@ -43,6 +47,7 @@ const Login = () => {
                 <input type="password" id="pw" onChange={(e) => setPw(e.target.value)} placeholder="패스워드"/>
                 <button onClick={goLogin}>로그인</button>
                 <button onClick={kakaoLogin}>Kakao 로그인</button>
+                <button onClick={goFindPw}>비밀번호 찾기</button>
                 <button onClick={goJoin}>회원가입</button>
             </form>
         </div>
