@@ -1,12 +1,13 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import redis from 'redis';
+import connectRedis from 'connect-redis';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import cors from 'cors';
 
-dotenv.config();
 import adminRouter from './routes/admin.js';
 import authRouter from './routes/auth.js';
 import chatRouter from './routes/chat.js';
@@ -17,6 +18,8 @@ import mailRouter from './routes/mail.js';
 import db from './models/index.js';
 import passportConfig from './passport/index.js';
 
+
+dotenv.config();
 const app = express();
 passportConfig(); //passport 설정
 app.set("port", process.env.PORT || 8001);
@@ -30,11 +33,32 @@ db.sequelize.sync({ force : false })  //true:실행 시마다 테이블 재생�
     console.log(err);
 });
 
-
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
+const redisClient = redis.createClient({
+    url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+    password: process.env.REDIS_PASSWORD
+});
+const redisStore = connectRedis(session);
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+    },
+    store: new redisStore({
+        client: redisClient
+    })
+}));
 app.use(passport.initialize());  //req 객체에 passport 설정 심는 middleware
 app.use(passport.session());  //req.session 객체에 passport 정보 저장하는 middleware
 
