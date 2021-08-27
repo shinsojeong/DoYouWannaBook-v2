@@ -6,7 +6,6 @@ export default class Libclass extends Sequelize.Model {
             class_sign: {
                 type: Sequelize.STRING(6),
                 allowNull: false,
-                unique: true,
                 primaryKey: true
             },
             room: {
@@ -33,6 +32,6 @@ export default class Libclass extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Libclass.hasOne(db.Libbook, { foreignKey: 'libb_class', targetKey: 'class_sign' });
+        db.Libclass.hasMany(db.Libbook, { foreignKey: 'libb_class', targetKey: 'class_sign' });
     }
 };

@@ -14,6 +14,7 @@ import chatRouter from './routes/chat.js';
 import libbookRouter from './routes/libbook.js';
 import stdbookRouter from './routes/stdbook.js';
 import mailRouter from './routes/mail.js';
+import uploadRouter from './routes/upload.js';
 
 import db from './models/index.js';
 import passportConfig from './passport/index.js';
@@ -34,7 +35,7 @@ db.sequelize.sync({ force : false })  //true:실행 시마다 테이블 재생�
 });
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
     origin: true,
@@ -68,6 +69,7 @@ app.use('/chat', chatRouter);
 app.use('/libbook', libbookRouter);
 app.use('/stdbook', stdbookRouter);
 app.use('/mail', mailRouter);
+app.use('/upload', uploadRouter);
 
 app.use((err, req, res, next) => {
     res.locals.message = err.message;

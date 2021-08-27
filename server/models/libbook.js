@@ -30,15 +30,19 @@ export default class Libbook extends Sequelize.Model {
                 allowNull: false
             },
             libb_isbn: {
-                type: Sequelize.DECIMAL,
+                type: Sequelize.STRING(15),
                 allowNull: false
             },
             libb_barcode: {
-                type: Sequelize.DECIMAL,
+                type: Sequelize.STRING(15),
                 allowNull: false
             },
             libb_ret_date: {
                 type: Sequelize.DATE,
+                allowNull: true
+            },
+            libb_img: {
+                type: Sequelize.STRING(200),
                 allowNull: true
             }
         }, {
@@ -54,7 +58,6 @@ export default class Libbook extends Sequelize.Model {
     }
     static associate(db) {
         db.Libbook.belongsTo(db.Libclass, { foreignKey: 'libb_class', targetKey: 'class_sign' });
-        db.Libbook.hasOne(db.Libimg, { foreignKey: 'libb', sourceKey: 'libb_code'});
         db.Libbook.belongsTo(db.User, { foreignKey: 'borrower', targetKey: 'std_num'});
     }
 };

@@ -44,6 +44,10 @@ export default class Stdbook extends Sequelize.Model {
             stdb_ret_date: {
                 type: Sequelize.DATE,
                 allowNull: true
+            },
+            stdb_img: {
+                type: Sequelize.STRING(200),
+                allowNull: true
             }
         }, {
             sequelize,
@@ -59,6 +63,5 @@ export default class Stdbook extends Sequelize.Model {
     static associate(db) {
         db.Stdbook.belongsTo(db.User, { foreignKey: 'lender', targetKey: 'std_num' });
         db.Stdbook.belongsTo(db.User, { foreignKey: 'borrower', targetKey: 'std_num' });  //참고 allowNull: true
-        db.Stdbook.hasMany(db.Stdimg, { foreignKey: 'stdb', sourceKey: 'stdb_code' });
     }
 };
