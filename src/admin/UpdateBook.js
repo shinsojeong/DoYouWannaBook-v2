@@ -49,7 +49,7 @@ const CreateBook = () => {
         const formData = new FormData();
         formData.append('libb', libb);
 
-        await dispatch(uploadImg(formData))
+        dispatch(uploadImg(formData))
         .then((res) => {
             dispatch(updateBook(book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, res, classCode, room, bookshelf, shelf, history));
         });

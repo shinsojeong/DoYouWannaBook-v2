@@ -40,11 +40,11 @@ const CreateBook = () => {
         setLibb(e.target.files[0]);
     };
     
-    const submit = async() => {
+    const submit = () => {
         const formData = new FormData();
         formData.append('libb', libb);
 
-        await dispatch(uploadImg(formData))
+        dispatch(uploadImg(formData))
         .then((res) => {
             dispatch(createBook(code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, res, history));
         })

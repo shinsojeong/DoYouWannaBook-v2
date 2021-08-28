@@ -88,19 +88,17 @@ export const getBook = (
 //도서 이미지 등록
 export const uploadImg = (
     formData
-) => async(dispatch) => {
-    await axios.post(`${url}/upload/libimg`, formData,
-    { withCredentials: "true" }
-    ).then((res) => {
+) => async() => {
+    try {
+        const res = await axios.post(`${url}/upload/libimg`, formData, { withCredentials: "true" });
         if(res.data.status==="OK") {
-            dispatch({
-                type: UPLOADIMG
-            });
             return res.data.data.url;
         } else {
             return alert(res.data.message);
         }
-    }).catch((err) => console.error(err));
+    } catch(err) {
+        console.error(err);
+    };
 };
 
 //도서 정보 등록

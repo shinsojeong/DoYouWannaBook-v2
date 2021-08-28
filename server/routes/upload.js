@@ -16,7 +16,7 @@ const router = express.Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
-      cb(null, 'uploads/');
+      cb(null, 'public/uploads/');
     },
     filename(req, file, cb) {
       const ext = path.extname(file.originalname);
@@ -33,7 +33,7 @@ router.post('/libimg', isLoggedIn, upload.single('libb'), (req, res) => {
       status: "OK",
       code: 200,
       data: {
-        url: `/img/${req.file.filename}` 
+        url: `/uploads/${req.file.filename}` 
       }
     });
   } catch (error) {
@@ -48,7 +48,7 @@ router.post('/stdimg', isLoggedIn, upload.single('stdb'), (req, res) => {
       status: "OK",
       code: 200,
       data: {
-        url: `/img/${req.file.filename}` 
+        url: `/uploads/${req.file.filename}` 
       }
     });
   } catch (error) {
