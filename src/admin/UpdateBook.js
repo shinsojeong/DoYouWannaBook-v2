@@ -1,38 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { uploadImg, createBook } from '../modules/admin';
+
+import { uploadImg, updateBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
 import { roomOp, bookshelfOp, shelfOp } from '../common/util/Reusable';
+
 
 const CreateBook = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const book = useSelector(state => state.admin.selected_book.book);
+    const location = useSelector(state => state.admin.selected_book.location);
+
     useEffect(() => {
-        dispatch(changeBar("cancel", {title:"도서 등록", data:null}, "create", cancel, submit, "small"));
+        dispatch(changeBar("cancel", {title:"도서 수정", data:null}, "create", cancel, submit, "small"));
     });
 
     //topbar function
     const cancel = () => {
-        if(window.confirm("도서 등록을 취소하시겠습니까?")) {
+        if(window.confirm("도서 수정을 취소하시겠습니까?")) {
             history.push('/admin/home');
         }
     };
 
-    const [code, setCode] = useState("");
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [publisher, setPublisher] = useState("");
-    const [pubDate, setPubDate] = useState("");
-    const [state, setState] = useState(true);
-    const [isbn, setIsbn] = useState("");
-    const [barcode, setBarcode] = useState("");
-    const [classCode, setClassCode] = useState("");
-    const [room, setRoom] = useState("1");
-    const [bookshelf, setBookshelf] = useState("1");
-    const [shelf, setShelf] = useState("1");
+    const [code, setCode] = useState(book.libb_code||'');
+    const [title, setTitle] = useState(book.libb_title||'');
+    const [author, setAuthor] = useState(book.libb_author||'');
+    const [publisher, setPublisher] = useState(book.libb_publisher||'');
+    const [pubDate, setPubDate] = useState(book.libb_pub_date.slice(0,10)||'');
+    const state = book.libb_state;
+    const [isbn, setIsbn] = useState(book.libb_isbn||'');
+    const [barcode, setBarcode] = useState(book.libb_barcode||'');
+    const [classCode, setClassCode] = useState(book.libb_class||'');
+    const [room, setRoom] = useState(location.room||'');
+    const [bookshelf, setBookshelf] = useState(location.bookshelf||'');
+    const [shelf, setShelf] = useState(location.shelf||'');
     const [libb, setLibb] = useState([]);
 
     //change event
@@ -46,8 +51,8 @@ const CreateBook = () => {
 
         await dispatch(uploadImg(formData))
         .then((res) => {
-            dispatch(createBook(code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, res, history));
-        })
+            dispatch(updateBook(book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, res, classCode, room, bookshelf, shelf, history));
+        });
     };
 
 
@@ -58,10 +63,7 @@ const CreateBook = () => {
             <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
             <input type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
             <input type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
-            <select value={state} onChange={(e) => setState(e.target.value)} placeholder="상태">
-                <option value={true}>대출 가능</option>
-                <option value={false}>대출 불가</option>
-            </select>
+            <input type="text" id="state" value={state||''} readOnly/>
             <input type="text" id="isbn" value={isbn||''} onChange={(e) => setIsbn(e.target.value)} placeholder="isbn"/>
             <input type="text" id="barcode" value={barcode||''} onChange={(e) => setBarcode(e.target.value)} placeholder="바코드"/>
             <input type="text" id="classCode" value={classCode||''} onChange={(e) => setClassCode(e.target.value)} placeholder="분류 기호"/>

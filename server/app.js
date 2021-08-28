@@ -35,7 +35,7 @@ db.sequelize.sync({ force : false })  //true:실행 시마다 테이블 재생�
 });
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
     origin: true,

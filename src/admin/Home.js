@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
+import { changeBar } from '../modules/topBar';
+import { reset } from '../modules/admin';
 import { logout } from '../modules/user';
 
 const Home = () => {
@@ -8,7 +11,11 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.user.user);
+    const [keyword, setKeyword] = useState("");
 
+    useEffect(() => {
+        dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
+    });
 
     //도서 등록으로 이동
     const goCreateBook = () => {
@@ -16,8 +23,11 @@ const Home = () => {
     };
 
     //도서 조회/수정/삭제로 이동
-    const goSearchBook = () => {
-        history.push('/admin/search-book');
+    const goSearchBook = async() => {
+        await dispatch(reset())
+        .then(() => {
+            history.push('/admin/search-book');
+        });
     };
 
     //로그아웃

@@ -49,6 +49,37 @@ export const department = [
     {value: '교양성경과', label: '교양성경과'},
 ];
 
+export const roomOp = [
+    {value: '1', label: '제1열람실'},
+    {value: '2', label: '제2열람실'},
+    {value: '3', label: '제3열람실'}
+];
+
+export const bookshelfOp = [
+    {value: '1', label: 'a-1 책장'},
+    {value: '2', label: 'a-2 책장'},
+    {value: '3', label: 'a-3 책장'},
+    {value: '4', label: 'a-4 책장'},
+    {value: '5', label: 'a-5 책장'},
+    {value: '6', label: 'b-1 책장'},
+    {value: '7', label: 'b-2 책장'},
+    {value: '8', label: 'b-3 책장'},
+    {value: '9', label: 'b-4 책장'},
+    {value: '10', label: 'b-5 책장'},
+    {value: '11', label: 'c-1 책장'},
+    {value: '12', label: 'c-2 책장'},
+    {value: '13', label: 'c-3 책장'},
+    {value: '14', label: 'c-4 책장'},
+    {value: '15', label: 'c-5 책장'},
+];
+
+export const shelfOp = [
+    {value: '1', label: '선반 1'},
+    {value: '2', label: '선반 2'},
+    {value: '3', label: '선반 3'},
+    {value: '4', label: '선반 4'}
+];
+
 export const option = department.sort((a,b) => {  //객체 정렬 형식 (오름차순), 실제로 import 시키는 값
     return a - b;
 });

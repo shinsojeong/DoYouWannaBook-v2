@@ -1,4 +1,5 @@
 import express from 'express';
+import sequelize from 'sequelize';
 import Libbook from '../models/libbook.js';
 import { isLoggedIn } from './middlewares.js';
 
@@ -7,21 +8,39 @@ const router = express.Router();
 
 //도서 검색
 router.get('/search_book', isLoggedIn, async(req, res) => {
-    const { keyword } = req.body;
+    const { keyword } = req.query;
     try {
         const exBook = await Libbook.findAll({
-            attributes: ['libb_code', 'libb_title', 'libb_author', 'libb_publisher', 'libb_pub_date', 'libb', 'libb_class', 'libb_isgn', 'libb_state'],
+            attributes: ['libb_code', 'libb_title', 'libb_author', 'libb_publisher', 'libb_pub_date', 'libb_img', 'libb_class', 'libb_isbn', 'libb_state'],
             where: {
-                book_name: keyword  //나중에 수정할 것 (ex 공백 제외)
+                [sequelize.Op.or]: [
+                    {
+                        libb_title: {
+                            [sequelize.Op.like]: "%"+keyword+"%"
+                        }
+                    }, {
+                        libb_author: {
+                            [sequelize.Op.like]: "%"+keyword+"%"
+                        }
+                    }
+                ]
             }
-        })
+        });
         if (!exBook) {
-            return res.status(400).send("검색 결과 없음");
+            return res.send({
+                status: "ERR",
+                code: 400,
+                message: "검색 결과 없음"
+            });
         }
-        return res.json(exBook);
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: exBook
+        });
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 

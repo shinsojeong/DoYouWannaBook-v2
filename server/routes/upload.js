@@ -1,7 +1,6 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 
 import { isLoggedIn } from './middlewares.js';
 
@@ -29,16 +28,32 @@ const upload = multer({
   
 router.post('/libimg', isLoggedIn, upload.single('libb'), (req, res) => {
   try {
-    console.log(req.file);
-    res.json({ url: `/img/${req.file.filename}` });
+    console.log(req.file.originalname+"업로드 완료");
+    res.send({
+      status: "OK",
+      code: 200,
+      data: {
+        url: `/img/${req.file.filename}` 
+      }
+    });
   } catch (error) {
-    return console.error(error);
+    return console.error("libImg route 에러"+error);
   }
 });
 
 router.post('/stdimg', isLoggedIn, upload.single('stdb'), (req, res) => {
-  console.log(req.file);
-  res.json({ url: `/img/${req.file.filename}` });
+  try {
+    console.log(req.file.originalname+"업로드 완료");
+    res.send({ 
+      status: "OK",
+      code: 200,
+      data: {
+        url: `/img/${req.file.filename}` 
+      }
+    });
+  } catch (error) {
+    return console.error("stdImg route 에러"+error);
+  }
 });
 
 
