@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../modules/user';
 
-import getRecommendedBook from '../../modules/libBook';
-
 const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -15,10 +13,7 @@ const Login = () => {
     //로그인
     const goLogin = async(e) => {
         e.preventDefault();
-        await dispatch(login(id, pw, history))
-        .then(() => {
-            //getRecBook();
-        });
+        dispatch(login(id, pw, history))
     };
     
     //카카오 로그인
@@ -34,10 +29,6 @@ const Login = () => {
     //회원가입
     const goJoin = () => {
         history.push('/join');
-    };
-
-    const getRecBook = () => {
-        dispatch(getRecommendedBook());  //home에 띄울 추천 신작 도서 받아오기
     };
 
     return (

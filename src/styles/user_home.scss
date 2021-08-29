@@ -1,0 +1,32 @@
+.boxRow {
+    width: 90%;
+    height: 70px;
+    margin: 0 auto;
+    background-color: gray;
+}
+
+.box {
+    width: 20px;
+    height: 50px;
+    margin: 10px 15px 10px 15px;
+    float: left;
+    background-color: black;
+}
+
+#bookshelf {
+    width: 120px;
+    height: 180px;
+    padding: 5px;
+    background-color: gray;
+}
+
+.shelf {
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+    background-color: black;
+}
+
+#highlight {
+    background-color: white;
+}

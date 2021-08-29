@@ -1,6 +1,7 @@
 import express from 'express';
 import sequelize from 'sequelize';
 import Libbook from '../models/libbook.js';
+import Libclass from '../models/libclass.js';
 import { isLoggedIn } from './middlewares.js';
 
 const router = express.Router();
@@ -44,33 +45,73 @@ router.get('/search_book', isLoggedIn, async(req, res) => {
     }
 });
 
+//도서 상세 검색
+router.get('/search_book_detail', isLoggedIn, async(req, res) => {
+    const { libb_code } = req.query;
+    try {
+        const exBook = await Libbook.findOne({
+            attributes: ['libb_code', 'libb_title', 'libb_author', 'libb_publisher', 'libb_pub_date', 'libb_img', 'libb_class', 'libb_isbn', 'libb_state'],
+            where: {
+                libb_code
+            }
+        });
+        if (!exBook) {
+            return res.send({
+                status: "ERR",
+                code: 400,
+                message: "검색 결과 없음"
+            });
+        }
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: exBook
+        });
+    } catch (error) {
+        console.error(error);
+        return res.send(error);
+    }
+});
+
 //신작 조회
 router.get('/get_recommended_book', isLoggedIn, async(req, res) => {
     try {
-        const recBook = await Libbook.findOne({ 
-            where: {
-                limit: 5 
-            }
+        const recBook = await Libbook.findAll({ 
+            attributes: ['libb_code','libb_title',"libb_img","libb_author"],
+            order: [['libb_pub_date', 'DESC']],
+            limit: 5
         });
         if (!recBook) {
-            return res.status(400).send("신작 없음");
+            return res.send({
+                status: "ERR",
+                code: 400,
+                message: "신작이 없습니다."
+            });
         }
-        return res.json(recBook);
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: recBook
+        });
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 
 //도서 위치 정보 조회
 router.get('/get_book_location', isLoggedIn, async(req, res) => {
-    const { libb_class } = req.body;
+    const { libb_class } = req.query;
     try {
-        const location = await Libbook.findOne({ where: { libb_class } });
-        return res.json(location);
+        const location = await Libclass.findOne({ where: { class_sign: libb_class } });
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: location
+        });
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 
@@ -90,7 +131,7 @@ router.post('/borrow', isLoggedIn, async(req, res) => {
         return res.status(200).send("대출 성공");
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 
@@ -105,7 +146,7 @@ router.get('/mypage_borrow_list', isLoggedIn, async(req, res) => {
         return res.json(exList);
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 
@@ -125,7 +166,7 @@ router.get('/mypage_borrow_extend', isLoggedIn, async(req, res) => {
         return res.status(200).send("대출 연장 성공");
     } catch (error) {
         console.error(error);
-        return res.status(500).send(error);
+        return res.send(error);
     }
 });
 

@@ -61,15 +61,14 @@ export const login = (
                 }
             });
             // if(!admin) {  //수정必
-                    // history.push('/user/home');
+                    history.push('/user/home');
             // } else {
-                    history.replace('/admin/home');
+                    //history.replace('/admin/home');
             // }
         } else {
             alert(res.data.message);
-            history.push('/user/home');
         }
-    }).catch((err) => alert(err));
+    }).catch((err) => console.log(err));
 };
 
 //비밀번호 찾기
@@ -91,7 +90,7 @@ export const findPw = (
         } else {
             alert(res.data.message);
         }
-    }).catch((err) => alert(err));
+    }).catch((err) => console.log(err));
 };
 
 //로그아웃
@@ -109,7 +108,7 @@ export const logout = (
             alert("이미 로그아웃 상태입니다.");
         }
         history.push('/login');
-    }).catch((err) => alert(err));
+    }).catch((err) => console.log(err));
 };
 
 

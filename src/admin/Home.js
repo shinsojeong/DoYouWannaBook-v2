@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -11,7 +11,6 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.user.user);
-    const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
         dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
