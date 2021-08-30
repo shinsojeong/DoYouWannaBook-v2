@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import TopBar from '../common/util/TopBar';
 import Barcode from './barcode/Barcode';
 import Chat from './chat/Chat';
 import ChatList from './chat/ChatList';
@@ -15,10 +16,12 @@ import Mypage from './mypage/Mypage';
 import StdCreate from './student/StdCreate';
 import StdMain from './student/StdMain';
 import StdMyList from './student/StdMyList';
+import Menu from '../common/util/Menu';
 
 const User = () => {
     return (
         <div>
+            {/* <TopBar/> */}
             <Switch>
                 <Route exact path="/user/barcode" component={Barcode}/>
                 <Route exact path="/user/chat" component={Chat}/>
@@ -35,6 +38,7 @@ const User = () => {
                 <Route exact path="/user/std-main" component={StdMain}/>
                 <Route exact path="/user/std-my-list" component={StdMyList}/>
             </Switch>
+            <Menu/>
         </div>
     );
 };

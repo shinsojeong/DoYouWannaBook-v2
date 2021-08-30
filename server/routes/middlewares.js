@@ -16,7 +16,7 @@ const isNotLoggedIn = (req, res, next) => {
     } else {
         res.send({
             status: "ERR",
-            code: 403,
+            code: 405,
             message: "이미 로그인 상태입니다."
         });
     }

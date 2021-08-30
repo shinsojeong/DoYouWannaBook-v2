@@ -7,7 +7,8 @@ export default class Stdbook extends Sequelize.Model {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
                 unique: true,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             stdb_title: {
                 type: Sequelize.STRING(40),
@@ -26,7 +27,7 @@ export default class Stdbook extends Sequelize.Model {
                 allowNull: false
             },
             stdb_rental_date: {
-                type: Sequelize.DATE,
+                type: Sequelize.STRING(10),
                 allowNull: false
             },
             stdb_rental_fee: {
