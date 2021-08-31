@@ -9,7 +9,11 @@ export default class Chat extends Sequelize.Model {
                 unique: true,
                 primaryKey: true,
                 autoIncrement: true
-            }
+            },
+            stdb_code: {
+                type: Sequelize.INTEGER.UNSIGNED,
+                allowNull: false
+            },
         }, {
             sequelize,
             timestamps: true,  //createAt, updateAt 추가

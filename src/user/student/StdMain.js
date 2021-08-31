@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { searchStdBook } from '../../modules/userBook';
-import { createChat } from '../../modules/chat';
+import { createChat, getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -37,7 +37,10 @@ const StdMain = () => {
 
     //대여자와 채팅
     const goChat = async(stdb_code, lender) => {
-        dispatch(createChat(stdb_code, lender, std_num, history))
+        await dispatch(createChat(stdb_code, lender, std_num, history))
+        .then(() =>{
+            dispatch(getChatDetail1(stdb_code, std_num, history))
+        });
     };
 
     return (
@@ -47,8 +50,8 @@ const StdMain = () => {
             <div className="menu" id={menuState?"showMenu":"hidden"}>
                 <p>menu</p>
                 <AiOutlineClose size="20" onClick={openMenu}/>
-                <p onClick={() => history.push('/user/std-create')}>대여 등록</p>
-                <p onClick={() => history.push('/user/std-my-list')}>내가 쓴 글</p>
+                <p onClick={() => history.push('/user1/std-create')}>대여 등록</p>
+                <p onClick={() => history.push('/user1/std-my-list')}>내가 쓴 글</p>
             </div>
 
             <div id="search_book" className="item">

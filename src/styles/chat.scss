@@ -1,0 +1,17 @@
+@import './valiables.scss';
+
+#rent_info {
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    bottom: 60px;
+    background-color: aqua;
+}
+
+#send {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    background-color: antiquewhite;
+}
