@@ -14,7 +14,7 @@ const Search = () => {
     const search = async() => {
         await dispatch(searchBook(keyword))
         .then(() => {
-            history.push('/user/search');
+            history.push('/user1/search');
         })
     };
 
@@ -22,7 +22,7 @@ const Search = () => {
     const goDetail = async(libb_code) => {
         await dispatch(selectBook(libb_code))
         .then(() => {
-            history.push('/user/search-detail');
+            history.push('/user1/search-detail');
         });
     };
 

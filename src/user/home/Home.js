@@ -19,7 +19,7 @@ const Home = () => {
     const search = async() => {
         await dispatch(searchBook(keyword))
         .then(() => {
-            history.push('/user/search');
+            history.push('/user1/search');
         })
     };
 

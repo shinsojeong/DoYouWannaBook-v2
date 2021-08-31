@@ -12,7 +12,7 @@ const SearchDetail = () => {
     //위치 정보 보기
     const goLocation = async(class_sign) => {
         await dispatch(getBookLoc(class_sign))
-        .then(() => history.push('/user/search-location'));
+        .then(() => history.push('/user1/search-location'));
     };
 
     return (
