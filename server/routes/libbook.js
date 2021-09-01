@@ -117,18 +117,31 @@ router.get('/get_book_location', isLoggedIn, async(req, res) => {
 
 //도서 대출
 router.post('/borrow', isLoggedIn, async(req, res) => {
-    const { libb_barcode, std_num } = req.body;
+    const { libb_barcode, borrower } = req.body;
+    const today = new Date();
     try {
-        const exBorrower = await Libbook.findOne({ where: { libb_barcode } });
-        if (exBorrower) {
-            return res.status(400).send("이미 대출중인 도서");
+        const exBorrower = await Libbook.findOne({ 
+            attributes: ['borrower'],
+            where: { libb_barcode: libb_barcode }
+        });
+        if (exBorrower.borrower!==null) {
+            return res.send({
+                status: "ERR",
+                code: 400,
+                message: "이미 대출중인 도서"
+            });
         }
         await Libbook.update({
-            borrower: std_num
+            borrower: borrower,
+            libb_ret_date: today.setDate(today.getDate() + 7)
         }, { 
-            where: { libb_barcode } 
+            where: { libb_barcode: libb_barcode } 
         });
-        return res.status(200).send("대출 성공");
+        return res.send({
+            status: "OK",
+            code: 200,
+            message: "대출 성공"
+        });
     } catch (error) {
         console.error(error);
         return res.send(error);
@@ -137,13 +150,21 @@ router.post('/borrow', isLoggedIn, async(req, res) => {
 
 //대출 내역 조회
 router.get('/mypage_borrow_list', isLoggedIn, async(req, res) => {
-    const { std_num } = req.body;
+    const { std_num } = req.query;
     try {
         const exList = await Libbook.findAll({ where: { borrower: std_num } });
-        if (!exList) {
-            return res.status(400).send("대출중인 도서가 없습니다.");
+        if (exList.length===0) {
+            return res.send({
+                status: "ERR",
+                code: 400,
+                message: "대출중인 도서가 없습니다."
+            });
         }
-        return res.json(exList);
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: exList
+        });
     } catch (error) {
         console.error(error);
         return res.send(error);
@@ -151,19 +172,20 @@ router.get('/mypage_borrow_list', isLoggedIn, async(req, res) => {
 });
 
 //대출 연장
-router.get('/mypage_borrow_extend', isLoggedIn, async(req, res) => {
-    const { std_num, libb_code } = req.body;
+router.post('/mypage_borrow_extend', isLoggedIn, async(req, res) => {
+    const { std_num, libb_code, libb_ret_date } = req.body;
+    const date = new Date(libb_ret_date);
     try {
-        const book = await Libbook.findOne({ 
-            attributes: ['libb_ret_date'],
-            where: { libb_code } 
-        });
         await Libbook.update({
-            libb_ret_date: book.libb_ret_date+7  //7일로 저장되는지 확인 필요
+            libb_ret_date: date.setDate(date.getDate() + 7)
         }, {
             where: { libb_code, borrower: std_num }
         })
-        return res.status(200).send("대출 연장 성공");
+        return res.send({
+            status: "OK",
+            code: 200,
+            message: "대출 연장 성공"
+        });
     } catch (error) {
         console.error(error);
         return res.send(error);

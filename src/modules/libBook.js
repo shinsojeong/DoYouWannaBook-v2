@@ -104,13 +104,18 @@ export const getBookLoc = (
 export const borrow = (
     barcode, std_num
     ) => async(dispatch) => {
-    await axios.post(`${url}/borrow`, {barcode, std_num},
-    { withCredentials: true })
+    await axios.post(`${url}/libbook/borrow`, {
+        libb_barcode: barcode, 
+        borrower: std_num
+    }, { withCredentials: true })
     .then((res) => {
         if(res.data.status==="OK") {
             dispatch({
                 type: BORROW
             });
+            alert("대출 성공");
+        } else {
+            alert(res.data.message);
         }
     }).catch((err) => console.error(err));
 };
@@ -119,9 +124,7 @@ export const borrow = (
 export const getMypageBorrowList = (
     std_num
     ) => async(dispatch) => {
-    await axios.get(`${url}/borrow`, {
-        std_num: std_num
-    },{ withCredentials: true })
+    await axios.get(`${url}/libbook/mypage_borrow_list?std_num=${std_num}`,{ withCredentials: true })
     .then((res) => {
         if(res.data.status==="OK") {
             dispatch({
@@ -134,11 +137,12 @@ export const getMypageBorrowList = (
 
 //대출 연장
 export const extendDate = (
-    std_num, libb_code
+    std_num, libb_code, libb_ret_date
     ) => async(dispatch) => {
-    await axios.post(`${url}/mypage_borrow_extend`, {
+    await axios.post(`${url}/libbook/mypage_borrow_extend`, {
         std_num: std_num,
-        libb_code: libb_code
+        libb_code: libb_code,
+        libb_ret_date: libb_ret_date
     },{ withCredentials: true })
     .then((res) => {
         if(res.data.status==="OK") {
