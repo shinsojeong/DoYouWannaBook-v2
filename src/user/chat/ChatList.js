@@ -32,7 +32,7 @@ const ChatList = () => {
                            <tbody>
                                 <tr>
                                     <td rowSpan="2"><CgProfile size="70"/></td>
-                                    {item.borrower===std_num ? <td>{item.part1}</td> : <td>{item.part2}</td>}
+                                    {item.borrower!==std_num ? <td>{item.part1}</td> : <td>{item.part2}</td>}
                                 </tr>
                                 <tr>
                                     <td>{item.Messages.length!==0 ? item.Messages[0].msg : "채팅 시작 전입니다."}</td>

@@ -49,7 +49,6 @@ router.get('/search_std_book', isLoggedIn, async(req, res) => {
 //학생 도서 등록
 router.post('/create_std_book', isLoggedIn, async(req, res) => {
     const { std_num, stdb_title, stdb_author, stdb_publisher, stdb_pub_date, stdb_rental_date, stdb_rental_fee, stdb_state, stdb_comment, stdb } = req.body;
-    console.log(req.body)
     try {
         await Stdbook.create({
             stdb_title, 
@@ -118,26 +117,30 @@ router.get('/mypage_std_borrow_list', isLoggedIn, async(req, res) => {
     const { std_num } = req.query;
     try {
         const exBook = await Stdbook.findAll({
-            attributes: ['stdb_title', 'stdb', 'lender', 'stdb_ret_date'],
+            attributes: ['stdb_title', 'stdb_img', 'lender', 'stdb_ret_date'],
             where: { 
                 borrower : std_num 
             }
         });
-        if (!exBook) {
+        if (exBook.length===0) {
             return res.send({
                 status: "ERR",
                 code: 400,
                 message: "조회 결과 없음"
             });
         }
-        return res.json(exBook);
+        return res.send({
+            status: "OK",
+            code: 200,
+            data: exBook
+        });
     } catch (error) {
         console.error(error);
         return res.send(error);
     }
 });
 
-//내 도서 목록 조회
+//채팅 - 도서 정보 조회
 router.get('/get_chat_book', isLoggedIn, async(req, res) => {
     const { stdb_code } = req.query;
     try {
@@ -153,6 +156,26 @@ router.get('/get_chat_book', isLoggedIn, async(req, res) => {
             status: "OK",
             code: 200,
             data: exBook
+        });
+    } catch (error) {
+        console.error(error);
+        return res.send(error);
+    }
+});
+
+//대여 정보 등록
+router.post('/register_lental', isLoggedIn, async(req, res) => {
+    const { stdb_code, stdb_ret_date, borrower } = req.body;
+    try {
+        await Stdbook.update({
+            stdb_ret_date, 
+            borrower,
+            stdb_state: false
+        }, { where: { stdb_code } });
+
+        return res.send({
+            status: "OK",
+            code: 200
         });
     } catch (error) {
         console.error(error);

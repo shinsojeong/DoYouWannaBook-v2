@@ -19,7 +19,7 @@ const Chat = () => {
 
     //대여 정보 등록하기
     const register = () => {
-        if(chat.part1===std_num) {
+        if(chat.part1==std_num) {
             dispatch(registerLental(book.stdb_code, retDate, chat.part2));
         } else {
             dispatch(registerLental(book.stdb_code, retDate, chat.part1));

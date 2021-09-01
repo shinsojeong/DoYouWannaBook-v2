@@ -18,6 +18,7 @@ const DELETESTDBOOK = "DELETESTDBOOK";
 const GETMYBOOKLIST = "GETMYBOOKLIST";
 const GETBORROWSTDBOOKLIST = "GETBORROWSTDBOOKLIST";
 const GETCHATBOOK = "GETCHATBOOK";
+const REGISTERLENTAL = "REGISTERLENTAL";
 
 
 //학생 대여 검색
@@ -112,11 +113,16 @@ export const getBorrowStdBookList = (
                 type: GETBORROWSTDBOOKLIST,
                 payload: res.data.data
             });
+        } else {
+            dispatch({
+                type: GETBORROWSTDBOOKLIST,
+                payload: []
+            })
         }
     }).catch((err) => console.error(err));
 };
 
-//채팅 도서 정보
+//채팅 - 도서 정보
 export const getChatBook = (
     stdb_code
     ) => async(dispatch) => {
@@ -132,6 +138,27 @@ export const getChatBook = (
                 type: GETCHATBOOK,
                 payload: []
             });
+        }
+    }).catch((err) => console.error(err));
+};
+
+//채팅 - 대여 정보 등록
+export const registerLental = (
+    stdb_code, stdb_ret_date, borrower
+    ) => async(dispatch) => {
+    await axios.post(`${url}/stdbook/register_lental`,{
+        stdb_code, stdb_ret_date, borrower
+    }, { withCredentials: true })
+    .then((res) => {
+        if(res.data.status==="OK") {
+            dispatch({
+                type: REGISTERLENTAL,
+                payload: {
+                    stdb_ret_date,
+                    borrower
+                }
+            });
+            alert("대여 정보 등록 성공");
         }
     }).catch((err) => console.error(err));
 };
@@ -173,6 +200,25 @@ const userBook = (state = INIT_USERBOOK_STATE, action) => {
             return {
                 ...state,
                 chat_book: action.payload
+            };
+        case REGISTERLENTAL:
+            return {
+                ...state,
+                chat_book: {
+                    stdb_code: state.chat_book.stdb_code,
+                    stdb_title: state.chat_book.stdb_title,
+                    stdb_author: state.chat_book.stdb_author,
+                    stdb_publisher: state.chat_book.stdb_publisher,
+                    stdb_pub_date: state.chat_book.stdb_pub_date,
+                    stdb_rental_date: state.chat_book.stdb_rental_date,
+                    stdb_rental_fee: state.chat_book.stdb_rental_fee,
+                    stdb_state: false,
+                    stdb_comment: state.chat_book.stdb_comment,
+                    stdb_ret_date: action.payload.stdb_ret_date,
+                    stdb_img: state.chat_book.stdb_img,
+                    lender: state.chat_book.lender,
+                    borrower: action.payload.borrower
+                }
             };
         
         default:
