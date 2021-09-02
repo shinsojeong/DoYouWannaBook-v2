@@ -31,8 +31,8 @@ const Barcode = () => {
                 />
             </div> 
             : <div id="container"/>}
-            {state ? <input type="button" value="종료" onClick={() => setState(false)}/> 
-            : <input type="button" value="시작" onClick={() => setState(true)}/>}
+            {state ? <button onClick={() => setState(false)}>종료</button>
+            : <button onClick={() => setState(true)}>시작</button>}
         </div>
     );
 };

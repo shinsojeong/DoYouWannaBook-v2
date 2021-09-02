@@ -1,6 +1,8 @@
 @import './valiables.scss';
 
 #home {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
     #search_book {
         padding-bottom: 30px;
         border-bottom: 1px solid $tableBorder;
@@ -65,6 +67,8 @@
 }
 
 #search {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
     margin-bottom: 20px;
     text-align: center;
     #search_book {
@@ -105,6 +109,8 @@
 }
 
 #search_detail {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
     width: 80%;
     margin-bottom: 20px;
     text-align: center;
@@ -150,6 +156,8 @@
 }
 
 #search_location {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
     margin-bottom: 20px;
     position: fixed;
     #highlight {
