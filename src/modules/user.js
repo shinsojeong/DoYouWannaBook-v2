@@ -86,7 +86,7 @@ export const findPw = (
             dispatch({
                 type: FINDPW
             });
-            history.push('/find_pw_res');
+            history.push('/user1/find_pw_res');
         } else {
             alert(res.data.message);
         }

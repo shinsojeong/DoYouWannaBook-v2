@@ -17,8 +17,8 @@ const FindPwRes = () => {
     };
 
     return (
-        <div className="start_contents">
-            <p>입력하신 메일로 임시 비밀번호가 전송되었습니다.</p>
+        <div id="find_pw_res" className="start_contents">
+            <p>입력하신 메일로<br/>임시 비밀번호가 전송되었습니다.</p>
             <button onClick={goLogin}>로그인하러 가기</button>
         </div>
     );

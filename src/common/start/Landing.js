@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { useHistory  } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import logo from '../../source/logo.png';
+import '../../styles/start.scss';
 
 const Landing = () => {
     const history = useHistory();
@@ -12,7 +14,7 @@ const Landing = () => {
 
     return (
         <div id="landing">
-            <p>DoYouWannaBook</p>  {/*추후 변경 <img src={} id="logo"/>*/}
+            <img src={logo} id="logo" alt="logo" width="200px"/>
         </div>
     );
 };

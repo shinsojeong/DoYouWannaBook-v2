@@ -1,4 +1,5 @@
 //Background
+$Back0 : #76d31e;
 $Back1 : #77d82d;
 $Back2 : #5dc40f;
 $Back3 : #54ae0f;
@@ -48,3 +49,23 @@ $medium : 1.0em;
 $large : 1.05em;
 $x-large : 1.1em;
 $xx-large : 1.15em;
+
+
+//animation
+//fadein
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

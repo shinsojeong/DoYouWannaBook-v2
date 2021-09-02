@@ -10,9 +10,9 @@ import CheckBorrow from './mypage/CheckBorrow';
 import CheckStdBorrow from './mypage/CheckStdBorrow';
 import StdCreate from './student/StdCreate';
 import StdMyList from './student/StdMyList';
-import Join from '../common/join/Join';
-import FindPw from '../common/find/FindPw';
-import FindPwRes from '../common/find/FindPwRes';
+import Join from '../common/start/Join';
+import FindPw from '../common/start/FindPw';
+import FindPwRes from '../common/start/FindPwRes';
 
 const User = () => {
     return (
@@ -27,9 +27,9 @@ const User = () => {
                 <Route exact path="/user1/check-std-borrow" component={CheckStdBorrow}/>
                 <Route exact path="/user1/std-create" component={StdCreate}/>
                 <Route exact path="/user1/std-my-list" component={StdMyList}/>
-                <Route exact path="/join" component={Join}/>
-                <Route exact path="/find_pw" component={FindPw}/>
-                <Route exact path="/find_pw_res" component={FindPwRes}/>
+                <Route exact path="/user1/join" component={Join}/>
+                <Route exact path="/user1/find_pw" component={FindPw}/>
+                <Route exact path="/user1/find_pw_res" component={FindPwRes}/>
             </Switch>
         </div>
     );
