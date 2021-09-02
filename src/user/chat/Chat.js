@@ -19,7 +19,7 @@ const Chat = () => {
 
     const [message, setMessage] = useState("");
     const [retDate, setRetDate] = useState("");
-
+    
     useEffect(() => {
         dispatch(changeBar("back", {title:`${chat.part1==std_num ? chat.part2 : chat.part1}`, data:null}, "null", () => history.goBack(), null, "small"));
     }, [dispatch, history, chat, std_num]);
@@ -42,7 +42,7 @@ const Chat = () => {
     return (
         <div id="chat" className="contents">
             <div id="book_info">
-                <img src={book.stdb_img} alt="bookimg" width="30px"/>
+                <img src={book.stdb_img} alt="bookimg"/>
                 <p>{book.stdb_title}</p>
             </div>
 
@@ -50,14 +50,14 @@ const Chat = () => {
                 {messages.length!==0 ?
                 messages.map((item) => {
                     return (
-                        item.sender===std_num ? 
+                        item.sender==std_num ? 
                         <div id="me">
-                            <p>{item.msg}</p>
-                            {/* <p>{item.created_at.slice(0,10)+" "+item.created_at.slice(11,19)}</p>     */}
+                            <p id="message">{item.msg}</p>
+                            <p id="time">{item.created_at.toString().slice(0,10)}</p>    
                         </div>
                         : <div id="you">
-                            <p>{item.msg}</p>
-                            <p>{item.created_at.slice(0,10)+" "+item.created_at.slice(11,19)}</p>  
+                            <p id="message">{item.msg}</p>
+                            <p id="time">{item.created_at.slice(0,10)+" "+item.created_at.slice(11,19)}</p>  
                         </div>
                     )
                 })
@@ -90,7 +90,7 @@ const Chat = () => {
 
             <div id="send">
                 <input type="text" value={message||""} onChange={(e) => setMessage(e.target.value)}/>
-                <input type="button" value="전송" onClick={sendMessage}/>
+                <button onClick={sendMessage}>전송</button>
             </div>
         </div>
     );

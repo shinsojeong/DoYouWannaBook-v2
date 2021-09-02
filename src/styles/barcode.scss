@@ -5,6 +5,8 @@
     text-align: center;
     margin: 0 auto;
     margin-top: 70px;
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
     #scanner-container {
         width: 90%;
         height: 350px;

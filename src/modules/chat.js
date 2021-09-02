@@ -140,7 +140,7 @@ const chat = (state = INIT_CHAT_STATE, action) => {
             return {
                 ...state,
                 selected_chat: {
-                    chat_code: action.payload.chat_code,
+                    ...state.selected_chat,
                     msg: [...state.selected_chat.msg, {
                         msg: action.payload.msg,
                         created_at: action.payload.created_at,
