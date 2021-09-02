@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { sendChat } from '../../modules/chat';
@@ -11,6 +11,8 @@ const Chat = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const scrollRef = useRef();
+
     const std_num = useSelector(state => state.user.user.std_num);
     const book = useSelector(state => state.userBook.chat_book);
     const chat = useSelector(state => state.chat.selected_chat);
@@ -22,6 +24,7 @@ const Chat = () => {
     
     useEffect(() => {
         dispatch(changeBar("back", {title:`${chat.part1==std_num ? chat.part2 : chat.part1}`, data:null}, "null", () => history.goBack(), null, "small"));
+        scrollToBottom();
     }, [dispatch, history, chat, std_num]);
 
     //대여 정보 등록하기
@@ -34,9 +37,17 @@ const Chat = () => {
     };
 
     //메세지 전송
-    const sendMessage = () => {
-        dispatch(sendChat(chat_code, std_num, message));
+    const sendMessage = async() => {
+        await dispatch(sendChat(chat_code, std_num, message))
+        .then(() => {
+            scrollToBottom();
+        });
         setMessage("");
+    };
+
+    //스크롤
+    const scrollToBottom = () => {
+        scrollRef.current.scrollIntoView({behavior: 'smooth', block: 'end',});
     };
 
     return (
@@ -46,7 +57,7 @@ const Chat = () => {
                 <p>{book.stdb_title}</p>
             </div>
 
-            <div id="chat_messages">
+            <div id="chat_messages" ref={scrollRef}>
                 {messages.length!==0 ?
                 messages.map((item) => {
                     return (
