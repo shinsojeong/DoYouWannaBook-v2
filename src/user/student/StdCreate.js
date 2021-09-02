@@ -11,7 +11,7 @@ const StdCreate = () => {
     const std_num = useSelector(state => state.user.user.std_num);
 
     useEffect(() => {
-        dispatch(changeBar("cancel", {title:"대여 도서 등록", data:null}, "create", cancel, submit, "small"));
+        dispatch(changeBar("back", {title:"대여 도서 등록", data:null}, "create", cancel, submit, "small"));
     });
 
     //topbar function
@@ -48,7 +48,7 @@ const StdCreate = () => {
 
 
     return (
-        <div id="createStdBook">
+        <div id="createStdBook" className="contents">
             <input type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
             <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
             <input type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
@@ -67,7 +67,6 @@ const StdCreate = () => {
                 <p>도서 이미지</p>
                 <input type="file" id="libb" onChange={setImage}></input>
             </div>
-            <input type="button" onClick={submit} value="임시 버튼"></input>
         </div>
     );
 };

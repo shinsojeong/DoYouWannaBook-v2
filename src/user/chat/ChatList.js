@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getChatBook } from '../../modules/userBook';
 import { getChatList, getChatDetail2 } from '../../modules/chat';
+import { changeBar } from '../../modules/topBar';
 import { CgProfile } from "react-icons/cg";
 
 const ChatList = () => {
@@ -14,6 +15,7 @@ const ChatList = () => {
 
     useEffect(() => {
         dispatch(getChatList(std_num));
+        dispatch(changeBar("null", {title:"채팅", data:null}, "null", null, null, "small"));
     }, [dispatch, std_num])
 
     //채팅방 입장
@@ -23,7 +25,7 @@ const ChatList = () => {
     };
 
     return (
-        <div id="chat_list">
+        <div id="chat_list" className="contents">
             {chat_list.length!==0 ? 
             chat_list.map((item) => {
                return (

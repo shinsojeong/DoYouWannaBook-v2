@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { changeBar } from '../../modules/topBar';
 import { getRecommendedBook, searchBook } from '../../modules/libBook';
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
+        dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
         dispatch(getRecommendedBook());
     }, [dispatch]);
 
@@ -24,7 +26,7 @@ const Home = () => {
     };
 
     return (
-        <div id="home">
+        <div id="home" className="contents">
             <p>home</p>
             <div id="search_book" className="item">
                 <p className="title">도서 검색</p>

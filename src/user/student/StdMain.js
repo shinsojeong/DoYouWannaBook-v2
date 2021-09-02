@@ -22,7 +22,7 @@ const StdMain = () => {
     const [menuState, setMenuState] = useState(false);
 
     useEffect(() => {
-        dispatch(changeBar("menu", {title:"학생 도서 공유", data:null}, "null", openMenu, null, "small"));
+        dispatch(changeBar("menu", {title:"공유 도서", data:null}, "null", openMenu, null, "small"));
     },[dispatch]);
     
     //메뉴
@@ -59,7 +59,7 @@ const StdMain = () => {
                 <button id="searchButton" className="small_blue_btn" onClick={search}>검색</button>
             </div>
 
-            <div id="search_result">
+            <div id="search_result" className="contents">
                 {searchResult.length!==0 ?
                     searchResult.map((item, index) => {
                         return (

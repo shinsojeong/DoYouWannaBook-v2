@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -9,17 +9,6 @@ import { roomOp, bookshelfOp, shelfOp } from '../common/util/Reusable';
 const CreateBook = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-
-    useEffect(() => {
-        dispatch(changeBar("cancel", {title:"도서 등록", data:null}, "create", cancel, submit, "small"));
-    });
-
-    //topbar function
-    const cancel = () => {
-        if(window.confirm("도서 등록을 취소하시겠습니까?")) {
-            history.push('/admin/home');
-        }
-    };
 
     const [code, setCode] = useState("");
     const [title, setTitle] = useState("");
@@ -35,12 +24,15 @@ const CreateBook = () => {
     const [shelf, setShelf] = useState("1");
     const [libb, setLibb] = useState([]);
 
-    //change event
-    const setImage = (e) => {
-        setLibb(e.target.files[0]);
-    };
-    
-    const submit = () => {
+    //취소
+    const cancel = useCallback(async () => {
+        if(window.confirm("도서 등록을 취소하시겠습니까?")) {
+            history.push('/admin/home');
+        }
+    }, [history]);
+
+    //제출
+    const submit = useCallback(async () => {
         const formData = new FormData();
         formData.append('libb', libb);
 
@@ -48,11 +40,20 @@ const CreateBook = () => {
         .then((res) => {
             dispatch(createBook(code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, res, history));
         })
+    }, [code, title, author, barcode, bookshelf, classCode, dispatch, history, isbn, libb, pubDate, publisher, room, shelf, state]);
+
+    useEffect(() => {
+        dispatch(changeBar("cancel", {title:"도서 등록", data:null}, "create", cancel, submit, "small"));
+    }, [dispatch, cancel, submit]);
+
+    //change event
+    const setImage = (e) => {
+        setLibb(e.target.files[0]);
     };
 
 
     return (
-        <div id="createBook">
+        <div id="createBook" className="contents">
             <input type="text" id="code" value={code||''} onChange={(e) => setCode(e.target.value)} placeholder="청구기호"/>
             <input type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
             <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
@@ -84,7 +85,6 @@ const CreateBook = () => {
                 <p>도서 이미지</p>
                 <input type="file" id="libb" onChange={setImage}></input>
             </div>
-            <input type="button" onClick={submit} value="임시 버튼"></input>
         </div>
     );
 };

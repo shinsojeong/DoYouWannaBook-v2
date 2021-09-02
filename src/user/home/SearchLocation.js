@@ -1,11 +1,20 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
+import { changeBar } from '../../modules/topBar';
 import '../../styles/user_home.scss';
 
 const SearchLocation = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const info = useSelector(state => state.libBook.selected_book);
     const location = useSelector(state => state.libBook.book_location);
+
+    useEffect(() => {
+        dispatch(changeBar("back", {title:"도서 위치", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history]);
 
     const createRow = (row, num) => {
         return(
@@ -32,7 +41,7 @@ const SearchLocation = () => {
     };
 
     return (
-        <div id="search_location">
+        <div id="search_location" className="contents">
 
             <div id="location1">
                 {createRow(4, 6)}

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 
 import { uploadImg, updateBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -14,17 +13,6 @@ const CreateBook = () => {
 
     const book = useSelector(state => state.admin.selected_book.book);
     const location = useSelector(state => state.admin.selected_book.location);
-
-    useEffect(() => {
-        dispatch(changeBar("cancel", {title:"도서 수정", data:null}, "create", cancel, submit, "small"));
-    });
-
-    //topbar function
-    const cancel = () => {
-        if(window.confirm("도서 수정을 취소하시겠습니까?")) {
-            history.push('/admin/home');
-        }
-    };
 
     const [code, setCode] = useState(book.libb_code||'');
     const [title, setTitle] = useState(book.libb_title||'');
@@ -40,12 +28,15 @@ const CreateBook = () => {
     const [shelf, setShelf] = useState(location.shelf||'');
     const [libb, setLibb] = useState([]);
 
-    //change event
-    const setImage = (e) => {
-        setLibb(e.target.files[0]);
-    };
-    
-    const submit = async() => {
+    //취소
+    const cancel = useCallback(async () => {
+        if(window.confirm("도서 수정을 취소하시겠습니까?")) {
+            history.push('/admin/home');
+        }
+    }, [history]);
+
+    //제출
+    const submit = useCallback(async() => {
         const formData = new FormData();
         formData.append('libb', libb);
 
@@ -53,11 +44,20 @@ const CreateBook = () => {
         .then((res) => {
             dispatch(updateBook(book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, res, classCode, room, bookshelf, shelf, history));
         });
+    },[dispatch, libb, book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, history]);
+
+    useEffect(() => {
+        dispatch(changeBar("cancel", {title:"도서 수정", data:null}, "create", cancel, submit, "small"));
+    }, [dispatch, cancel, submit]);
+
+    //change event
+    const setImage = (e) => {
+        setLibb(e.target.files[0]);
     };
 
 
     return (
-        <div id="createBook">
+        <div id="createBook" className="contents">
             <input type="text" id="code" value={code||''} onChange={(e) => setCode(e.target.value)} placeholder="청구기호"/>
             <input type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
             <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
@@ -86,7 +86,6 @@ const CreateBook = () => {
                 <p>도서 이미지</p>
                 <input type="file" id="libb" onChange={setImage}></input>
             </div>
-            <input type="button" onClick={submit} value="임시 버튼"></input>
         </div>
     );
 };

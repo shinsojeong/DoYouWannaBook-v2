@@ -14,7 +14,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
-    });
+    }, [dispatch]);
 
     //도서 등록으로 이동
     const goCreateBook = () => {
@@ -37,7 +37,7 @@ const Home = () => {
     };
 
     return (
-        <div id="home">
+        <div id="home" className="contents">
             <div id="profile">
                 <table>
                     <tbody>

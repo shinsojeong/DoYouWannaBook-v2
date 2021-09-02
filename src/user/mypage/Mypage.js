@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { logout } from '../../modules/user';
+import { changeBar } from '../../modules/topBar';
 import { CgProfile } from "react-icons/cg";
 
 const Mypage = () => {
@@ -10,6 +11,10 @@ const Mypage = () => {
     const dispatch = useDispatch();
 
     const userInfo = useSelector(state => state.user.user);
+
+    useEffect(() => {
+        dispatch(changeBar("null", {title:"마이페이지", data:null}, "null", null, null, "small"));
+    }, [dispatch]);
 
     //대출 조회,연장
     const goCheckBorrow = async() => {
@@ -29,7 +34,7 @@ const Mypage = () => {
     };
 
     return (
-        <div id="mypage">
+        <div id="mypage" className="contents">
             
             <table id="profile">
                 <tbody>

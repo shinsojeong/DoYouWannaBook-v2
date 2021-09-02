@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getBookLoc } from '../../modules/libBook';
+import { changeBar } from '../../modules/topBar';
 
 const SearchDetail = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const info = useSelector(state => state.libBook.selected_book);
+
+    useEffect(() => {
+        dispatch(changeBar("back", {title:"도서 정보", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history]);
     
     //위치 정보 보기
     const goLocation = async(class_sign) => {
@@ -16,7 +21,7 @@ const SearchDetail = () => {
     };
 
     return (
-        <div id="search_detail">
+        <div id="search_detail" className="contents">
 
             <div id="info">
                 <p id="book_name">{info.libb_title}</p>

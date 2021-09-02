@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { register } from '../../modules/user';
 import { option } from '../util/Reusable';
+import { changeBar } from '../../modules/topBar';
 
 const Join = () => {
     const dispatch = useDispatch();
@@ -16,17 +17,20 @@ const Join = () => {
     const [gender, setGender] = useState(0);
     const [phNum, setPhNum] = useState("");
     const [email, setEmail] = useState("");
-
     const isDisabled = false;
 
+    useEffect(() => {
+        dispatch(changeBar("back", {title:"회원가입", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history]);
 
+    //회원가입
     const submit = (e) => {
         e.preventDefault();
         dispatch(register(id, name, dept, gender, phNum, email, pw, history));
     };
 
     return (
-        <div>
+        <div className="start_contents">
             <p>회원가입</p>
             <form onSubmit={submit}>
                 <input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} placeholder="학번" required/>

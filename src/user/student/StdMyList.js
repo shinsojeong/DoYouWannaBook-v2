@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
 import { getChatDetail1 } from '../../modules/chat';
+import { changeBar } from '../../modules/topBar';
 
 import '../../styles/user_std.scss';
 
@@ -19,7 +20,8 @@ const StdMyList = () => {
 
     useEffect(() => {
         dispatch(getMyBookList(std_num));
-    }, [dispatch, std_num]);
+        dispatch(changeBar("back", {title:"내 도서 조회", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history, std_num]);
 
     //도서 정보 삭제
     const deleteInfo = (stdb_code) => {
@@ -32,7 +34,7 @@ const StdMyList = () => {
     };
 
     return (
-        <div id="std_my_list">
+        <div id="std_my_list" className="contents">
             {bookList.length!==0 ? 
             bookList.map((item) => {
                 return(

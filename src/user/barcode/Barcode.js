@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import { useDispatch, useSelector } from 'react-redux';
 import { borrow } from '../../modules/libBook';
+import { changeBar } from '../../modules/topBar';
 import '../../styles/barcode.scss';
 
 const Barcode = () => {
@@ -10,9 +11,12 @@ const Barcode = () => {
     const std_num = useSelector(state => state.user.user.std_num);
     const [state, setState] = useState(false);
 
+    useEffect(() => {
+        dispatch(changeBar("null", {title:"바코드 대출", data:null}, "null", null, null, "small"));
+    }, [dispatch]);
 
     return (
-        <div id="barcode">
+        <div id="barcode" className="contents">
             {state ? 
             <div id="scanner-container">
                 <BarcodeScannerComponent

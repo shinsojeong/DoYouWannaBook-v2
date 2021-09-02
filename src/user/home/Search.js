@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { selectBook, searchBook } from '../../modules/libBook';
+import { changeBar } from '../../modules/topBar';
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -9,6 +10,10 @@ const Search = () => {
 
     const searchResult = useSelector(state => state.libBook.search_result);  //검색도서 받아옴
     const [keyword, setKeyword] = useState("");
+
+    useEffect(() => {
+        dispatch(changeBar("back", {title:"도서 검색", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history]);
     
     //검색
     const search = async() => {
@@ -27,7 +32,7 @@ const Search = () => {
     };
 
     return (
-        <div id="search">
+        <div id="search" className="contents">
 
             <p>search</p>
             <div id="search_book" className="item">

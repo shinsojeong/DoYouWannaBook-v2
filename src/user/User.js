@@ -12,7 +12,7 @@ import Menu from '../common/util/Menu';
 const User = () => {
     return (
         <div id="user">
-            {/* <TopBar/> */}
+            <TopBar/>
             <Switch>
                 <Route exact path="/user/barcode" component={Barcode}/>
                 <Route exact path="/user/chat-list" component={ChatList}/>

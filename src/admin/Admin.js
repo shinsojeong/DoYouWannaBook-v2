@@ -10,12 +10,12 @@ import SearchBook from '../admin/SearchBook';
 const Admin = () => {
     return (
         <div>
-            {/* <TopBar/> */}
+            <TopBar/>
             <Switch>
-                <Route  exact path="/admin/create-book" component={CreateBook}/>
-                <Route  exact path="/admin/update-book" component={UpdateBook}/>
-                <Route  exact path="/admin/home" component={Home}/>
-                <Route  exact path="/admin/search-book" component={SearchBook}/>
+                <Route exact path="/admin/create-book" component={CreateBook}/>
+                <Route exact path="/admin/update-book" component={UpdateBook}/>
+                <Route exact path="/admin/home" component={Home}/>
+                <Route exact path="/admin/search-book" component={SearchBook}/>
             </Switch>
         </div>
     );

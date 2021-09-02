@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { findPw } from '../../modules/user';
+import { changeBar } from '../../modules/topBar';
 
 const FindPw = () => {
     const dispatch = useDispatch();
@@ -14,14 +15,18 @@ const FindPw = () => {
 
     const isDisabled = false;
 
+    useEffect(() => {
+        dispatch(changeBar("back", {title:"비밀번호 찾기", data:null}, "null", () => history.goBack(), null, "small"));
+    }, [dispatch, history]);
 
+    //비밀번호 찾기
     const submit = (e) => {
         e.preventDefault();
         dispatch(findPw(id, name, phNum, email, history))
     };
 
     return (
-        <div>
+        <div className="start_contents">
             <p>비밀번호 찾기</p>
             <form onSubmit={submit}>
                 <input type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} placeholder="학번" required/>
