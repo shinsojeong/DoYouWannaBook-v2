@@ -5,7 +5,7 @@ import { getMyBookList, deleteStdBook } from '../../modules/userBook';
 import { getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
 
-import '../../styles/user_std.scss';
+import '../../styles/student.scss';
 
 const StdMyList = () => {
     const dispatch = useDispatch();
@@ -13,10 +13,6 @@ const StdMyList = () => {
     
     const bookList = useSelector(state => state.userBook.my_book_list);
     const std_num = useSelector(state => state.user.user.std_num);
-    const [active, setActive] = useState("");
-    const changeActive = (e) => {
-        setActive(e.target.value);
-    };
 
     useEffect(() => {
         dispatch(getMyBookList(std_num));
@@ -39,16 +35,19 @@ const StdMyList = () => {
             bookList.map((item) => {
                 return(
                     <div id={item.stdb_code} className="list_item">
-                        <table onClick={() => changeActive}>
+                        <table id="table1">
                             <tbody>
                                 <tr>
-                                    <td rowSpan="3">
+                                    <td rowSpan="4">
                                         <img id="book_img" src={item.stdb_img} alt="book-img" width="120px"/>
                                     </td>
-                                    <td>{item.stdb_title}</td>
+                                    <td id="td_title">{item.stdb_title}</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.stdb_author} | {item.stdb_publisher} ({item.stdb_pub_date.slice(0,10)})</td>
+                                    <td>{item.stdb_author} | {item.stdb_publisher}</td>
+                                </tr>
+                                <tr>
+                                    <td>출판일 : {item.stdb_pub_date.slice(0,10)}</td>
                                 </tr>
                                 <tr>
                                     <td>{item.stdb_rental_fee} ({item.stdb_rental_date}대여)</td>
@@ -56,20 +55,17 @@ const StdMyList = () => {
                             </tbody>
                         </table>
 
-                        <div className="detail" id={active===item.stdb_code?"show_detail":"hidden"}>
-                            <table>
+                        <div className="detail">
+                            <table id="table2">
                                 <tbody>
                                     <tr>
-                                        <td>대여 상태</td>
-                                        <td>{item.stdb_state}</td>
+                                        <td id="td1">대여 상태</td>
+                                        <td id="td2">{item.stdb_state ? "대여가능" : "대여중"}</td>
                                     </tr>
                                     <tr>
-                                        <td>반납 예정일</td>
-                                        <td>{item.stdb_ret_date!=="" ? item.stdb_ret_date : null}</td>
+                                        <td id="td1">반납 예정일</td>
+                                        <td id="td2">{item.stdb_ret_date!==null ? item.stdb_ret_date : "정보 없음"}</td>
                                     </tr>
-                                    {item.borrower!=="" ? 
-                                    <tr><td colSpan="2" onClick={() => goChat(item.stdb_code, item.borrower)}>채팅하기</td></tr>
-                                    : null}
                                 </tbody>
                             </table>
                             <p>{item.stdb_comment}</p>

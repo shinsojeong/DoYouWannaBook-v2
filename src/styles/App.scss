@@ -99,3 +99,14 @@ input:focus, .inputSelect:focus, .inputDate:focus {
 .inputSelect:disabled:hover, .inputSelect[aria-disabled=true], .inputDate:disabled:hover, .inputDate[aria-disabled=true] {
 	border-color: $BorderGray;
 }
+
+input[type="file"] { 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}

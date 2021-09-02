@@ -49,11 +49,11 @@ const StdCreate = () => {
 
     return (
         <div id="createStdBook" className="contents">
-            <input type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
-            <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
-            <input type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
-            <input type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
-            <select value={rentDate||''} onChange={(e) => setRentDate(e.target.value)}>
+            <input className="input" type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
+            <input className="input" type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
+            <input className="input" type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
+            <input className="inputDate" type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
+            <select className="inputSelect" value={rentDate||''} onChange={(e) => setRentDate(e.target.value)}>
                 <option value="7일">7일</option>
                 <option value="14일">14일</option>
                 <option value="1개월">1개월</option>
@@ -61,10 +61,11 @@ const StdCreate = () => {
                 <option value="3개월">3개월</option>
                 <option value="기간 채팅 문의">기간 채팅 문의</option>
             </select>
-            <input type="text" id="rent_fee" onChange={(e) => setRentFee(e.target.value)} placeholder="대여료"/>
-            <textarea placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요." value={comment||''} onChange={(e) => setComment(e.target.value)}/>
+            <input className="input" type="text" id="rent_fee" onChange={(e) => setRentFee(e.target.value)} placeholder="대여료"/>
+            <textarea className="textarea" placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요." value={comment||''} onChange={(e) => setComment(e.target.value)}/>
             <div id="inputImg">
                 <p>도서 이미지</p>
+                <label for="libb" id="upload">업로드</label>
                 <input type="file" id="libb" onChange={setImage}></input>
             </div>
         </div>
