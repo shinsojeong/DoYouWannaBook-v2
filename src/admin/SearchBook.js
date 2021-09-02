@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getBook, searchBook, deleteBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchBook = () => {
     const dispatch = useDispatch();
@@ -33,10 +34,10 @@ const SearchBook = () => {
     };
     
     return (
-        <div>
+        <div id="search_book">
             <div id="search" className="contents">
-                <input type="text" id="keyword" value={keyword||''} onChange={(e) => setKeyword(e.target.value)}/>
-                <input type="button" value="검색" onClick={search}/>
+                <input className="search_input" type="text" id="keyword" value={keyword||''} onChange={(e) => setKeyword(e.target.value)}/>
+                <div id="search_button"><AiOutlineSearch onClick={search} size="27px"/></div>
             </div>
             <div id="searchResult">
                 {searchRes.length!==0 ? searchRes.map(item => {
@@ -44,18 +45,18 @@ const SearchBook = () => {
                         <div className="resultItems" key={item.libb_code}>
                             <table className="resultItemsTable">
                                 <tbody>
-                                    <tr rowSpan="5">
-                                        <td><img src={item.libb_img} alt="도서 이미지"/></td>
-                                        <td>{item.libb_title}</td>
+                                    <tr>
+                                        <td rowSpan="5"><img src={item.libb_img} alt="도서 이미지"/></td>
+                                        <td id="td_title">{item.libb_title}</td>
                                     </tr>
-                                    <tr><td>{item.libb_author}</td></tr>
-                                    <tr><td>{item.libb_publisher}</td></tr>
-                                    <tr><td>{(item.libb_pub_date).slice(0,10)}</td></tr>
-                                    <tr><td>{item.libb_state?"대출 가능":"대출중"}</td></tr>
+                                    <tr><td id="td_content">{item.libb_author}</td></tr>
+                                    <tr><td id="td_content">{item.libb_publisher}</td></tr>
+                                    <tr><td id="td_content">{(item.libb_pub_date).slice(0,10)}</td></tr>
+                                    <tr><td id="td_content">{item.libb_state?"대출 가능":"대출중"}</td></tr>
                                 </tbody>
                             </table>
-                            <input type="button" onClick={() => goUpdateBook(item.libb_code)} value="수정"/>
-                            <input type="button" onClick={() =>goDeleteBook(item.libb_code)} value="삭제"/>
+                            <button id="upd_btn" onClick={() => goUpdateBook(item.libb_code)}>수정</button>
+                            <button id="del_btn" onClick={() =>goDeleteBook(item.libb_code)}>삭제</button>
                         </div>
                     )
                 }) : <p id="message">검색 결과가 없습니다.</p>}

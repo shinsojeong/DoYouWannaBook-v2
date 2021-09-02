@@ -55,6 +55,14 @@
     position: absolute;
     top: 0;
     left: 0;
+    .cancel {
+        position: absolute;
+        top: 0;
+        left: 7px;
+        p {
+            margin: 0;
+        }
+    }
 }
 
 .right {

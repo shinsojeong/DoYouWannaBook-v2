@@ -53,36 +53,37 @@ const CreateBook = () => {
 
 
     return (
-        <div id="createBook" className="contents">
-            <input type="text" id="code" value={code||''} onChange={(e) => setCode(e.target.value)} placeholder="청구기호"/>
-            <input type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
-            <input type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
-            <input type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
-            <input type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
-            <select value={state} onChange={(e) => setState(e.target.value)} placeholder="상태">
+        <div id="create_book" className="contents">
+            <input className="input" type="text" id="code" value={code||''} onChange={(e) => setCode(e.target.value)} placeholder="청구기호"/>
+            <input className="input" type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
+            <input className="input" type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
+            <input className="input" type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
+            <input className="inputDate" type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
+            <select className="inputSelect" value={state} onChange={(e) => setState(e.target.value)} placeholder="상태">
                 <option value={true}>대출 가능</option>
                 <option value={false}>대출 불가</option>
             </select>
-            <input type="text" id="isbn" value={isbn||''} onChange={(e) => setIsbn(e.target.value)} placeholder="isbn"/>
-            <input type="text" id="barcode" value={barcode||''} onChange={(e) => setBarcode(e.target.value)} placeholder="바코드"/>
-            <input type="text" id="classCode" value={classCode||''} onChange={(e) => setClassCode(e.target.value)} placeholder="분류 기호"/>
-            <select value={room} onChange={(e) => setRoom(e.target.value)} placeholder="열람실">
+            <input className="input" type="text" id="isbn" value={isbn||''} onChange={(e) => setIsbn(e.target.value)} placeholder="isbn"/>
+            <input className="input" type="text" id="barcode" value={barcode||''} onChange={(e) => setBarcode(e.target.value)} placeholder="바코드"/>
+            
+            <input className="input" type="text" id="classCode" value={classCode||''} onChange={(e) => setClassCode(e.target.value)} placeholder="분류 기호"/>
+            <select className="inputSelect" value={room} onChange={(e) => setRoom(e.target.value)} placeholder="열람실">
                 {roomOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
-            <select value={bookshelf} onChange={(e) => setBookshelf(e.target.value)} placeholder="책장">
+            <select className="inputSelect" value={bookshelf} onChange={(e) => setBookshelf(e.target.value)} placeholder="책장">
                 {bookshelfOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
-            <select value={shelf} onChange={(e) => setShelf(e.target.value)} placeholder="선반">
+            <select className="inputSelect" value={shelf} onChange={(e) => setShelf(e.target.value)} placeholder="선반">
                 {shelfOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
             <div id="inputImg">
-                <p>도서 이미지</p>
+                <label for="libb">도서 이미지 업로드</label>
                 <input type="file" id="libb" onChange={setImage}></input>
             </div>
         </div>

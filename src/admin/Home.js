@@ -5,6 +5,10 @@ import { useHistory } from 'react-router-dom';
 import { changeBar } from '../modules/topBar';
 import { reset } from '../modules/admin';
 import { logout } from '../modules/user';
+import { AiOutlineBook } from 'react-icons/ai';
+import { CgProfile } from "react-icons/cg";
+
+import '../styles/admin.scss';
 
 const Home = () => {
     const history = useHistory();
@@ -41,12 +45,12 @@ const Home = () => {
             <div id="profile">
                 <table>
                     <tbody>
-                        <tr rowSpan="2">
-                            <td><img src="https://placeimg.com/100/100/nature" alt="profile img"/></td>{/*추후 src변경 */}
+                        <tr>
+                            <td rowSpan="2" id="td1"><CgProfile size="70"/></td>
+                            <td id="td2">{user.std_num}</td>
                         </tr>
                         <tr>
-                            <td>{user.std_num}</td>
-                            <td>{user.name}</td>
+                            <td id="td2">{user.name}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,12 +60,12 @@ const Home = () => {
                 <table id="bookMenu">
                     <tbody>
                         <tr>
-                            <td><img src="https://placeimg.com/110/110/nature" alt="도서 등록"/></td>{/*추후 src변경 */}
-                            <td><img src="https://placeimg.com/110/110/nature" alt="도서 등록"/></td>{/*추후 src변경 */}
+                            <td onClick={goCreateBook}><AiOutlineBook size="100px" id="icon1"/></td>
+                            <td onClick={goSearchBook}><AiOutlineBook size="100px" id="icon2"/></td>
                         </tr>
                         <tr>
                             <td onClick={goCreateBook}>도서 등록</td>
-                            <td onClick={goSearchBook}>도서 조회/수정/삭제</td>
+                            <td onClick={goSearchBook}>조회/수정/삭제</td>
                         </tr>
                     </tbody>
                 </table>
