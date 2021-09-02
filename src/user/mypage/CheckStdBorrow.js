@@ -14,7 +14,7 @@ const CheckStdBorrow = () => {
 
     useEffect(() => {
         dispatch(getBorrowStdBookList(std_num));
-        dispatch(changeBar("back", {title:"공유 도서 대여 조회", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(changeBar("back", {title:"공유 도서 조회", data:null}, "null", () => history.goBack(), null, "small"));
     },[dispatch, history, std_num]);
 
     return (
@@ -26,13 +26,13 @@ const CheckStdBorrow = () => {
                             <tbody>
                                 <tr>
                                     <td rowSpan="3"><img src={item.stdb_img} width="120px" alt="bookimg"/></td>
-                                    <td>{item.stdb_title}</td>
+                                    <td id="td_title">{item.stdb_title}</td>
                                 </tr>
                                 <tr>
-                                    <td>대여자: {item.lender}</td>
+                                    <td>{item.lender}의 도서</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.stdb_ret_date.slice(0,10)} 반납 필수</td>
+                                    <td>{item.stdb_ret_date.slice(0,10)} 반납必</td>
                                 </tr>
                             </tbody>
                         </table>

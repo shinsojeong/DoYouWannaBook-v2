@@ -6,6 +6,8 @@ import { logout } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
 import { CgProfile } from "react-icons/cg";
 
+import '../../styles/mypage.scss';
+
 const Mypage = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -39,13 +41,13 @@ const Mypage = () => {
             <table id="profile">
                 <tbody>
                     <tr>
-                        <td rowSpan="2">
+                        <td rowSpan="2" id="td1">
                             <CgProfile size="70"/>
                         </td>
                         <td>{userInfo.name}</td>
                     </tr>
                     <tr>
-                        <td>{userInfo.std_num}</td>
+                        <td id="td2">{userInfo.std_num}</td>
                     </tr>
                 </tbody>
             </table>

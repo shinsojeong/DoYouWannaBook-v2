@@ -6,6 +6,8 @@ import { getMypageBorrowList } from '../../modules/libBook';
 import { extendDate } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
 
+import '../../styles/mypage.scss';
+
 const CheckBorrow = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -36,13 +38,13 @@ const CheckBorrow = () => {
                                     <td rowSpan="3">
                                         <img src={item.libb_img} alt="bookImage" width="120px"/>
                                     </td>
-                                    <td>{item.libb_title}</td>
+                                    <td id="td_title">{item.libb_title}</td>
                                 </tr>
                                 <tr>
                                     <td>{item.libb_ret_date.slice(0,10)}</td>
                                 </tr>
                                 <tr>
-                                    <td onClick={() => extend(item.libb_code, item.libb_ret_date)}>대출 연장</td>
+                                    <button onClick={() => extend(item.libb_code, item.libb_ret_date)}>대출 연장</button>
                                 </tr>
                             </tbody>
                         </table>
