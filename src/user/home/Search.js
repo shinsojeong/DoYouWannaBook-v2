@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { selectBook, searchBook } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
+import { AiOutlineSearch } from 'react-icons/ai';
+import '../../styles/home.scss';
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -33,12 +35,9 @@ const Search = () => {
 
     return (
         <div id="search" className="contents">
-
-            <p>search</p>
             <div id="search_book" className="item">
-                <p className="title">도서 검색</p>
                 <input type="text" id="search_input" value={keyword||""} onChange={(e) => setKeyword(e.target.value)}/>
-                <button id="searchButton" className="small_blue_btn" onClick={search}>검색</button>
+                <div id="search_button"><AiOutlineSearch onClick={search} size="27px"/></div>
             </div>
 
             <div id="search_result">
@@ -52,7 +51,7 @@ const Search = () => {
                                             <td rowSpan="5">
                                                 <img id="book_img" src={item.libb_img} alt="book-img" width="120px"/>
                                             </td>
-                                            <td>{item.libb_title}</td>
+                                            <td id="title">{item.libb_title}</td>
                                         </tr>
                                         <tr>
                                             <td>{item.libb_author}</td>

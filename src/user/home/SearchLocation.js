@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { changeBar } from '../../modules/topBar';
-import '../../styles/user_home.scss';
+import '../../styles/home.scss';
 
 const SearchLocation = () => {
     const dispatch = useDispatch();
@@ -56,11 +56,9 @@ const SearchLocation = () => {
                 </div>
                 <table id="book_info">
                     <tbody>
-                        <tr>
-                           <td>{info.libb_title}</td>
-                           <td>{info.libb_author}</td>
-                           <td>{info.libb_code}</td>
-                        </tr>
+                        <tr><td id="td_title">{info.libb_title}</td></tr>
+                        <tr><td>{info.libb_author}</td></tr>
+                        <tr><td>{info.libb_code}</td></tr>
                     </tbody>
                 </table>
             </div>

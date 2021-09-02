@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 import { changeBar } from '../../modules/topBar';
 import { getRecommendedBook, searchBook } from '../../modules/libBook';
+import '../../styles/home.scss';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -27,23 +29,22 @@ const Home = () => {
 
     return (
         <div id="home" className="contents">
-            <p>home</p>
             <div id="search_book" className="item">
-                <p className="title">도서 검색</p>
+                <p className="title">· 도서 검색</p>
                 <input type="text" id="search_input" value={keyword||""} onChange={(e) => setKeyword(e.target.value)}/>
-                <button id="searchButton" className="small_blue_btn" onClick={search}>검색</button>
+                <div id="search_button"><AiOutlineSearch onClick={search} size="27px"/></div>
             </div>
 
             <div id="recommended_book" className="item">
-                <p className="title">추천 신작 도서</p>
+                <p className="title">· 추천 신작 도서</p>
                 <div id="list">
                     {recommendedBook.length!==0 ? 
                         recommendedBook.map((item) => {
                             return (
                                 <div className="list_item" key={item.libb_code}>
-                                    <img id="book_img" src={item.libb_img} alt="book-img" width="120px"/>
-                                    <p id="book_name" value={item.libb_title}/>
-                                    <p id="author" value={item.libb_author}/>
+                                    <div className="img-container"><img id="book_img" src={item.libb_img} alt="book-img" width="120px"/></div>
+                                    <p id="book_name">{item.libb_title}</p>
+                                    <p id="author">{item.libb_author}</p>
                                 </div>
                             );
                         })
