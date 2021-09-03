@@ -2,18 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="./images/192x192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#77d82d" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="DoYou Wanna Book"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/192x192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>React App</title>
+    <title>DYWB</title>
   </head>
   <body>
     <div id="root"></div>
   </body>
 </html>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/Service-Worker.js')
+      .then((registration) => {
+        console.log('Worker registration successful', registration.scope);
+      }, (err) => {
+        console.log('Worker registration failed', err);
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  } else {
+    console.log('Service Worker is not supported by browser.');
+  }
+</script>

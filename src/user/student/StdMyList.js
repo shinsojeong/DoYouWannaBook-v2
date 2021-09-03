@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
-import { getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
 
 import '../../styles/student.scss';
@@ -22,11 +21,6 @@ const StdMyList = () => {
     //도서 정보 삭제
     const deleteInfo = (stdb_code) => {
         dispatch(deleteStdBook(stdb_code, history));
-    };
-
-    //채팅하러 가기
-    const goChat = (stdb_code, borrower) => {
-        dispatch(getChatDetail1(stdb_code, borrower, history))
     };
 
     return (
