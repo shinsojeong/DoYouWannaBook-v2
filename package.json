@@ -47,6 +47,7 @@
     "redis": "^3.1.2",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "sass": "^1.38.1",
     "sequelize": "^6.6.5",
