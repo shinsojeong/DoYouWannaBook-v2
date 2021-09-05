@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { uploadImg, createStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
+import { useInput, useInputFile } from '../../common/util/Reusable';
 
 const StdCreate = () => {
     const dispatch = useDispatch();
@@ -21,39 +22,35 @@ const StdCreate = () => {
         }
     };
 
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [publisher, setPublisher] = useState("");
-    const [pubDate, setPubDate] = useState("");
-    const [rentDate, setRentDate] = useState("7일");
+    const title = useInput("");
+    const author = useInput("");
+    const publisher = useInput("");
+    const pubDate = useInput("");
+    const rentDate = useInput("7일");
     const state = true;
-    const [rentFee, setRentFee] = useState(0);
-    const [comment, setComment] = useState("");
-    const [stdb, setStdb] = useState([]);
+    const rentFee = useInput(0);
+    const comment = useInput("");
+    const stdb = useInputFile([]);
 
-    //change event
-    const setImage = (e) => {
-        setStdb(e.target.files[0]);
-    };
-    
+    //제출
     const submit = () => {
         const formData = new FormData();
-        formData.append('stdb', stdb);
+        formData.append('stdb', stdb.files[0]);
 
         dispatch(uploadImg(formData))
         .then((res) => {
-            dispatch(createStdBook(std_num, title, author, publisher, pubDate, rentDate, rentFee, state, comment, res, history));
+            dispatch(createStdBook(std_num, title.value, author.value, publisher.value, pubDate.value, rentDate.value, rentFee.value, state, comment.value, res, history));
         })
     };
 
 
     return (
         <div id="createStdBook" className="contents">
-            <input className="input" type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
-            <input className="input" type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
-            <input className="input" type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
-            <input className="inputDate" type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
-            <select className="inputSelect" value={rentDate||''} onChange={(e) => setRentDate(e.target.value)}>
+            <input className="input" type="text" id="title" placeholder="도서명" {...title}/>
+            <input className="input" type="text" id="author" placeholder="작가" {...author}/>
+            <input className="input" type="text" id="publisher" placeholder="출판사" {...publisher}/>
+            <input className="inputDate" type="date" id="pub_date" placeholder="출판일" {...pubDate}/>
+            <select className="inputSelect" {...rentDate}>
                 <option value="7일">7일</option>
                 <option value="14일">14일</option>
                 <option value="1개월">1개월</option>
@@ -61,12 +58,12 @@ const StdCreate = () => {
                 <option value="3개월">3개월</option>
                 <option value="기간 채팅 문의">기간 채팅 문의</option>
             </select>
-            <input className="input" type="text" id="rent_fee" onChange={(e) => setRentFee(e.target.value)} placeholder="대여료"/>
-            <textarea className="textarea" placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요." value={comment||''} onChange={(e) => setComment(e.target.value)}/>
+            <input className="input" type="text" id="rent_fee" placeholder="대여료" {...rentFee}/>
+            <textarea className="textarea" placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요." {...comment}/>
             <div id="inputImg">
                 <p>도서 이미지</p>
-                <label for="libb" id="upload">업로드</label>
-                <input type="file" id="libb" onChange={setImage}></input>
+                <label for="stdb" id="upload">업로드</label>
+                <input type="file" id="stdb" {...stdb}></input>
             </div>
         </div>
     );

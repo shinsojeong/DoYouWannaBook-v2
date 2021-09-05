@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../modules/user';
 import logo from '../../source/logo.png';
+import { useInput } from '../../common/util/Reusable';
 
 const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [id, setId] = useState("");
-    const [pw, setPw] = useState("");
+    const id = useInput("");
+    const pw = useInput("");
 
     //로그인
     const goLogin = async(e) => {
         e.preventDefault();
-        dispatch(login(id, pw, history))
+        dispatch(login(id.value, pw.value, history))
     };
     
     //카카오 로그인
@@ -35,8 +36,8 @@ const Login = () => {
     return (
         <div id="login">
             <img src={logo} alt="logo" id="logo" width="170px"/>
-            <input type="text" id="id" onChange={(e) => setId(e.target.value)} placeholder="학번"/>
-            <input type="password" id="pw" onChange={(e) => setPw(e.target.value)} placeholder="패스워드"/>
+            <input type="text" id="id" placeholder="학번" {...id}/>
+            <input type="password" id="pw" placeholder="패스워드" {...pw}/>
             <button onClick={goLogin} id="login_btn">로그인</button>
             <button onClick={kakaoLogin} id="kakao_btn">Kakao 로그인</button>
             <button onClick={goFindPw}>비밀번호 찾기</button>

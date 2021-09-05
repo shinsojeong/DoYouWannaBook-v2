@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { uploadImg, createBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
-import { roomOp, bookshelfOp, shelfOp } from '../common/util/Reusable';
+import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/util/Reusable';
 
 const CreateBook = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [code, setCode] = useState("");
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [publisher, setPublisher] = useState("");
-    const [pubDate, setPubDate] = useState("");
-    const [state, setState] = useState(true);
-    const [isbn, setIsbn] = useState("");
-    const [barcode, setBarcode] = useState("");
-    const [classCode, setClassCode] = useState("");
-    const [room, setRoom] = useState("1");
-    const [bookshelf, setBookshelf] = useState("1");
-    const [shelf, setShelf] = useState("1");
-    const [libb, setLibb] = useState([]);
+    const code = useInput("");
+    const title = useInput("");
+    const author = useInput("");
+    const publisher = useInput("");
+    const pubDate = useInput("");
+    const state = useInput(true);
+    const isbn = useInput("");
+    const barcode = useInput("");
+    const classCode = useInput("");
+    const room = useInput("1");
+    const bookshelf = useInput("1");
+    const shelf = useInput("1");
+    const libb = useInputFile([]);
 
     //취소
     const cancel = useCallback(async () => {
@@ -34,11 +34,11 @@ const CreateBook = () => {
     //제출
     const submit = useCallback(async () => {
         const formData = new FormData();
-        formData.append('libb', libb);
+        formData.append('libb', libb.files[0]);
 
         dispatch(uploadImg(formData))
         .then((res) => {
-            dispatch(createBook(code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, res, history));
+            dispatch(createBook(code.value, title.value, author.value, publisher.value, pubDate.value, state.value, isbn.value, barcode.value, classCode.value, room.value, bookshelf.value, shelf.value, res, history));
         })
     }, [code, title, author, barcode, bookshelf, classCode, dispatch, history, isbn, libb, pubDate, publisher, room, shelf, state]);
 
@@ -46,45 +46,40 @@ const CreateBook = () => {
         dispatch(changeBar("cancel", {title:"도서 등록", data:null}, "create", cancel, submit, "small"));
     }, [dispatch, cancel, submit]);
 
-    //change event
-    const setImage = (e) => {
-        setLibb(e.target.files[0]);
-    };
-
 
     return (
         <div id="create_book" className="contents">
-            <input className="input" type="text" id="code" value={code||''} onChange={(e) => setCode(e.target.value)} placeholder="청구기호"/>
-            <input className="input" type="text" id="title" value={title||''} onChange={(e) => setTitle(e.target.value)} placeholder="도서명"/>
-            <input className="input" type="text" id="author" value={author||''} onChange={(e) => setAuthor(e.target.value)} placeholder="작가"/>
-            <input className="input" type="text" id="publisher" value={publisher||''} onChange={(e) => setPublisher(e.target.value)} placeholder="출판사"/>
-            <input className="inputDate" type="date" id="pub_date" value={pubDate||''} onChange={(e) => setPubDate(e.target.value)} placeholder="출판일"/>
-            <select className="inputSelect" value={state} onChange={(e) => setState(e.target.value)} placeholder="상태">
+            <input className="input" type="text" id="code" placeholder="청구기호" {...code}/>
+            <input className="input" type="text" id="title" placeholder="도서명" {...title}/>
+            <input className="input" type="text" id="author" placeholder="작가" {...author}/>
+            <input className="input" type="text" id="publisher" placeholder="출판사" {...publisher}/>
+            <input className="inputDate" type="date" id="pub_date" placeholder="출판일" {...pubDate}/>
+            <select className="inputSelect" placeholder="상태" {...state}>
                 <option value={true}>대출 가능</option>
                 <option value={false}>대출 불가</option>
             </select>
-            <input className="input" type="text" id="isbn" value={isbn||''} onChange={(e) => setIsbn(e.target.value)} placeholder="isbn"/>
-            <input className="input" type="text" id="barcode" value={barcode||''} onChange={(e) => setBarcode(e.target.value)} placeholder="바코드"/>
+            <input className="input" type="text" id="isbn" placeholder="isbn" {...isbn}/>
+            <input className="input" type="text" id="barcode" placeholder="바코드" {...barcode}/>
             
-            <input className="input" type="text" id="classCode" value={classCode||''} onChange={(e) => setClassCode(e.target.value)} placeholder="분류 기호"/>
-            <select className="inputSelect" value={room} onChange={(e) => setRoom(e.target.value)} placeholder="열람실">
+            <input className="input" type="text" id="classCode" placeholder="분류 기호" {...classCode}/>
+            <select className="inputSelect" {...room}>
                 {roomOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
-            <select className="inputSelect" value={bookshelf} onChange={(e) => setBookshelf(e.target.value)} placeholder="책장">
+            <select className="inputSelect" {...bookshelf}>
                 {bookshelfOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
-            <select className="inputSelect" value={shelf} onChange={(e) => setShelf(e.target.value)} placeholder="선반">
+            <select className="inputSelect" {...shelf}>
                 {shelfOp.map(item => {
                     return <option key={item.value} value={item.value}>{item.label}</option>
                 })}
             </select>
             <div id="inputImg">
-                <label for="libb">도서 이미지 업로드</label>
-                <input type="file" id="libb" onChange={setImage}></input>
+                <label htmlFor="libb">도서 이미지 업로드</label>
+                <input type="file" id="libb" {...libb}></input>
             </div>
         </div>
     );

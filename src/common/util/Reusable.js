@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export const department = [
     {value: '간호학과', label: '간호학과'},
     {value: '건축학과', label: '건축학과'},
@@ -102,3 +104,26 @@ export const soor = [
 export const sort = soor.sort((a,b) => {
     return a.value < b.value ? -1 : a.value > b.value ? 1 : 0;
 });
+
+//input state
+export const useInput = (init) => {
+    const [value, setValue] = useState(init);
+    const onChange = (e) => {
+         const {
+              target: {value}
+         } = e;
+         setValue(value);
+    };
+    return { value, onChange };
+}
+
+export const useInputFile = (init) => {
+    const [files, setFiles] = useState(init);
+    const onChange = (e) => {
+        const {
+            target: {files}
+        } = e;
+        setFiles(files);
+    };
+    return { files, onChange }
+}

@@ -4,19 +4,20 @@ import { useHistory } from 'react-router-dom';
 import { register } from '../../modules/user';
 import { option } from '../util/Reusable';
 import { changeBar } from '../../modules/topBar';
+import { useInput } from '../../common/util/Reusable';
 
 const Join = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [id, setId] = useState("");
-    const [pw, setPw] = useState("");
-    const [pwCheck, setPwCheck] = useState("");
-    const [name, setName] = useState("");
-    const [dept, setDept] = useState("");
+    const id = useInput("");
+    const pw = useInput("");
+    const pwCheck = useInput("");
+    const name = useInput("");
+    const dept = useInput("간호학과");
     const [gender, setGender] = useState(0);
-    const [phNum, setPhNum] = useState("");
-    const [email, setEmail] = useState("");
+    const phNum = useInput("");
+    const email = useInput("");
     const isDisabled = false;
 
     useEffect(() => {
@@ -25,16 +26,16 @@ const Join = () => {
 
     //회원가입
     const submit = () => {
-        dispatch(register(id, name, dept, gender, phNum, email, pw, history));
+        dispatch(register(id.value, name.value, dept.value, gender, phNum.value, email.value, pw.value, history));
     };
 
     return (
         <div id="join" className="start_contents">
-            <input className="input" type="text" id="id" value={id} onChange={(e) => setId(e.target.value)} placeholder="학번" required/>
-            <input className="input" type="password" id="pw" value={pw} onChange={(e) => setPw(e.target.value)} placeholder="패스워드" required/>
-            <input className="input" type="password" id="pwCheck" value={pwCheck} onChange={(e) => setPwCheck(e.target.value)} placeholder="패스워드 확인" required/>
-            <input className="input" type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="이름" required/>
-            <select className="inputSelect" value={dept} onChange={(e) => setDept(e.target.value)} placeholder="학과" required>
+            <input className="input" type="text" id="id" placeholder="학번" required {...id}/>
+            <input className="input" type="password" id="pw" placeholder="패스워드" required {...pw}/>
+            <input className="input" type="password" id="pwCheck" placeholder="패스워드 확인" required {...pwCheck}/>
+            <input className="input" type="text" id="name" placeholder="이름" required {...name}/>
+            <select className="inputSelect" placeholder="학과" required {...dept}>
                 { option.map((item) => {
                     return <option key={item.label} value={item.value}>{item.label}</option>
                 })}
@@ -45,8 +46,8 @@ const Join = () => {
                 <label htmlFor="1">여성</label>
                 <input type="radio" name="gender" value={1} id="1" onChange={(e) => setGender(e.target.value)}/>
             </div>
-            <input className="input" type="text" id="phNum" value={phNum} onChange={(e) => setPhNum(e.target.value)} placeholder="ex)01033336666" required/>
-            <input className="input" type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" required/>
+            <input className="input" type="text" id="phNum" placeholder="ex)01033336666" required {...phNum}/>
+            <input className="input" type="email" id="email" placeholder="이메일" required {...email}/>
 
             <button className={isDisabled ? "btnGray":"btnBlue"} disabled={isDisabled} onClick={submit}>완료</button>
         </div>
