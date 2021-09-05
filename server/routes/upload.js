@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 
-import { isLoggedIn } from './middlewares.js';
+import { isLoggedIn, isAdmin } from './middlewares.js';
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
   
-router.post('/libimg', isLoggedIn, upload.single('libb'), (req, res) => {
+router.post('/libimg', isLoggedIn, isAdmin, upload.single('libb'), (req, res) => {
   try {
     console.log(req.file.originalname+"업로드 완료");
     res.send({

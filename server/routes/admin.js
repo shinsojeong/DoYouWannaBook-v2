@@ -1,12 +1,13 @@
 import express from 'express';
+import sequelize from 'sequelize';
 import Libbook from '../models/libbook.js';
 import Libclass from '../models/libclass.js';
-import { isLoggedIn } from './middlewares.js';
+import { isAdmin, isLoggedIn } from './middlewares.js';
 
 const router = express.Router();
 
 //도서 조회
-router.get('/admin_search_book', isLoggedIn, async(req, res) => {
+router.get('/admin_search_book', isLoggedIn, isAdmin, async(req, res) => {
     const { keyword } = req.query;
     try {
         const exBook = await Libbook.findAll({
@@ -44,7 +45,7 @@ router.get('/admin_search_book', isLoggedIn, async(req, res) => {
 });
 
 //도서 정보 조회
-router.get('/admin_get_info', isLoggedIn, async(req, res) => {
+router.get('/admin_get_info', isLoggedIn, isAdmin, async(req, res) => {
     const { libb_code } = req.query;
     try {
         const book = await Libbook.findOne({ where: { libb_code } });
@@ -66,7 +67,7 @@ router.get('/admin_get_info', isLoggedIn, async(req, res) => {
 });
 
 //도서 등록
-router.post('/admin_create_book', isLoggedIn, async(req, res, next) => {
+router.post('/admin_create_book', isLoggedIn, isAdmin, async(req, res, next) => {
     const { libb_code, libb_title, libb_author, libb_publisher, libb_pub_date, libb_state, libb_isbn, libb_barcode, libb_class, room, bookshelf, shelf, libb_img } = req.body;
     
     try {
@@ -103,7 +104,7 @@ router.post('/admin_create_book', isLoggedIn, async(req, res, next) => {
 });
 
 //도서 수정
-router.post('/admin_update_book', isLoggedIn, async(req, res, next) => {
+router.post('/admin_update_book', isLoggedIn, isAdmin, async(req, res, next) => {
     const { pre_code, libb_code, libb_title, libb_author, libb_publisher, libb_pub_date, libb_state, libb_isbn, libb_barcode, libb_class, libb_img, room, bookshelf, shelf } = req.body;
     try {
         const exClass = await Libclass.findOne({where: { class_sign: libb_class } });
@@ -143,7 +144,7 @@ router.post('/admin_update_book', isLoggedIn, async(req, res, next) => {
 });
 
 //도서 삭제
-router.get('/admin_delete_book', isLoggedIn, async(req, res) => {
+router.get('/admin_delete_book', isLoggedIn, isAdmin, async(req, res) => {
     const { libb_code } = req.query;
     try {
         await Libbook.destroy({

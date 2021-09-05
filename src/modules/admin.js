@@ -44,12 +44,16 @@ const RESET = 'RESET';
 
 //도서 검색
 export const searchBook = (
-    keyword
+    keyword, history
     ) => async(dispatch) => {
-    await axios.get(`${url}/libbook/search_book?keyword=${keyword}`,
+    await axios.get(`${url}/admin/admin_search_book?keyword=${keyword}`,
     { withCredentials: true })
     .then((res) => {
-        if(res.data.status==="OK") {
+        if(res.data.code===406) {
+            alert(res.data.message);
+            return history.push('/user/home');
+        }
+        else if(res.data.status==="OK") {
             dispatch({
                 type: SEARCHBOOK,
                 payload: res.data.data
@@ -70,7 +74,11 @@ export const getBook = (
     await axios.get(`${url}/admin/admin_get_info?libb_code=${libb_code}`,
     { withCredentials: true })
     .then((res) => {
-        if(res.data.status==="OK") {
+        if(res.data.code===406) {
+            alert(res.data.message);
+            return history.push('/user/home');
+        }
+        else if(res.data.status==="OK") {
             dispatch({
                 type: GETBOOK,
                 payload: res.data.data
@@ -121,7 +129,11 @@ export const createBook = (
         libb_img: imgUrl
     }, { withCredentials: "true" })
     .then((res) => {
-        if(res.data.status==="OK") {
+        if(res.data.code===406) {
+            alert(res.data.message);
+            return history.push('/user/home');
+        }
+        else if(res.data.status==="OK") {
             dispatch({
                 type: CREATEBOOK
             });
@@ -141,7 +153,10 @@ export const updateBook = (
         pre_code, libb_code, libb_title, libb_author, libb_publisher, libb_pub_date, libb_state, libb_isbn, libb_barcode, libb_img, libb_class, room, bookshelf, shelf
     }, { withCredentials: true })
     .then((res) => {
-        if(res.data.status==="OK") {
+        if(res.data.code===406) {
+            alert(res.data.message);
+            return history.push('/user/home');
+        } else if(res.data.status==="OK") {
             alert("수정이 완료되었습니다.");
             history.push('/admin/home');
         } else {
@@ -157,7 +172,10 @@ export const deleteBook = (
     await axios.get(`${url}/admin/admin_delete_book?libb_code=${libb_code}`,
     { withCredentials: true })
     .then((res) => {
-        if(res.data.status==="OK") {
+        if(res.data.code===406) {
+            alert(res.data.message);
+            return history.push('/user/home');
+        }else if(res.data.status==="OK") {
             alert("삭제가 완료되었습니다.");
             history.push('/admin/home');
         } else {

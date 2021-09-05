@@ -20,7 +20,7 @@ const SearchBook = () => {
 
     //검색
     const search = debounce(async() => {
-        dispatch(searchBook(keyword));
+        dispatch(searchBook(keyword, history));
     }, 800);
     
     //수정

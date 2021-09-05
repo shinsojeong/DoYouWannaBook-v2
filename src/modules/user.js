@@ -60,11 +60,17 @@ export const login = (
                     dept: res.data.data.dept
                 }
             });
-            // if(!admin) {  //수정必
-                    history.push('/user/home');
-            // } else {
-                    //history.replace('/admin/home');
-            // }
+            history.push('/user/home');
+        } else if(res.data.code===20911) {
+            dispatch({
+                type: LOGIN,
+                payload: {
+                    std_num: std_num,
+                    name: res.data.data.name,
+                    dept: res.data.data.dept
+                }
+            });
+            history.replace('/admin/home');
         } else {
             alert(res.data.message);
         }

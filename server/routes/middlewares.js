@@ -1,3 +1,5 @@
+import User from '../models/user.js';
+
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
@@ -22,4 +24,26 @@ const isNotLoggedIn = (req, res, next) => {
     }
 };
 
-export { isLoggedIn, isNotLoggedIn };
+const isAdmin = async(req, res, next) => {
+    try {
+        const auth = await User.findOne({
+            attributes: ['auth'],
+            where: {
+                std_num: req.user.std_num
+            }
+        });
+        if (auth.auth===false) {
+            return res.send({
+                status: "ERR",
+                code: 406,
+                message: "권한 없음"
+            });
+        }
+        next();
+    } catch (error) {
+        console.error(error);
+        return res.send(error);
+    }
+}
+
+export { isLoggedIn, isNotLoggedIn, isAdmin };

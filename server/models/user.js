@@ -41,7 +41,12 @@ export default class User extends Sequelize.Model {
             sns_id: {
                 type: Sequelize.STRING(30),
                 allowNull: true
-            }
+            },
+            auth: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: 0
+            },
         }, {
             sequelize,
             timestamps: false,  //createAt, updateAt 추가

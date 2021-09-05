@@ -49,7 +49,7 @@ router.post('/login', (req, res, next) => {
             return next(authError);
         }
         if (!user) {
-            return res.json({
+            return res.send({
                 status: "ERR",
                 code: 400,
                 message: "일치하는 회원 정보가 없습니다."
@@ -60,14 +60,25 @@ router.post('/login', (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.json({
-                status: "OK",
-                code: 200,
-                data: {
-                    name: user.name,
-                    dept: user.dept
-                }
-            });
+            if (user.auth===false) {
+                return res.json({
+                    status: "OK",
+                    code: 200,
+                    data: {
+                        name: user.name,
+                        dept: user.dept
+                    }
+                })
+            } else if (user.auth===true) {
+                return res.json({
+                    status: "OK",
+                    code: 20911,
+                    data: {
+                        name: user.name,
+                        dept: user.dept
+                    }
+                })
+            }
         });
     })(req, res, next);  //미들웨어 내의 미들웨어에 (req, res, next) 붙임
 });
