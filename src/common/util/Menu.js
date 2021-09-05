@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { debounce } from 'lodash';
+
 import { AiOutlineHome, AiOutlineBarcode, AiOutlineShareAlt, AiOutlineMessage, AiOutlineUser } from "react-icons/ai";
 import '../../styles/menu.scss';
 
@@ -7,9 +9,9 @@ const TopBar = () => {
     const history = useHistory();
 
     //function
-    const go = (url) => {
+    const go = debounce((url) => {
         history.push(`${url}`);
-    };
+    }, 800);
 
     return (
         <footer className="foot_menu">

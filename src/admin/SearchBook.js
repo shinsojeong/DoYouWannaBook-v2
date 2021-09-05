@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { getBook, searchBook, deleteBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -17,21 +19,21 @@ const SearchBook = () => {
     }, [dispatch, history]);
 
     //검색
-    const search = async() => {
+    const search = debounce(async() => {
         dispatch(searchBook(keyword));
-    };
+    }, 800);
     
     //수정
-    const goUpdateBook = (libb_code) => {
+    const goUpdateBook = debounce((libb_code) => {
         dispatch(getBook(libb_code, history))
-    };
+    }, 800);
 
     //삭제
-    const goDeleteBook = (libb_code) => {
+    const goDeleteBook = debounce((libb_code) => {
         if(window.confirm("도서 정보를 삭제하시겠습니까?")) {
             dispatch(deleteBook(libb_code, history));
         }
-    };
+    }, 800);
     
     return (
         <div id="search_book">

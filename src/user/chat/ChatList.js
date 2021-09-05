@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { getChatBook } from '../../modules/userBook';
 import { getChatList, getChatDetail2 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
@@ -19,10 +21,10 @@ const ChatList = () => {
     }, [dispatch, std_num])
 
     //채팅방 입장
-    const enterChat = (chat_code, stdb_code) => {
+    const enterChat = debounce((chat_code, stdb_code) => {
         dispatch(getChatBook(stdb_code));
         dispatch(getChatDetail2(chat_code, std_num, history));
-    };
+    }, 800);
 
     return (
         <div id="chat_list" className="contents">

@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
 
 import { uploadImg, updateBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -30,14 +31,14 @@ const CreateBook = () => {
     const libb = useInputFile([]);
 
     //취소
-    const cancel = useCallback(async () => {
+    const cancel = debounce(useCallback(async () => {
         if(window.confirm("도서 수정을 취소하시겠습니까?")) {
             history.goBack();
         }
-    }, [history]);
+    }, [history]), 800);
 
     //제출
-    const submit = useCallback(async() => {
+    const submit = debounce(useCallback(async() => {
         const formData = new FormData();
         formData.append('libb', libb.files[0]);
 
@@ -45,7 +46,7 @@ const CreateBook = () => {
         .then((res) => {
             dispatch(updateBook(book.libb_code, code.value, title.value, author.value, publisher.value, pubDate.value, state, isbn.value, barcode.value, res, classCode.value, room.value, bookshelf.value, shelf.value, history));
         });
-    },[dispatch, libb, book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, history]);
+    },[dispatch, libb, book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, history]), 800);
 
     useEffect(() => {
         dispatch(changeBar("cancel", {title:"도서 수정", data:null}, "create", cancel, submit, "small"));

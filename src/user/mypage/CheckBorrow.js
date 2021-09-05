@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
 
 import { getMypageBorrowList } from '../../modules/libBook';
 import { extendDate } from '../../modules/libBook';
@@ -20,12 +21,12 @@ const CheckBorrow = () => {
         dispatch(changeBar("back", {title:"도서 대출 조회", data:null}, "null", () => history.goBack(), null, "small"));
     }, [dispatch, history, std_num]);
 
-    const extend = async(libb_code, libb_ret_date) => {
+    const extend = debounce(async(libb_code, libb_ret_date) => {
         await dispatch(extendDate(std_num, libb_code, libb_ret_date))
         .then(() => {
             dispatch(getMypageBorrowList(std_num));
         });
-    };
+    }, 800);
 
     return (
         <div id="check_borrow" className="contents">

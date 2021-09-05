@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { changeBar } from '../../modules/topBar';
 
 const FindPwRes = () => {
@@ -12,9 +14,9 @@ const FindPwRes = () => {
     }, [dispatch]);
 
     //로그인하러 가기
-    const goLogin = () => {
+    const goLogin = debounce(() => {
         history.push('/login');
-    };
+    }, 800);
 
     return (
         <div id="find_pw_res" className="start_contents">

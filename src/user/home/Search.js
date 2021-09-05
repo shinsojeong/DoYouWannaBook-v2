@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { selectBook, searchBook } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -18,20 +20,20 @@ const Search = () => {
     }, [dispatch, history]);
     
     //검색
-    const search = async() => {
+    const search = debounce(async() => {
         await dispatch(searchBook(keyword))
         .then(() => {
             history.push('/user1/search');
         })
-    };
+    }, 800);
 
     //상세 페이지로 이동
-    const goDetail = async(libb_code) => {
+    const goDetail = debounce(async(libb_code) => {
         await dispatch(selectBook(libb_code))
         .then(() => {
             history.push('/user1/search-detail');
         });
-    };
+    }, 800);
 
     return (
         <div id="search" className="contents">

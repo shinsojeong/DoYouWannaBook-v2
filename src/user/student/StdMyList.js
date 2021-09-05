@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 
@@ -19,9 +21,9 @@ const StdMyList = () => {
     }, [dispatch, history, std_num]);
 
     //도서 정보 삭제
-    const deleteInfo = (stdb_code) => {
+    const deleteInfo = debounce((stdb_code) => {
         dispatch(deleteStdBook(stdb_code, history));
-    };
+    }, 800);
 
     return (
         <div id="std_my_list" className="contents">

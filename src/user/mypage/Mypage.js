@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
 
 import { logout } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
@@ -19,21 +20,21 @@ const Mypage = () => {
     }, [dispatch]);
 
     //대출 조회,연장
-    const goCheckBorrow = async() => {
+    const goCheckBorrow = debounce(async() => {
         history.push('/user1/check-borrow');
-    };
+    }, 800);
 
     //공유 도서 대여 조회
-    const goCheckStdBorrow = async() => {
+    const goCheckStdBorrow = debounce(async() => {
         history.push('/user1/check-std-borrow');
-    };
+    }, 800);
 
     //로그아웃
-    const goLogout = () => {
+    const goLogout = debounce(() => {
         if(window.confirm("로그아웃 하시겠습니까?")) {
             dispatch(logout(history));
         }
-    };
+    }, 800);
 
     return (
         <div id="mypage" className="contents">

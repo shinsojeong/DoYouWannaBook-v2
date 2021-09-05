@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { register } from '../../modules/user';
 import { option } from '../util/Reusable';
 import { changeBar } from '../../modules/topBar';
@@ -25,9 +27,9 @@ const Join = () => {
     }, [dispatch, history]);
 
     //회원가입
-    const submit = () => {
+    const submit = debounce(() => {
         dispatch(register(id.value, name.value, dept.value, gender, phNum.value, email.value, pw.value, history));
-    };
+    }, 800);
 
     return (
         <div id="join" className="start_contents">

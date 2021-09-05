@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { sendChat } from '../../modules/chat';
 import { registerLental } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
@@ -28,22 +30,22 @@ const Chat = () => {
     }, [dispatch, history, chat, std_num]);
 
     //대여 정보 등록하기
-    const register = () => {
+    const register = debounce(() => {
         if(chat.part1==std_num) {
             dispatch(registerLental(book.stdb_code, retDate, chat.part2));
         } else {
             dispatch(registerLental(book.stdb_code, retDate, chat.part1));
         }
-    };
+    }, 800);
 
     //메세지 전송
-    const sendMessage = async() => {
+    const sendMessage = debounce(async() => {
         await dispatch(sendChat(chat_code, std_num, message))
         .then(() => {
             scrollToBottom();
         });
         setMessage("");
-    };
+    }, 800);
 
     //스크롤
     const scrollToBottom = () => {

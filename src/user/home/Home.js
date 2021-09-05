@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
 import { AiOutlineSearch } from 'react-icons/ai';
 
 import { changeBar } from '../../modules/topBar';
@@ -20,12 +21,12 @@ const Home = () => {
     }, [dispatch]);
 
     //검색
-    const search = async() => {
+    const search = debounce(async() => {
         await dispatch(searchBook(keyword))
         .then(() => {
             history.push('/user1/search');
         })
-    };
+    }, 800);
 
     return (
         <div id="home" className="contents">

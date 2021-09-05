@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { getBookLoc } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
 import '../../styles/home.scss';
@@ -16,10 +18,10 @@ const SearchDetail = () => {
     }, [dispatch, history]);
     
     //위치 정보 보기
-    const goLocation = async(class_sign) => {
+    const goLocation = debounce(async(class_sign) => {
         await dispatch(getBookLoc(class_sign))
         .then(() => history.push('/user1/search-location'));
-    };
+    }, 800);
 
     return (
         <div id="search_detail" className="contents">

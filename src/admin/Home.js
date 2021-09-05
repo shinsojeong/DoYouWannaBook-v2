@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
 
 import { changeBar } from '../modules/topBar';
 import { reset } from '../modules/admin';
@@ -21,24 +22,24 @@ const Home = () => {
     }, [dispatch]);
 
     //도서 등록으로 이동
-    const goCreateBook = () => {
+    const goCreateBook = debounce(() => {
         history.push('/admin/create-book');
-    };
+    }, 800);
 
     //도서 조회/수정/삭제로 이동
-    const goSearchBook = async() => {
+    const goSearchBook = debounce(async() => {
         await dispatch(reset())
         .then(() => {
             history.push('/admin/search-book');
         });
-    };
+    }, 800);
 
     //로그아웃
-    const goLogout = () => {
+    const goLogout = debounce(() => {
         if(window.confirm("로그아웃 하시겠습니까?")) {            
             dispatch(logout(history));
         }
-    };
+    }, 800);
 
     return (
         <div id="home" className="contents">

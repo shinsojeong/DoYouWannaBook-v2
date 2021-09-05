@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { login } from '../../modules/user';
 import logo from '../../source/logo.png';
 import { useInput } from '../../common/util/Reusable';
@@ -13,25 +15,25 @@ const Login = () => {
     const pw = useInput("");
 
     //로그인
-    const goLogin = async(e) => {
+    const goLogin = debounce(async(e) => {
         e.preventDefault();
         dispatch(login(id.value, pw.value, history))
-    };
+    }, 800);
     
     //카카오 로그인
-    const kakaoLogin = () => {
+    const kakaoLogin = debounce(() => {
         history.push('/auth/kakao');
-    };
+    }, 800);
 
     //비밀번호 찾기
-    const goFindPw = () => {
+    const goFindPw = debounce(() => {
         history.push('/user1/find_pw');
-    };
+    }, 800);
 
     //회원가입
-    const goJoin = () => {
+    const goJoin = debounce(() => {
         history.push('/user1/join');
-    };
+    }, 800);
 
     return (
         <div id="login">

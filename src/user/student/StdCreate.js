@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { uploadImg, createStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 import { useInput, useInputFile } from '../../common/util/Reusable';
@@ -16,11 +18,11 @@ const StdCreate = () => {
     });
 
     //topbar function
-    const cancel = () => {
+    const cancel = debounce(() => {
         if(window.confirm("도서 등록을 취소하시겠습니까?")) {
             history.push('/user/std-main');
         }
-    };
+    }, 800);
 
     const title = useInput("");
     const author = useInput("");
@@ -33,7 +35,7 @@ const StdCreate = () => {
     const stdb = useInputFile([]);
 
     //제출
-    const submit = () => {
+    const submit = debounce(() => {
         const formData = new FormData();
         formData.append('stdb', stdb.files[0]);
 
@@ -41,7 +43,7 @@ const StdCreate = () => {
         .then((res) => {
             dispatch(createStdBook(std_num, title.value, author.value, publisher.value, pubDate.value, rentDate.value, rentFee.value, state, comment.value, res, history));
         })
-    };
+    }, 800);
 
 
     return (

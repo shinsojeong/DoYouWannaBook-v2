@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { debounce } from "lodash";
+
 import { searchStdBook } from '../../modules/userBook';
 import { createChat, getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
@@ -22,22 +24,22 @@ const StdMain = () => {
     },[dispatch]);
     
     //메뉴
-    const openMenu = (state) => {
+    const openMenu = debounce((state) => {
         setMenuState(state);
-    };
+    }, 800);
 
     //검색
-    const search = () => {
+    const search = debounce(() => {
         dispatch(searchStdBook(keyword));
-    };
+    }, 800);
 
     //대여자와 채팅
-    const goChat = async(stdb_code, lender) => {
+    const goChat = debounce(async(stdb_code, lender) => {
         await dispatch(createChat(stdb_code, lender, std_num, history))
         .then(() =>{
             dispatch(getChatDetail1(stdb_code, std_num, history))
         });
-    };
+    }, 800);
 
     return (
         <div id="std_main" className="contents">
