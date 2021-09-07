@@ -7,6 +7,8 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import cors from 'cors';
+import helmet from 'helmet';
+import hpp from 'hpp';
 
 import adminRouter from './routes/admin.js';
 import authRouter from './routes/auth.js';
@@ -34,7 +36,6 @@ db.sequelize.sync({ force : false })  //true:실행 시마다 테이블 재생�
     console.log(err);
 });
 
-app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
@@ -48,7 +49,7 @@ const redisClient = redis.createClient({
 });
 const redisStore = connectRedis(session);
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(session({
+const sessionOption = {
     resave: false,
     saveUninitialized: true,
     secret: process.env.COOKIE_SECRET,
@@ -59,7 +60,17 @@ app.use(session({
     store: new redisStore({
         client: redisClient
     })
-}));
+}
+if(process.env.NODE_ENV==='production') {
+    // sessionOption.proxy = true;  //https일 때
+    // sessionOption.cookie.secure = true;  //https일 때
+    app.use(morgan('combined'));
+    app.use(helmet());
+    app.use(hpp({ contentSecurityPolicy: false }));
+} else {
+    app.use(morgan('dev'));
+}
+app.use(session(sessionOption));
 app.use(passport.initialize());  //req 객체에 passport 설정 심는 middleware
 app.use(passport.session());  //req.session 객체에 passport 정보 저장하는 middleware
 
