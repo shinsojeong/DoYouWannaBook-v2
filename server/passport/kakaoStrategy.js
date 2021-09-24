@@ -6,7 +6,7 @@ import User from '../models/user.js';
 const kakaoStrategy = () => {
     passport.use(new KakaoStrategy.Strategy({
         clientID: process.env.KAKAO_ID,
-        callbackURL: '/auth/kako/callback',
+        callbackURL: '/auth/kakao/callback',
     }, async (accessToken, refreshToken, profile, done) => {
         try {
             const exUser = await User.findOne({

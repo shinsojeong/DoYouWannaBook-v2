@@ -25,13 +25,13 @@ const Chat = () => {
     const [retDate, setRetDate] = useState("");
     
     useEffect(() => {
-        dispatch(changeBar("back", {title:`${chat.part1==std_num ? chat.part2 : chat.part1}`, data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(changeBar("back", {title:`${chat.part1===std_num ? chat.part2 : chat.part1}`, data:null}, "null", () => history.goBack(), null, "small"));
         scrollToBottom();
     }, [dispatch, history, chat, std_num]);
 
     //대여 정보 등록하기
     const register = debounce(() => {
-        if(chat.part1==std_num) {
+        if(chat.part1===std_num) {
             dispatch(registerLental(book.stdb_code, retDate, chat.part2));
         } else {
             dispatch(registerLental(book.stdb_code, retDate, chat.part1));
@@ -63,7 +63,7 @@ const Chat = () => {
                 {messages.length!==0 ?
                 messages.map((item) => {
                     return (
-                        item.sender==std_num ? 
+                        item.sender===std_num ? 
                         <div id="me">
                             <p id="message">{item.msg}</p>
                             <p id="time">{item.created_at.toString().slice(0,10)}</p>    

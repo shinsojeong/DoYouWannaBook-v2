@@ -99,10 +99,7 @@ router.get('/kakao', passport.authenticate('kakao'));
 router.get('/kakao/callback', passport.authenticate('kakao', {
     failureRedirect: '/',
 }), (req, res) => {
-    res.json({
-        status: "OK",
-        code: 200
-    });
+    res.redirect('/');
 })
 
 export default router;

@@ -19,11 +19,6 @@ const Login = () => {
         e.preventDefault();
         dispatch(login(id.value, pw.value, history))
     }, 800);
-    
-    //카카오 로그인
-    const kakaoLogin = debounce(() => {
-        history.push('/auth/kakao');
-    }, 800);
 
     //비밀번호 찾기
     const goFindPw = debounce(() => {
@@ -41,7 +36,6 @@ const Login = () => {
             <input type="text" id="id" placeholder="학번" {...id}/>
             <input type="password" id="pw" placeholder="패스워드" {...pw}/>
             <button onClick={goLogin} id="login_btn">로그인</button>
-            <button onClick={kakaoLogin} id="kakao_btn">Kakao 로그인</button>
             <button onClick={goFindPw}>비밀번호 찾기</button>
             <button onClick={goJoin}>회원가입</button>
         </div>
