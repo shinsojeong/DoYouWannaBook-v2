@@ -14,12 +14,21 @@ const CheckStdBorrow = () => {
 
     useEffect(() => {
         dispatch(getBorrowStdBookList(std_num));
-        dispatch(changeBar("back", {title:"공유 도서 조회", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "공유 도서 조회", data: null },
+                "null",
+                () => history.goBack(),
+                null,
+                "small"
+            )
+        );
     },[dispatch, history, std_num]);
 
     return (
         <div id="check_std_borrow" className="contents">
-            {borrow_list.length!==0 ? 
+            {borrow_list.length !== 0 ? 
                 borrow_list.map((item) => {
                     return(
                         <table key={item.stdb_code}>

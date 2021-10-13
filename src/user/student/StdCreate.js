@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { uploadImg, createStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
@@ -14,13 +14,22 @@ const StdCreate = () => {
     const std_num = useSelector(state => state.user.user.std_num);
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"대여 도서 등록", data:null}, "create", cancel, submit, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "대여 도서 등록", data: null }, 
+                "create",
+                cancel,
+                submit,
+                "small"
+            )
+        );
     });
 
     //topbar function
     const cancel = debounce(() => {
-        if(window.confirm("도서 등록을 취소하시겠습니까?")) {
-            history.push('/user/std-main');
+        if (window.confirm("도서 등록을 취소하시겠습니까?")) {
+            history.push("/user/std-main");
         }
     }, 800);
 
@@ -35,14 +44,26 @@ const StdCreate = () => {
     const stdb = useInputFile([]);
 
     //제출
-    const submit = debounce(() => {
+    const submit = debounce(async() => {
         const formData = new FormData();
         formData.append('stdb', stdb.files[0]);
 
-        dispatch(uploadImg(formData))
-        .then((res) => {
-            dispatch(createStdBook(std_num, title.value, author.value, publisher.value, pubDate.value, rentDate.value, rentFee.value, state, comment.value, res, history));
-        })
+        await dispatch(uploadImg(formData))
+        dispatch(
+            createStdBook(
+                std_num, 
+                title.value, 
+                author.value, 
+                publisher.value, 
+                pubDate.value, 
+                rentDate.value, 
+                rentFee.value, 
+                state, 
+                comment.value, 
+                res, 
+                history
+            )
+        );
     }, 800);
 
 

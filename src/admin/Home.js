@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { changeBar } from '../modules/topBar';
 import { reset } from '../modules/admin';
 import { logout } from '../modules/user';
 import { AiOutlineBook } from 'react-icons/ai';
-import { CgProfile } from "react-icons/cg";
+import { CgProfile } from 'react-icons/cg';
 
 import '../styles/admin.scss';
 
@@ -18,25 +18,32 @@ const Home = () => {
     const user = useSelector(state => state.user.user);
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "홈", data: null },
+                "null", 
+                null, 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch]);
 
     //도서 등록으로 이동
     const goCreateBook = debounce(() => {
-        history.push('/admin/create-book');
+        history.push("/admin/create-book");
     }, 800);
 
     //도서 조회/수정/삭제로 이동
     const goSearchBook = debounce(async() => {
-        await dispatch(reset())
-        .then(() => {
-            history.push('/admin/search-book');
-        });
+        await dispatch(reset());
+        history.push("/admin/search-book");
     }, 800);
 
     //로그아웃
     const goLogout = debounce(() => {
-        if(window.confirm("로그아웃 하시겠습니까?")) {            
+        if (window.confirm("로그아웃 하시겠습니까?")) {            
             dispatch(logout(history));
         }
     }, 800);

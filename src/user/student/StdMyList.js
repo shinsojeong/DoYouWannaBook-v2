@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
@@ -17,7 +17,16 @@ const StdMyList = () => {
 
     useEffect(() => {
         dispatch(getMyBookList(std_num));
-        dispatch(changeBar("back", {title:"내 도서 조회", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "내 도서 조회", data: null },
+                "null",
+                () => history.goBack(),
+                null,
+                "small"
+            )
+        );
     }, [dispatch, history, std_num]);
 
     //도서 정보 삭제
@@ -27,7 +36,7 @@ const StdMyList = () => {
 
     return (
         <div id="std_my_list" className="contents">
-            {bookList.length!==0 ? 
+            {bookList.length !== 0 ? 
             bookList.map((item) => {
                 return(
                     <div id={item.stdb_code} className="list_item">
@@ -60,7 +69,7 @@ const StdMyList = () => {
                                     </tr>
                                     <tr>
                                         <td id="td1">반납 예정일</td>
-                                        <td id="td2">{item.stdb_ret_date!==null ? item.stdb_ret_date : "정보 없음"}</td>
+                                        <td id="td2">{item.stdb_ret_date !== null ? item.stdb_ret_date : "정보 없음"}</td>
                                     </tr>
                                 </tbody>
                             </table>

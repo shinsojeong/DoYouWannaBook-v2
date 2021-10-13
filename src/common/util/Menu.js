@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { debounce } from 'lodash';
 
-import { AiOutlineHome, AiOutlineBarcode, AiOutlineShareAlt, AiOutlineMessage, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineBarcode, AiOutlineShareAlt, AiOutlineMessage, AiOutlineUser } from 'react-icons/ai';
 import '../../styles/menu.scss';
 
 const TopBar = () => {

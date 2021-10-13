@@ -13,7 +13,16 @@ const SearchLocation = () => {
     const location = useSelector(state => state.libBook.book_location);
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"도서 위치", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "도서 위치", data: null }, 
+                "null", 
+                () => history.goBack(), 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch, history]);
 
     const createRow = (row, num) => {
@@ -27,7 +36,7 @@ const SearchLocation = () => {
     const createBox = (idx, num) => {
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={location.shelf===idx&&location.bookshelf===index+1?"highlight":"none"} className="box"/>)
+                return(<div id={(location.shelf === idx) && (location.bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
             })
         );
     };
@@ -35,7 +44,7 @@ const SearchLocation = () => {
     const createShelf = (num) => { 
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={location.shelf===index+1?"highlight":"none"} className="shelf"/>)
+                return(<div id={location.shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
             })
         );
     };

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { getBookLoc } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
@@ -14,13 +14,22 @@ const SearchDetail = () => {
     const info = useSelector(state => state.libBook.selected_book);
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"도서 정보", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "도서 정보", data: null },
+                "null",
+                () => history.goBack(),
+                null,
+                "small"
+            )
+        );
     }, [dispatch, history]);
     
     //위치 정보 보기
     const goLocation = debounce(async(class_sign) => {
-        await dispatch(getBookLoc(class_sign))
-        .then(() => history.push('/user1/search-location'));
+        await dispatch(getBookLoc(class_sign));
+        history.push("/user1/search-location");
     }, 800);
 
     return (

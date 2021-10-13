@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { getBook, searchBook, deleteBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -15,11 +15,20 @@ const SearchBook = () => {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"도서 조회", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "도서 조회", data: null }, 
+                "null", 
+                () => history.goBack(), 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch, history]);
 
     //검색
-    const search = debounce(async() => {
+    const search = debounce(() => {
         dispatch(searchBook(keyword, history));
     }, 800);
     
@@ -39,10 +48,12 @@ const SearchBook = () => {
         <div id="search_book">
             <div id="search" className="contents">
                 <input className="search_input" type="text" id="keyword" value={keyword||''} onChange={(e) => setKeyword(e.target.value)}/>
-                <div id="search_button"><AiOutlineSearch onClick={search} size="27px"/></div>
+                <div id="search_button">
+                    <AiOutlineSearch onClick={search} size="27px"/>
+                </div>
             </div>
             <div id="searchResult">
-                {searchRes.length!==0 ? searchRes.map(item => {
+                {searchRes.length !== 0 ? searchRes.map(item => {
                     return (
                         <div className="resultItems" key={item.libb_code}>
                             <table className="resultItemsTable">
@@ -51,10 +62,18 @@ const SearchBook = () => {
                                         <td rowSpan="5"><img src={item.libb_img} alt="도서 이미지"/></td>
                                         <td id="td_title">{item.libb_title}</td>
                                     </tr>
-                                    <tr><td id="td_content">{item.libb_author}</td></tr>
-                                    <tr><td id="td_content">{item.libb_publisher}</td></tr>
-                                    <tr><td id="td_content">{(item.libb_pub_date).slice(0,10)}</td></tr>
-                                    <tr><td id="td_content">{item.libb_state?"대출 가능":"대출중"}</td></tr>
+                                    <tr>
+                                        <td id="td_content">{item.libb_author}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td_content">{item.libb_publisher}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td_content">{(item.libb_pub_date).slice(0,10)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td_content">{item.libb_state?"대출 가능":"대출중"}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <button id="upd_btn" onClick={() => goUpdateBook(item.libb_code)}>수정</button>

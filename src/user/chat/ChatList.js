@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { getChatBook } from '../../modules/userBook';
 import { getChatList, getChatDetail2 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
-import { CgProfile } from "react-icons/cg";
+import { CgProfile } from 'react-icons/cg';
 
 const ChatList = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,16 @@ const ChatList = () => {
 
     useEffect(() => {
         dispatch(getChatList(std_num));
-        dispatch(changeBar("null", {title:"채팅", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "채팅", data: null },
+                "null",
+                null,
+                null,
+                "small"
+            )
+        );
     }, [dispatch, std_num])
 
     //채팅방 입장
@@ -28,7 +37,7 @@ const ChatList = () => {
 
     return (
         <div id="chat_list" className="contents">
-            {chat_list.length!==0 ? 
+            {chat_list.length !== 0 ? 
             chat_list.map((item) => {
                return (
                    <div key={item.chat_code} className="list_item" onClick={() => enterChat(item.chat_code, item.stdb_code)}>
@@ -36,10 +45,10 @@ const ChatList = () => {
                            <tbody>
                                 <tr>
                                     <td rowSpan="2"><CgProfile size="70"/></td>
-                                    {item.borrower!==std_num ? <td>{item.part1}</td> : <td>{item.part2}</td>}
+                                    {item.borrower !== std_num ? <td>{item.part1}</td> : <td>{item.part2}</td>}
                                 </tr>
                                 <tr>
-                                    <td>{item.Messages.length!==0 ? item.Messages[0].msg : "채팅 시작 전입니다."}</td>
+                                    <td>{item.Messages.length !== 0 ? item.Messages[0].msg : "채팅 시작 전입니다."}</td>
                                 </tr>
                            </tbody>
                        </table>

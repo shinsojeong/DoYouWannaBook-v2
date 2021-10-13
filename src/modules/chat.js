@@ -19,51 +19,66 @@ const GETCHATDETAIL = "GETCHATDETAIL";
 
 //채팅방 생성
 export const createChat = (
-    stdb_code, part1, part2
-    ) => async(dispatch) => {
-    await axios.post(`${url}/chat/create_chat`, {
-        stdb_code, part1, part2
-    },{ withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    stdb_code, 
+    part1, 
+    part2
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/chat/create_chat`, {
+            stdb_code, 
+            part1, 
+            part2
+        },{ 
+            withCredentials: true 
+        });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: CREATECHAT,
                 payload: res.data.data
             });
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => {
-        console.error(err);
-    });
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //채팅방 리스트 가져오기
 export const getChatList = (
     std_num
-    ) => async(dispatch) => {
-    await axios.get(`${url}/chat/get_chat_list?std_num=${std_num}`,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${url}/chat/get_chat_list?std_num=${std_num}`, { withCredentials: true })
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETCHATLIST,
                 payload: res.data.data
             });
         }
-    }).catch((err) => {
-        console.error(err);
-    });
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //채팅 보내기
 export const sendChat = (
-    chat_code, std_num, msg
-    ) => async(dispatch) => {
-    await axios.post(`${url}/chat/send_chat`, {chat_code, std_num, msg} ,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    chat_code, 
+    std_num,
+    msg
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/chat/send_chat`, {
+            chat_code, 
+            std_num, 
+            msg
+        }, { 
+            withCredentials: true 
+        });
+        
+        if (res.data.status === "OK") {
             dispatch({
                 type: SENDCHAT,
                 payload: {
@@ -74,53 +89,65 @@ export const sendChat = (
                 }
             });
         }
-    }).catch((err) => {
-        console.error(err);
-    });
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //채팅 내용 가져오기1 (stdb_code, std_num)
 export const getChatDetail1 = (
-    stdb_code, std_num, history
-    ) => async(dispatch) => {
-    await axios.post(`${url}/chat/get_chat_detail1`,{
-        stdb_code, std_num
-    }, { withCredentials: true }
-    ).then((res) => {
-        if(res.data.status==="OK") {
+    stdb_code, 
+    std_num, 
+    history
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/chat/get_chat_detail1`, {
+            stdb_code, 
+            std_num
+        }, { 
+            withCredentials: true 
+        });
+    
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETCHATDETAIL,
                 payload: res.data.data
             });
-            history.push('/user1/chat');  //채팅방 내로 이동
+            return history.push('/user1/chat');  //채팅방 내로 이동
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => {
-        console.error(err);
-    });
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //채팅 내용 가져오기2 (chat_code, std_num)
 export const getChatDetail2 = (
-    chat_code, std_num, history
-    ) => async(dispatch) => {
-    await axios.post(`${url}/chat/get_chat_detail2`, {
-        chat_code, std_num
-    }, { withCredentials: true }
-    ).then((res) => {
-        if(res.data.status==="OK") {
+    chat_code, 
+    std_num, 
+    history
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/chat/get_chat_detail2`, {
+            chat_code, 
+            std_num
+        }, { 
+            withCredentials: true 
+        });
+    
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETCHATDETAIL,
                 payload: res.data.data
             });
-            history.push('/user1/chat');  //채팅방 내로 이동
+            return history.push('/user1/chat');  //채팅방 내로 이동
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => {
-        console.error(err);
-    });
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 

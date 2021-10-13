@@ -22,12 +22,12 @@ const Login = () => {
 
     //비밀번호 찾기
     const goFindPw = debounce(() => {
-        history.push('/user1/find_pw');
+        history.push("/user1/find_pw");
     }, 800);
 
     //회원가입
     const goJoin = debounce(() => {
-        history.push('/user1/join');
+        history.push("/user1/join");
     }, 800);
 
     return (

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { logout } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
-import { CgProfile } from "react-icons/cg";
+import { CgProfile } from 'react-icons/cg';
 
 import '../../styles/mypage.scss';
 
@@ -16,22 +16,31 @@ const Mypage = () => {
     const userInfo = useSelector(state => state.user.user);
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"마이페이지", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "마이페이지", data: null },
+                "null",
+                null,
+                null,
+                "small"
+            )
+        );
     }, [dispatch]);
 
     //대출 조회,연장
-    const goCheckBorrow = debounce(async() => {
-        history.push('/user1/check-borrow');
+    const goCheckBorrow = debounce(() => {
+        history.push("/user1/check-borrow");
     }, 800);
 
     //공유 도서 대여 조회
-    const goCheckStdBorrow = debounce(async() => {
-        history.push('/user1/check-std-borrow');
+    const goCheckStdBorrow = debounce(() => {
+        history.push("/user1/check-std-borrow");
     }, 800);
 
     //로그아웃
     const goLogout = debounce(() => {
-        if(window.confirm("로그아웃 하시겠습니까?")) {
+        if (window.confirm("로그아웃 하시겠습니까?")) {
             dispatch(logout(history));
         }
     }, 800);

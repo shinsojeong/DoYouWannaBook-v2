@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { register } from '../../modules/user';
 import { option } from '../util/Reusable';
@@ -22,41 +22,61 @@ const Join = () => {
     const email = useInput("");
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"회원가입", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "회원가입", data: null }, 
+                "null", 
+                () => history.goBack(), 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch, history]);
 
     //회원가입
     const submit = debounce(() => {
-        if(id.value===""||pw.value===""||pwCheck.value===""||name.value===""||phNum.value===""||email.value==="") {
+        if (id.value === "" || pw.value === "" || pwCheck.value === "" || name.value === "" || phNum.value === "" || email.value === "") {
             alert("모든 항목을 입력해주세요.");
             return;
         }
         //input 유효성 검사
-        if(id.value.length!==10) {
+        if (id.value.length !== 10) {
             alert("학번은 10자리 숫자로 입력해주세요.");
             return;
         }
-        if((/([^a-zA-z0-9])/).test(pw.value)) {
+        if ((/([^a-zA-z0-9])/).test(pw.value)) {
             alert("비밀번호는 숫자, 영문으로만 구성되어야 합니다.");
             return;
         }
-        if(pw.value!==pwCheck.value) {
+        if (pw.value !== pwCheck.value) {
             alert("비밀번호 확인이 일치하지 않습니다.");
             return;
         }
-        if((/([^가-힇\x20])/i).test(name.value)) {
+        if ((/([^가-힇\x20])/i).test(name.value)) {
             alert("이름은 한글만 입력 가능합니다.");
             return;
         }
-        if(!(/[0-9]{10,11}$/).test(phNum.value)) {
+        if (!(/[0-9]{10,11}$/).test(phNum.value)) {
             alert("연락처 형식이 잘못되었습니다.");
             return;
         }
-        if(!(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i).test(email.value)) {
+        if (!(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i).test(email.value)) {
             alert("이메일 형식이 잘못되었습니다.");
             return;
         }
-        dispatch(register(id.value, name.value, dept.value, gender, phNum.value, email.value, pw.value, history));
+        dispatch(
+            register(
+                id.value, 
+                name.value, 
+                dept.value, 
+                gender, 
+                phNum.value, 
+                email.value, 
+                pw.value, 
+                history
+            )
+        );
     }, 800);
 
     return (

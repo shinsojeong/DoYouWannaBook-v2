@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { changeBar } from '../../modules/topBar';
 
@@ -10,12 +10,21 @@ const FindPwRes = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"비밀번호 찾기", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "비밀번호 찾기", data: null }, 
+                "null", 
+                null, 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch]);
 
     //로그인하러 가기
     const goLogin = debounce(() => {
-        history.push('/login');
+        history.push("/login");
     }, 800);
 
     return (

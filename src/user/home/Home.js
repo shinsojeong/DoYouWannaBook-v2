@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 import { changeBar } from '../../modules/topBar';
@@ -16,16 +16,23 @@ const Home = () => {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"홈", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "홈", data: null },
+                "null",
+                null,
+                null,
+                "small"
+            )
+        );
         dispatch(getRecommendedBook());
     }, [dispatch]);
 
     //검색
     const search = debounce(async() => {
-        await dispatch(searchBook(keyword))
-        .then(() => {
-            history.push('/user1/search');
-        })
+        await dispatch(searchBook(keyword));
+        history.push("/user1/search");
     }, 800);
 
     return (
@@ -39,7 +46,7 @@ const Home = () => {
             <div id="recommended_book" className="item">
                 <p className="title">· 추천 신작 도서</p>
                 <div id="list">
-                    {recommendedBook.length!==0 ? 
+                    {recommendedBook.length !== 0 ? 
                         recommendedBook.map((item) => {
                             return (
                                 <div className="list_item" key={item.libb_code}>

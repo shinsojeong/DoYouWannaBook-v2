@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { findPw } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
@@ -19,12 +19,29 @@ const FindPw = () => {
     const isDisabled = false;
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"비밀번호 찾기", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "비밀번호 찾기", data: null }, 
+                "null", 
+                () => history.goBack(), 
+                null, 
+                "small"
+            )
+        );
     }, [dispatch, history]);
 
     //비밀번호 찾기
     const submit = debounce(() => {
-        dispatch(findPw(id.value, name.value, phNum.value, email.value, history))
+        dispatch(
+            findPw(
+                id.value, 
+                name.value, 
+                phNum.value, 
+                email.value, 
+                history
+            )
+        );
     }, 800);
 
     return (

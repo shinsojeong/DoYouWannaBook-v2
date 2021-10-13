@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { searchStdBook } from '../../modules/userBook';
 import { createChat, getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
-import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 
 import '../../styles/student.scss';
 
@@ -20,7 +20,16 @@ const StdMain = () => {
     const [menuState, setMenuState] = useState(false);
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"공유 도서", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "공유 도서", data: null },
+                "null",
+                null,
+                null,
+                "small"
+            )
+        );
     },[dispatch]);
     
     //메뉴
@@ -35,19 +44,17 @@ const StdMain = () => {
 
     //대여자와 채팅
     const goChat = debounce(async(stdb_code, lender) => {
-        await dispatch(createChat(stdb_code, lender, std_num, history))
-        .then(() =>{
-            dispatch(getChatDetail1(stdb_code, std_num, history))
-        });
+        await dispatch(createChat(stdb_code, lender, std_num, history));
+        dispatch(getChatDetail1(stdb_code, std_num, history));
     }, 800);
 
     return (
         <div id="std_main" className="contents">
             <AiOutlineMenu id="menu_icon" size="20" onClick={() => openMenu(true)}/>
-            <div id="menu" className={menuState?"menu":"hidden"}>
-                <AiOutlineClose className={menuState?"x_icon":"hidden"} size="20" onClick={() => openMenu(false)}/>
-                <p id="item1" className={menuState?"menu_item":"hidden"} onClick={() => history.push('/user1/std-create')}>대여 등록</p>
-                <p id="item2" className={menuState?"menu_item":"hidden"} onClick={() => history.push('/user1/std-my-list')}>내가 쓴 글</p>
+            <div id="menu" className={menuState ? "menu" : "hidden"}>
+                <AiOutlineClose className={menuState ? "x_icon" : "hidden"} size="20" onClick={() => openMenu(false)}/>
+                <p id="item1" className={menuState ? "menu_item" : "hidden"} onClick={() => history.push("/user1/std-create")}>대여 등록</p>
+                <p id="item2" className={menuState ? "menu_item" : "hidden"} onClick={() => history.push("/user1/std-my-list")}>내가 쓴 글</p>
             </div>
 
             <div id="search_book" className="item">
@@ -56,7 +63,7 @@ const StdMain = () => {
             </div>
 
             <div id="search_result" className="contents">
-                {searchResult.length!==0 ?
+                {searchResult.length !== 0 ?
                     searchResult.map((item, index) => {
                         return (
                             <div className="item_wrap" key={index}>

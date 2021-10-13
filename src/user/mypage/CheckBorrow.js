@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { getMypageBorrowList } from '../../modules/libBook';
 import { extendDate } from '../../modules/libBook';
@@ -18,19 +18,26 @@ const CheckBorrow = () => {
 
     useEffect(() => {
         dispatch(getMypageBorrowList(std_num));
-        dispatch(changeBar("back", {title:"도서 대출 조회", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "도서 대출 조회", data: null },
+                "null",
+                () => history.goBack(),
+                null,
+                "small"
+            )
+        );
     }, [dispatch, history, std_num]);
 
     const extend = debounce(async(libb_code, libb_ret_date) => {
-        await dispatch(extendDate(std_num, libb_code, libb_ret_date))
-        .then(() => {
-            dispatch(getMypageBorrowList(std_num));
-        });
+        await dispatch(extendDate(std_num, libb_code, libb_ret_date));
+        dispatch(getMypageBorrowList(std_num));
     }, 800);
 
     return (
         <div id="check_borrow" className="contents">
-            {borrowList.length!==0 ? 
+            {borrowList.length !== 0 ? 
                 borrowList.map((item) => {
                     return (
                         <table key={item.libb_code}>

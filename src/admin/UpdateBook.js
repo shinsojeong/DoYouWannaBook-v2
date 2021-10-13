@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { uploadImg, updateBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -31,8 +31,8 @@ const CreateBook = () => {
     const libb = useInputFile([]);
 
     //취소
-    const cancel = debounce(useCallback(async () => {
-        if(window.confirm("도서 수정을 취소하시겠습니까?")) {
+    const cancel = debounce(useCallback(() => {
+        if (window.confirm("도서 수정을 취소하시겠습니까?")) {
             history.goBack();
         }
     }, [history]), 800);
@@ -42,14 +42,39 @@ const CreateBook = () => {
         const formData = new FormData();
         formData.append('libb', libb.files[0]);
 
-        dispatch(uploadImg(formData))
-        .then((res) => {
-            dispatch(updateBook(book.libb_code, code.value, title.value, author.value, publisher.value, pubDate.value, state, isbn.value, barcode.value, res, classCode.value, room.value, bookshelf.value, shelf.value, history));
-        });
-    },[dispatch, libb, book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, history]), 800);
+        const res = await dispatch(uploadImg(formData));
+        dispatch(
+            updateBook(
+                book.libb_code, 
+                code.value, 
+                title.value, 
+                author.value, 
+                publisher.value, 
+                pubDate.value, 
+                state, 
+                isbn.value, 
+                barcode.value, 
+                res, 
+                classCode.value, 
+                room.value, 
+                bookshelf.value, 
+                shelf.value, 
+                history
+            )
+        );
+    }, [dispatch, libb, book.libb_code, code, title, author, publisher, pubDate, state, isbn, barcode, classCode, room, bookshelf, shelf, history]), 800);
 
     useEffect(() => {
-        dispatch(changeBar("cancel", {title:"도서 수정", data:null}, "create", cancel, submit, "small"));
+        dispatch(
+            changeBar(
+                "cancel", 
+                { title: "도서 수정", data: null }, 
+                "create", 
+                cancel, 
+                submit, 
+                "small"
+            )
+        );
     }, [dispatch, cancel, submit]);
 
 
@@ -80,7 +105,7 @@ const CreateBook = () => {
                 })}
             </select>
             <div id="inputImg">
-                <label for="libb">도서 이미지</label>
+                <label htmlFor="libb">도서 이미지</label>
                 <input type="file" id="libb" {...libb}></input>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { debounce } from "lodash";
+import { debounce } from 'lodash';
 
 import { uploadImg, createBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -26,25 +26,49 @@ const CreateBook = () => {
     const libb = useInputFile([]);
 
     //취소
-    const cancel = debounce(useCallback(async () => {
-        if(window.confirm("도서 등록을 취소하시겠습니까?")) {
-            history.push('/admin/home');
+    const cancel = debounce(useCallback(() => {
+        if (window.confirm("도서 등록을 취소하시겠습니까?")) {
+            history.push("/admin/home");
         }
     }, [history]), 800);
 
     //제출
-    const submit = debounce(useCallback(async () => {
+    const submit = debounce(useCallback(async() => {
         const formData = new FormData();
         formData.append('libb', libb.files[0]);
 
-        dispatch(uploadImg(formData))
-        .then((res) => {
-            dispatch(createBook(code.value, title.value, author.value, publisher.value, pubDate.value, state.value, isbn.value, barcode.value, classCode.value, room.value, bookshelf.value, shelf.value, res, history));
-        })
+        const res = await dispatch(uploadImg(formData));
+        dispatch(
+            createBook(
+                code.value, 
+                title.value, 
+                author.value, 
+                publisher.value, 
+                pubDate.value, 
+                state.value, 
+                isbn.value, 
+                barcode.value, 
+                classCode.value, 
+                room.value, 
+                bookshelf.value, 
+                shelf.value, 
+                res, 
+                history
+            )
+        );
     }, [code, title, author, barcode, bookshelf, classCode, dispatch, history, isbn, libb, pubDate, publisher, room, shelf, state]), 800);
 
     useEffect(() => {
-        dispatch(changeBar("cancel", {title:"도서 등록", data:null}, "create", cancel, submit, "small"));
+        dispatch(
+            changeBar(
+                "cancel", 
+                { title: "도서 등록", data: null }, 
+                "create", 
+                cancel, 
+                submit, 
+                "small"
+            )
+        );
     }, [dispatch, cancel, submit]);
 
 

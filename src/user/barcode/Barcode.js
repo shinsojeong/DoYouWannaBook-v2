@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import BarcodeScannerComponent from 'react-qr-barcode-scanner';
 import { useDispatch, useSelector } from 'react-redux';
 import { borrow } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
@@ -12,7 +12,16 @@ const Barcode = () => {
     const [state, setState] = useState(false);
 
     useEffect(() => {
-        dispatch(changeBar("null", {title:"바코드 대출", data:null}, "null", null, null, "small"));
+        dispatch(
+            changeBar(
+                "null", 
+                { title: "바코드 대출", data: null },
+                "null",
+                null,
+                null,
+                "small"
+            )
+        );
     }, [dispatch]);
 
     return (

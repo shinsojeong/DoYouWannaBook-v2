@@ -20,38 +20,55 @@ const LOGOUT = "LOGOUT";
 
 //회원가입
 export const register = (
-    std_num, name, dept, gender, ph_num, email, password, history
-    ) => async(dispatch) => {
-    await axios.post(`${url}/auth/join`, {
-        std_num: std_num, 
-        name: name, 
-        dept: dept, 
-        gender: gender, 
-        ph_num: ph_num, 
-        email: email, 
-        password: password
-    },{ withCredentials: true })
-    .then((res) => {
-        if(res.data.code===200) {
+    std_num, 
+    name, 
+    dept, 
+    gender, 
+    ph_num, 
+    email, 
+    password, 
+    history
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/auth/join`, {
+            std_num: std_num, 
+            name: name, 
+            dept: dept, 
+            gender: gender, 
+            ph_num: ph_num, 
+            email: email, 
+            password: password
+        }, { 
+            withCredentials: true 
+        })
+        
+        if (res.data.code === 200) {
             dispatch({
                 type: REGISTER
             });
-            history.push('/login');
+            history.push("/login");
         }
-        alert(res.data.message);
-    }).catch((err) => console.log(err));
+        return alert(res.data.message);
+    } catch (err) {
+        return console.log(err);
+    };
 };
 
 //로그인
 export const login = (
-    std_num, password, history
-    ) => async(dispatch) => {
-    await axios.post(`${url}/auth/login`, {
-        std_num: std_num, 
-        password: password
-    }, { withCredentials: true })
-    .then((res) => {
-        if(res.data.code===200) {
+    std_num, 
+    password, 
+    history
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/auth/login`, {
+            std_num: std_num, 
+            password: password
+        }, { 
+            withCredentials: true 
+        });
+        
+        if (res.data.code  ===200) {
             dispatch({
                 type: LOGIN,
                 payload: {
@@ -60,8 +77,8 @@ export const login = (
                     dept: res.data.data.dept
                 }
             });
-            history.push('/user/home');
-        } else if(res.data.code===20911) {
+            return history.push("/user/home");
+        } else if (res.data.code === 20911) {
             dispatch({
                 type: LOGIN,
                 payload: {
@@ -70,51 +87,64 @@ export const login = (
                     dept: res.data.data.dept
                 }
             });
-            history.replace('/admin/home');
+            return history.replace("/admin/home");
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => console.log(err));
+    } catch (err) {
+        return console.log(err);
+    };
 };
 
 //비밀번호 찾기
 export const findPw = (
-    std_num, name, ph_num, email, history
-    ) => async(dispatch) => {
-    await axios.post(`${url}/mail/findpw`, {
-        std_num: std_num,
-        name: name,
-        ph_num: ph_num,
-        email: email
-    },{ withCredentials: true })
-    .then((res) => {
-        if(res.data.code===200) {
+    std_num, 
+    name, 
+    ph_num, 
+    email, 
+    history
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/mail/findpw`, {
+            std_num: std_num,
+            name: name,
+            ph_num: ph_num,
+            email: email
+        }, { 
+            withCredentials: true 
+        });
+        
+        if (res.data.code === 200) {
             dispatch({
                 type: FINDPW
             });
-            history.push('/user1/find_pw_res');
+            return history.push("/user1/find_pw_res");
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => console.log(err));
+    } catch (err) {
+        return console.log(err);
+    };
 };
 
 //로그아웃
 export const logout = (
     history
-    ) => async(dispatch) => {
-    await axios.get(`${url}/auth/logout`
-    , { withCredentials: true })
-    .then((res) => {
-        if(res.data.code===200) {
+) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${url}/auth/logout`, { withCredentials: true });
+
+        if (res.data.code === 200) {
             dispatch({
                 type: LOGOUT
             });
         } else {
             alert("이미 로그아웃 상태입니다.");
         }
-        history.push('/login');
-    }).catch((err) => console.log(err));
+        return history.push("/login");
+    } catch (err) {
+        return console.log(err);
+    };
 };
 
 

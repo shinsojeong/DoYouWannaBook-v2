@@ -39,119 +39,143 @@ const EXTENDDATE = "EXTENDDATE";
 //도서관 도서 검색
 export const searchBook = (
     keyword
-    ) => async(dispatch) => {
-    await axios.get(`${url}/libbook/search_book?keyword=${keyword}`,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${url}/libbook/search_book?keyword=${keyword}`, { withCredentials: true });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: SEARCHBOOK,
                 payload: res.data.data
             });
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //도서 상세보기 선택
 export const selectBook = (
     libb_code
 ) => async(dispatch) => {
-    await axios.get(`${url}/libbook/search_book_detail?libb_code=${libb_code}`,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    try {
+        const res = await axios.get(`${url}/libbook/search_book_detail?libb_code=${libb_code}`, { withCredentials: true });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: SELECTBOOK,
                 payload: res.data.data
             });
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //추천 도서
 export const getRecommendedBook = () => async(dispatch) => {
-    await axios.get(`${url}/libbook/get_recommended_book`,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    try {
+        const res = await axios.get(`${url}/libbook/get_recommended_book`, { withCredentials: true });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETRECOMMENDEDBOOK,
                 payload: res.data.data
             });
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err)
+    };
 };
 
 //도서 위치 가져오기
 export const getBookLoc = (
     libb_class
-    ) => async(dispatch) => {
-    await axios.get(`${url}/libbook/get_book_location?libb_class=${libb_class}`,
-    { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${url}/libbook/get_book_location?libb_class=${libb_class}`, { withCredentials: true });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETBOOKLOC,
                 payload: res.data.data
             });
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //도서 대출
 export const borrow = (
-    barcode, std_num
-    ) => async(dispatch) => {
-    await axios.post(`${url}/libbook/borrow`, {
-        libb_barcode: barcode, 
-        borrower: std_num
-    }, { withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    barcode, 
+    std_num
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/libbook/borrow`, {
+            libb_barcode: barcode, 
+            borrower: std_num
+        }, { 
+            withCredentials: true 
+        });
+
+        if (res.data.status === "OK") {
             dispatch({
                 type: BORROW
             });
-            alert("대출 성공");
+            return alert("대출 성공");
         } else {
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //대출 내역 조회
 export const getMypageBorrowList = (
     std_num
-    ) => async(dispatch) => {
-    await axios.get(`${url}/libbook/mypage_borrow_list?std_num=${std_num}`,{ withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+) => async(dispatch) => {
+    try {
+        const res = await axios.get(`${url}/libbook/mypage_borrow_list?std_num=${std_num}`, { withCredentials: true });
+    
+        if (res.data.status === "OK") {
             dispatch({
                 type: GETMYPAGEBORROWLIST,
                 payload: res.data.data
             });
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 //대출 연장
 export const extendDate = (
-    std_num, libb_code, libb_ret_date
-    ) => async(dispatch) => {
-    await axios.post(`${url}/libbook/mypage_borrow_extend`, {
-        std_num: std_num,
-        libb_code: libb_code,
-        libb_ret_date: libb_ret_date
-    },{ withCredentials: true })
-    .then((res) => {
-        if(res.data.status==="OK") {
+    std_num, 
+    libb_code,
+    libb_ret_date
+) => async(dispatch) => {
+    try {
+        const res = await axios.post(`${url}/libbook/mypage_borrow_extend`, {
+            std_num: std_num,
+            libb_code: libb_code,
+            libb_ret_date: libb_ret_date
+        },{ 
+            withCredentials: true 
+        });
+        
+        if (res.data.status === "OK") {
             dispatch({
                 type: EXTENDDATE
             });
-            alert(res.data.message);
+            return alert(res.data.message);
         }
-    }).catch((err) => console.error(err));
+    } catch (err) {
+        return console.error(err);
+    };
 };
 
 

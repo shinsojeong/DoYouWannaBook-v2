@@ -1,7 +1,7 @@
 //initial state
 const INIT_TOPBAR_STATE = {
     left: "",
-    center: {title:"", data:""},
+    center: { title: "", data: "" },
     right: "", 
     lfunc: null, 
     rfunc: null, 
@@ -14,16 +14,21 @@ const CHANGEBAR = "CHANGEBAR";
 
 //파트너 정보 받아오기
 export const changeBar = (
-    left, center, right, lfunc, rfunc, size
-    ) => ({
-        type: CHANGEBAR,
-        left: left,
-        center: center,
-        right: right,
-        lfunc: lfunc,
-        rfunc: rfunc,
-        size: size
-    });
+    left, 
+    center, 
+    right, 
+    lfunc, 
+    rfunc, 
+    size
+) => ({
+    type: CHANGEBAR,
+    left: left,
+    center: center,
+    right: right,
+    lfunc: lfunc,
+    rfunc: rfunc,
+    size: size
+});
 
 
 //reducer

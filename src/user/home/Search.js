@@ -16,23 +16,28 @@ const Search = () => {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
-        dispatch(changeBar("back", {title:"도서 검색", data:null}, "null", () => history.goBack(), null, "small"));
+        dispatch(
+            changeBar(
+                "back", 
+                { title: "도서 검색", data: null },
+                "null",
+                () => history.goBack(),
+                null,
+                "small"
+            )
+        );
     }, [dispatch, history]);
     
     //검색
     const search = debounce(async() => {
         await dispatch(searchBook(keyword))
-        .then(() => {
-            history.push('/user1/search');
-        })
+        history.push("/user1/search");
     }, 800);
 
     //상세 페이지로 이동
     const goDetail = debounce(async(libb_code) => {
         await dispatch(selectBook(libb_code))
-        .then(() => {
-            history.push('/user1/search-detail');
-        });
+        history.push("/user1/search-detail");
     }, 800);
 
     return (
@@ -43,7 +48,7 @@ const Search = () => {
             </div>
 
             <div id="search_result">
-                {searchResult.length!==0 ?
+                {searchResult.length !== 0 ?
                     searchResult.map((item, index) => {
                         return (
                             <div className="item_wrap" key={index}>
