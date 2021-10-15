@@ -28,7 +28,7 @@ const Chat = () => {
         dispatch(
             changeBar(
                 "back", 
-                { title: `${chat.part1===std_num ? chat.part2 : chat.part1}`, data: null }, 
+                { title: `${chat.part1 === std_num ? chat.part2 : chat.part1}`, data: null }, 
                 "null",
                 () => history.goBack(),
                 null,

@@ -65,7 +65,7 @@ const SearchDetail = () => {
                         </tr>
                         <tr>
                             <td id="td_title">대출상태</td>
-                            <td>{info.libb_state?"대출가능":"대출중"}</td>
+                            <td>{info.libb_state ? "대출가능" : "대출중"}</td>
                         </tr>
                         <tr>
                             <td id="td_title">위치보기</td>

@@ -64,12 +64,11 @@ const TopBar = () => {
             {/* center option : {title}, {date, null} */}
             <div className="center">
                 <p className="title">{topbar.center.title}</p>
-                {topbar.center.data!==null ?
-                    <p className="data">
-                        {topbar.center.data}
-                    </p>
-                : 
-                    null
+                {topbar.center.data !== null 
+                || 
+                <p className="data">
+                    {topbar.center.data}
+                </p>
                 }
             </div>
 
