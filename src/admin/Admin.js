@@ -19,6 +19,6 @@ const Admin = () => {
             </Switch>
         </div>
     );
-};
+}
 
 export default Admin;

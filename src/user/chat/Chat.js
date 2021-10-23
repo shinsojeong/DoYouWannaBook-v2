@@ -69,7 +69,7 @@ const Chat = () => {
     //스크롤
     const scrollToBottom = () => {
         scrollRef.current.scrollIntoView({behavior: 'smooth', block: 'end',});
-    };
+    }
 
     return (
         <div id="chat" className="contents">
@@ -126,6 +126,6 @@ const Chat = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Chat;

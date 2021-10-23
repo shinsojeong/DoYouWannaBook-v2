@@ -90,6 +90,6 @@ const StdCreate = () => {
             </div>
         </div>
     );
-};
+}
 
 export default StdCreate;

@@ -33,6 +33,6 @@ const User = () => {
             </Switch>
         </div>
     );
-};
+}
 
 export default User;

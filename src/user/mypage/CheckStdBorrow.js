@@ -50,6 +50,6 @@ const CheckStdBorrow = () => {
             : <div id="message">대여중인 도서가 없습니다.</div> }
         </div>
     );
-};
+}
 
 export default CheckStdBorrow;

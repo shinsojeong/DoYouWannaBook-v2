@@ -57,6 +57,6 @@ const ChatList = () => {
             }) : <p id="message">진행중인 채팅이 없습니다.</p>}
         </div>
     );
-};
+}
 
 export default ChatList;

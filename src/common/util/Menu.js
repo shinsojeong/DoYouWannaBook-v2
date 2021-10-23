@@ -35,6 +35,6 @@ const TopBar = () => {
             </table>
         </footer>
     );
-};
+}
 
 export default TopBar;

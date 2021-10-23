@@ -23,6 +23,6 @@ const User = () => {
             <Menu/>
         </div>
     );
-};
+}
 
 export default User;

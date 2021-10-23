@@ -30,7 +30,7 @@ const INIT_ADMIN_STATE = {
             shelf: ""
         }
     }
-};
+}
 
 
 //action type
@@ -66,8 +66,8 @@ export const searchBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 정보 가져오기
 export const getBook = (
@@ -95,8 +95,8 @@ export const getBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 이미지 등록
 export const uploadImg = (
@@ -112,8 +112,8 @@ export const uploadImg = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 정보 등록
 export const createBook = (
@@ -166,8 +166,8 @@ export const createBook = (
         }
     } catch (err) {
         return console.log(err);
-    };
-};
+    }
+}
 
 //도서 정보 수정
 export const updateBook = (
@@ -218,8 +218,8 @@ export const updateBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 정보 삭제
 export const deleteBook = (
@@ -240,15 +240,15 @@ export const deleteBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //리덕스 리셋
 export const reset = () => (dispatch) => {
     dispatch({
         type: RESET
     });
-};
+}
 
 
 //reducer
@@ -259,39 +259,39 @@ const admin = (state = INIT_ADMIN_STATE, action) => {
             return { 
                 ...state, 
                 search_result: action.payload
-            };
+            }
         case GETBOOK:
             return { 
                 ...state, 
                 search_result: [],
                 selected_book: action.payload.selected_book
-            };
+            }
         case UPLOADIMG:
             return {
                 ...state
-            };
+            }
         case CREATEBOOK:
             return {
                 ...state
-            };
+            }
         case UPDATEBOOK:
             return { 
                 ...state, 
                 selected_book: INIT_ADMIN_STATE.selected_book
-            };
+            }
         case DELETEBOOK:
             return {
                 ...state
-            };
+            }
         case RESET:
             return {
                 ...state,
                 search_result: INIT_ADMIN_STATE.search_result,
                 selected_book: INIT_ADMIN_STATE.selected_book
-            };
+            }
         default:
             return state;
-    };
-};
+    }
+}
 
 export default admin;

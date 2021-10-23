@@ -84,6 +84,6 @@ const SearchBook = () => {
             </div>
         </div>
     );
-};
+}
 
 export default SearchBook;

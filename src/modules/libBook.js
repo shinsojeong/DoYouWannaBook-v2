@@ -51,8 +51,8 @@ export const searchBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 상세보기 선택
 export const selectBook = (
@@ -71,8 +71,8 @@ export const selectBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //추천 도서
 export const getRecommendedBook = () => async(dispatch) => {
@@ -87,8 +87,8 @@ export const getRecommendedBook = () => async(dispatch) => {
         }
     } catch (err) {
         return console.error(err)
-    };
-};
+    }
+}
 
 //도서 위치 가져오기
 export const getBookLoc = (
@@ -105,8 +105,8 @@ export const getBookLoc = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //도서 대출
 export const borrow = (
@@ -131,8 +131,8 @@ export const borrow = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //대출 내역 조회
 export const getMypageBorrowList = (
@@ -149,8 +149,8 @@ export const getMypageBorrowList = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //대출 연장
 export const extendDate = (
@@ -175,8 +175,8 @@ export const extendDate = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 
 //reducer
@@ -187,17 +187,17 @@ const libBook = (state = INIT_LIBBOOK_STATE, action) => {
             return { 
                 ...state, 
                 search_result: action.payload
-            };
+            }
         case SELECTBOOK:
             return {
                 ...state,
                 selected_book: action.payload
-            };
+            }
         case GETRECOMMENDEDBOOK:
             return {
                 ...state,
                 recommended_book: action.payload
-            };
+            }
         case GETBOOKLOC:
             return {
                 ...state,
@@ -209,13 +209,13 @@ const libBook = (state = INIT_LIBBOOK_STATE, action) => {
             return {
                 ...state,
                 borrow_list: action.payload
-            };
+            }
         case EXTENDDATE:
             return state;
         
         default:
             return state;
-    };
-};
+    }
+}
 
 export default libBook;

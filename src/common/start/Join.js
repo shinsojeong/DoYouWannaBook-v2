@@ -102,6 +102,6 @@ const Join = () => {
             <button className="btnBlue" onClick={submit}>완료</button>
         </div>
     );
-};
+}
 
 export default Join;

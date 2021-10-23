@@ -33,6 +33,6 @@ const FindPwRes = () => {
             <button onClick={goLogin}>로그인하러 가기</button>
         </div>
     );
-};
+}
 
 export default FindPwRes;

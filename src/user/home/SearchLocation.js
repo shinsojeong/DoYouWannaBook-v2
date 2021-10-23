@@ -31,7 +31,7 @@ const SearchLocation = () => {
                 return(<div className="boxRow" key={index}>{createBox(index+1,num)}</div>)
             })
         );
-    };
+    }
 
     const createBox = (idx, num) => {
         return(
@@ -39,7 +39,7 @@ const SearchLocation = () => {
                 return(<div id={(location.shelf === idx) && (location.bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
             })
         );
-    };
+    }
 
     const createShelf = (num) => { 
         return(
@@ -47,7 +47,7 @@ const SearchLocation = () => {
                 return(<div id={location.shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
             })
         );
-    };
+    }
 
     return (
         <div id="search_location" className="contents">
@@ -74,6 +74,6 @@ const SearchLocation = () => {
 
         </div>
     );
-};
+}
 
 export default SearchLocation;

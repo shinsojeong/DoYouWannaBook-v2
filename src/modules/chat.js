@@ -42,8 +42,8 @@ export const createChat = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅방 리스트 가져오기
 export const getChatList = (
@@ -60,8 +60,8 @@ export const getChatList = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅 보내기
 export const sendChat = (
@@ -91,8 +91,8 @@ export const sendChat = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅 내용 가져오기1 (stdb_code, std_num)
 export const getChatDetail1 = (
@@ -119,8 +119,8 @@ export const getChatDetail1 = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅 내용 가져오기2 (chat_code, std_num)
 export const getChatDetail2 = (
@@ -147,8 +147,8 @@ export const getChatDetail2 = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 
 
@@ -162,7 +162,7 @@ const chat = (state = INIT_CHAT_STATE, action) => {
             return { 
                 ...state, 
                 chat_list: action.payload
-            };
+            }
         case SENDCHAT:
             return {
                 ...state,
@@ -188,7 +188,7 @@ const chat = (state = INIT_CHAT_STATE, action) => {
             }
         default:
             return state;
-    };
-};
+    }
+}
 
 export default chat;

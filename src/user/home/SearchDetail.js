@@ -77,6 +77,6 @@ const SearchDetail = () => {
 
         </div>
     );
-};
+}
 
 export default SearchDetail;

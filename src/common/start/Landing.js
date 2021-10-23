@@ -17,6 +17,6 @@ const Landing = () => {
             <img src={logo} id="logo" alt="logo" width="200px"/>
         </div>
     );
-};
+}
 
 export default Landing;

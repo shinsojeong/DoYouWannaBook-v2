@@ -108,6 +108,6 @@ const CreateBook = () => {
             </div>
         </div>
     );
-};
+}
 
 export default CreateBook;

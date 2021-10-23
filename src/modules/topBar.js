@@ -44,11 +44,11 @@ const topbar = (state = INIT_TOPBAR_STATE, action) => {
                 lfunc: action.lfunc,
                 rfunc: action.rfunc,
                 size: action.size
-            };
+            }
        
         default:
             return state;
-    };
-};
+    }
+}
 
 export default topbar;

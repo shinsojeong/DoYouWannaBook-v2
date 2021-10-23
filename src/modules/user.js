@@ -51,8 +51,8 @@ export const register = (
         return alert(res.data.message);
     } catch (err) {
         return console.log(err);
-    };
-};
+    }
+}
 
 //로그인
 export const login = (
@@ -93,8 +93,8 @@ export const login = (
         }
     } catch (err) {
         return console.log(err);
-    };
-};
+    }
+}
 
 //비밀번호 찾기
 export const findPw = (
@@ -124,8 +124,8 @@ export const findPw = (
         }
     } catch (err) {
         return console.log(err);
-    };
-};
+    }
+}
 
 //로그아웃
 export const logout = (
@@ -144,8 +144,8 @@ export const logout = (
         return history.push("/login");
     } catch (err) {
         return console.log(err);
-    };
-};
+    }
+}
 
 
 //reducer
@@ -155,25 +155,25 @@ const user = (state = INIT_USER_STATE, action) => {
         case REGISTER:
             return { 
                 ...state
-            };
+            }
         case LOGIN:
             return {
                 ...state,
                 user: action.payload
-            };
+            }
         case FINDPW:
             return {
                 ...state
-            };
+            }
         case LOGOUT:
             return {
                 ...state,
                 user: INIT_USER_STATE.user
-            };
+            }
         
         default:
             return state;
-    };
-};
+    }
+}
 
 export default user;

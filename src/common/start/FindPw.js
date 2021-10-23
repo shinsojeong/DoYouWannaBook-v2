@@ -54,6 +54,6 @@ const FindPw = () => {
             <button className={isDisabled ? "btnGray":"btnBlue"} disabled={isDisabled} onClick={submit}>비밀번호 찾기</button>
         </div>
     );
-};
+}
 
 export default FindPw;

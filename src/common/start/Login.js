@@ -40,6 +40,6 @@ const Login = () => {
             <button onClick={goJoin}>회원가입</button>
         </div>
     );
-};
+}
 
 export default Login;

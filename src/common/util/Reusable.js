@@ -119,8 +119,8 @@ export const useInput = (init) => {
               target: {value}
          } = e;
          setValue(value);
-    };
-    return { value, onChange };
+    }
+    return { value, onChange }
 }
 
 export const useInputFile = (init) => {
@@ -130,6 +130,6 @@ export const useInputFile = (init) => {
             target: {files}
         } = e;
         setFiles(files);
-    };
+    }
     return { files, onChange }
 }

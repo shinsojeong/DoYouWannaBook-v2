@@ -98,6 +98,6 @@ const StdMain = () => {
 
         </div>
     );
-};
+}
 
 export default StdMain;

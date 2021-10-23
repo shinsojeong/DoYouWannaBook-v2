@@ -36,8 +36,8 @@ export const searchStdBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //학생 대여 도서 이미지 등록
 export const uploadImg = (
@@ -52,8 +52,8 @@ export const uploadImg = (
         }
     } catch(err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //학생 대여 도서 등록
 export const createStdBook = (
@@ -91,8 +91,8 @@ export const createStdBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //학생 대여 도서 삭제
 export const deleteStdBook = (
@@ -113,8 +113,8 @@ export const deleteStdBook = (
         }
     } catch (err)  {
         return console.error(err)
-    };
-};
+    }
+}
 
 //내 도서 조회
 export const getMyBookList = (
@@ -133,8 +133,8 @@ export const getMyBookList = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //학생 도서 대여 목록
 export const getBorrowStdBookList = (
@@ -156,8 +156,8 @@ export const getBorrowStdBookList = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅 - 도서 정보
 export const getChatBook = (
@@ -179,8 +179,8 @@ export const getChatBook = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 //채팅 - 대여 정보 등록
 export const registerLental = (
@@ -209,8 +209,8 @@ export const registerLental = (
         }
     } catch (err) {
         return console.error(err);
-    };
-};
+    }
+}
 
 
 //reducer
@@ -221,35 +221,35 @@ const userBook = (state = INIT_USERBOOK_STATE, action) => {
             return {
                 ...state,
                 search_list: action.payload
-            };
+            }
         case UPLOADIMG:
             return {
                 ...state
-            };
+            }
         case CREATESTDBOOK:
             return { 
                 ...state
-            };
+            }
         case DELETESTDBOOK:
             return {
                 ...state,
                 my_book_list: []
-            };
+            }
         case GETMYBOOKLIST:
             return {
                 ...state,
                 my_book_list: action.payload
-            };
+            }
         case GETBORROWSTDBOOKLIST:
             return {
                 ...state,
                 borrow_book_list: action.payload
-            };
+            }
         case GETCHATBOOK:
             return {
                 ...state,
                 chat_book: action.payload
-            };
+            }
         case REGISTERLENTAL:
             return {
                 ...state,
@@ -268,11 +268,11 @@ const userBook = (state = INIT_USERBOOK_STATE, action) => {
                     lender: state.chat_book.lender,
                     borrower: action.payload.borrower
                 }
-            };
+            }
         
         default:
             return state;
-    };
-};
+    }
+}
 
 export default userBook;

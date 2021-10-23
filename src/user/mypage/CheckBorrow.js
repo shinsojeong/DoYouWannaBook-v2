@@ -61,6 +61,6 @@ const CheckBorrow = () => {
             : <div id="message">대출중인 도서가 없습니다.</div>}
         </div>
     );
-};
+}
 
 export default CheckBorrow;

@@ -44,6 +44,6 @@ const Barcode = () => {
             : <button onClick={() => setState(true)}>시작</button>}
         </div>
     );
-};
+}
 
 export default Barcode;

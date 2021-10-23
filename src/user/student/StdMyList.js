@@ -82,6 +82,6 @@ const StdMyList = () => {
             }) : <p id="message">등록된 도서가 없습니다.</p>}
         </div>
     );
-};
+}
 
 export default StdMyList;
