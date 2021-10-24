@@ -7,7 +7,7 @@ import { findPw } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
 import { useInput } from '../../common/util/Reusable';
 
-const FindPw = () => {
+export default function FindPw() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -55,5 +55,3 @@ const FindPw = () => {
         </div>
     );
 }
-
-export default FindPw;

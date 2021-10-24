@@ -8,7 +8,7 @@ import { changeBar } from '../../modules/topBar';
 
 import '../../styles/student.scss';
 
-const StdMyList = () => {
+export default function StdMyList() {
     const dispatch = useDispatch();
     const history = useHistory();
     
@@ -83,5 +83,3 @@ const StdMyList = () => {
         </div>
     );
 }
-
-export default StdMyList;

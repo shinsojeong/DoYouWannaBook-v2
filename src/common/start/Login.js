@@ -7,7 +7,7 @@ import { login } from '../../modules/user';
 import logo from '../../source/logo.png';
 import { useInput } from '../../common/util/Reusable';
 
-const Login = () => {
+export default function Login() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -41,5 +41,3 @@ const Login = () => {
         </div>
     );
 }
-
-export default Login;

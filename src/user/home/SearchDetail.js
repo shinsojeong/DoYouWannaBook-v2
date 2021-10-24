@@ -7,7 +7,7 @@ import { getBookLoc } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
 import '../../styles/home.scss';
 
-const SearchDetail = () => {
+export default function SearchDetail() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -78,5 +78,3 @@ const SearchDetail = () => {
         </div>
     );
 }
-
-export default SearchDetail;

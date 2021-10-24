@@ -4,7 +4,7 @@ import { IoChevronBackSharp, IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
 import '../../styles/top_bar.scss';
 
-const TopBar = () => {
+export default function TopBar() {
     const topbar = useSelector(state => state.topBar); //left, center, right, lfunc, rfunc, size
 
     const getLeft = () => {
@@ -80,5 +80,3 @@ const TopBar = () => {
         </header>
     );
 }
-
-export default TopBar;

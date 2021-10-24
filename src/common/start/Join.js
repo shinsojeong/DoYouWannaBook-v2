@@ -8,7 +8,7 @@ import { option } from '../util/Reusable';
 import { changeBar } from '../../modules/topBar';
 import { useInput } from '../../common/util/Reusable';
 
-const Join = () => {
+export default function Join() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -103,5 +103,3 @@ const Join = () => {
         </div>
     );
 }
-
-export default Join;

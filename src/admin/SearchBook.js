@@ -7,7 +7,7 @@ import { getBook, searchBook, deleteBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-const SearchBook = () => {
+export default function SearchBook() {
     const dispatch = useDispatch();
     const history = useHistory();
     
@@ -85,5 +85,3 @@ const SearchBook = () => {
         </div>
     );
 }
-
-export default SearchBook;

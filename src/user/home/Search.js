@@ -8,7 +8,7 @@ import { changeBar } from '../../modules/topBar';
 import { AiOutlineSearch } from 'react-icons/ai';
 import '../../styles/home.scss';
 
-const Search = () => {
+export default function Search() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -84,5 +84,3 @@ const Search = () => {
         </div>
     );
 }
-
-export default Search;

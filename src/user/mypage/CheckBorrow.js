@@ -9,7 +9,7 @@ import { changeBar } from '../../modules/topBar';
 
 import '../../styles/mypage.scss';
 
-const CheckBorrow = () => {
+export default function CheckBorrow() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -62,5 +62,3 @@ const CheckBorrow = () => {
         </div>
     );
 }
-
-export default CheckBorrow;

@@ -5,7 +5,7 @@ import { debounce } from 'lodash';
 
 import { changeBar } from '../../modules/topBar';
 
-const FindPwRes = () => {
+export default function FindPwRes() {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -34,5 +34,3 @@ const FindPwRes = () => {
         </div>
     );
 }
-
-export default FindPwRes;

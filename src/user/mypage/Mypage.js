@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg';
 
 import '../../styles/mypage.scss';
 
-const Mypage = () => {
+export default function Mypage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -73,5 +73,3 @@ const Mypage = () => {
         </div>
     );
 }
-
-export default Mypage;

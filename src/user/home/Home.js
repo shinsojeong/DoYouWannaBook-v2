@@ -8,7 +8,7 @@ import { changeBar } from '../../modules/topBar';
 import { getRecommendedBook, searchBook } from '../../modules/libBook';
 import '../../styles/home.scss';
 
-const Home = () => {
+export default function Home() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -63,5 +63,3 @@ const Home = () => {
         </div>
     );
 }
-
-export default Home;

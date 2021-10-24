@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { changeBar } from '../../modules/topBar';
 import '../../styles/home.scss';
 
-const SearchLocation = () => {
+export default function SearchLocation() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -75,5 +75,3 @@ const SearchLocation = () => {
         </div>
     );
 }
-
-export default SearchLocation;

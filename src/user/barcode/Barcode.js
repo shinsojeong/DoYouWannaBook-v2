@@ -5,7 +5,7 @@ import { borrow } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
 import '../../styles/barcode.scss';
 
-const Barcode = () => {
+export default function Barcode() {
     const dispatch = useDispatch();
 
     const std_num = useSelector(state => state.user.user.std_num);
@@ -45,5 +45,3 @@ const Barcode = () => {
         </div>
     );
 }
-
-export default Barcode;

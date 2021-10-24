@@ -9,7 +9,7 @@ import Mypage from './mypage/Mypage';
 import StdMain from './student/StdMain';
 import Menu from '../common/util/Menu';
 
-const User = () => {
+export default function User() {
     return (
         <div id="user">
             <TopBar/>
@@ -24,5 +24,3 @@ const User = () => {
         </div>
     );
 }
-
-export default User;

@@ -7,7 +7,7 @@ import { uploadImg, createStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 import { useInput, useInputFile } from '../../common/util/Reusable';
 
-const StdCreate = () => {
+export default function StdCreate() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -48,7 +48,7 @@ const StdCreate = () => {
         const formData = new FormData();
         formData.append('stdb', stdb.files[0]);
 
-        await dispatch(uploadImg(formData))
+        const res = await dispatch(uploadImg(formData))
         dispatch(
             createStdBook(
                 std_num, 
@@ -91,5 +91,3 @@ const StdCreate = () => {
         </div>
     );
 }
-
-export default StdCreate;

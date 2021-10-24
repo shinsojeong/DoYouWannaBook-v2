@@ -10,7 +10,7 @@ import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 
 import '../../styles/student.scss';
 
-const StdMain = () => {
+export default function StdMain() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -99,5 +99,3 @@ const StdMain = () => {
         </div>
     );
 }
-
-export default StdMain;

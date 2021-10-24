@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { getBorrowStdBookList } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 
-const CheckStdBorrow = () => {
+export default function CheckStdBorrow() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -51,5 +51,3 @@ const CheckStdBorrow = () => {
         </div>
     );
 }
-
-export default CheckStdBorrow;

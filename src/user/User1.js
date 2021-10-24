@@ -14,7 +14,7 @@ import Join from '../common/start/Join';
 import FindPw from '../common/start/FindPw';
 import FindPwRes from '../common/start/FindPwRes';
 
-const User = () => {
+export default function User() {
     return (
         <div id="user">
             <TopBar/>
@@ -34,5 +34,3 @@ const User = () => {
         </div>
     );
 }
-
-export default User;

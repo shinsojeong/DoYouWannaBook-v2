@@ -9,7 +9,7 @@ import { changeBar } from '../../modules/topBar';
 
 import '../../styles/chat.scss';
 
-const Chat = () => {
+export default function Chat() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -127,5 +127,3 @@ const Chat = () => {
         </div>
     );
 }
-
-export default Chat;

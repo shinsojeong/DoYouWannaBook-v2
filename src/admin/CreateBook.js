@@ -7,7 +7,7 @@ import { uploadImg, createBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
 import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/util/Reusable';
 
-const CreateBook = () => {
+export default function CreateBook() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -109,5 +109,3 @@ const CreateBook = () => {
         </div>
     );
 }
-
-export default CreateBook;

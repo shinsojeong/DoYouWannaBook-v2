@@ -11,7 +11,7 @@ import { CgProfile } from 'react-icons/cg';
 
 import '../styles/admin.scss';
 
-const Home = () => {
+export default function Home() {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -82,5 +82,3 @@ const Home = () => {
         </div>
     );
 }
-
-export default Home;

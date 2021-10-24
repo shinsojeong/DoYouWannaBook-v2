@@ -7,7 +7,7 @@ import UpdateBook from '../admin/UpdateBook';
 import Home from '../admin/Home';
 import SearchBook from '../admin/SearchBook';
 
-const Admin = () => {
+export default function Admin() {
     return (
         <div>
             <TopBar/>
@@ -20,5 +20,3 @@ const Admin = () => {
         </div>
     );
 }
-
-export default Admin;

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../source/logo.png';
 import '../../styles/start.scss';
 
-const Landing = () => {
+export default function Landing() {
     const history = useHistory();
 
     useEffect(() => {
@@ -18,5 +18,3 @@ const Landing = () => {
         </div>
     );
 }
-
-export default Landing;

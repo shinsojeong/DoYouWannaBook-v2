@@ -8,7 +8,7 @@ import { getChatList, getChatDetail2 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
 import { CgProfile } from 'react-icons/cg';
 
-const ChatList = () => {
+export default function ChatList() {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -58,5 +58,3 @@ const ChatList = () => {
         </div>
     );
 }
-
-export default ChatList;

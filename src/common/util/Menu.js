@@ -5,7 +5,7 @@ import { debounce } from 'lodash';
 import { AiOutlineHome, AiOutlineBarcode, AiOutlineShareAlt, AiOutlineMessage, AiOutlineUser } from 'react-icons/ai';
 import '../../styles/menu.scss';
 
-const TopBar = () => {
+export default function Menu() {
     const history = useHistory();
 
     //function
@@ -36,5 +36,3 @@ const TopBar = () => {
         </footer>
     );
 }
-
-export default TopBar;

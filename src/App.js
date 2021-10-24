@@ -7,7 +7,7 @@ import User1 from'./user/User1';
 import Login from './common/start/Login';
 import Landing  from './common/start/Landing';
 
-const App = () => {
+export default function App () {
     return (
       <div className="App">
         <Switch>
@@ -20,5 +20,3 @@ const App = () => {
       </div>
     );
 }
-
-export default App;
