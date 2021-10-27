@@ -15,7 +15,10 @@ export default function Home() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const user = useSelector(state => state.user.user);
+    const { 
+        std_num,
+        name
+    } = useSelector(state => state.user.user);
 
     useEffect(() => {
         dispatch(
@@ -55,10 +58,10 @@ export default function Home() {
                     <tbody>
                         <tr>
                             <td rowSpan="2" id="td1"><CgProfile size="70"/></td>
-                            <td id="td2">{user.std_num}</td>
+                            <td id="td2">{std_num}</td>
                         </tr>
                         <tr>
-                            <td id="td2">{user.name}</td>
+                            <td id="td2">{name}</td>
                         </tr>
                     </tbody>
                 </table>

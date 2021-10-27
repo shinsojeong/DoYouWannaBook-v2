@@ -53,31 +53,31 @@ export default function SearchBook() {
                 </div>
             </div>
             <div id="searchResult">
-                {searchRes.length !== 0 ? searchRes.map(item => {
+                {searchRes.length !== 0 ? searchRes.map(({ libb_code, libb_img, libb_title, libb_author, libb_publisher, libb_pub_date, libb_state }) => {
                     return (
-                        <div className="resultItems" key={item.libb_code}>
+                        <div className="resultItems" key={libb_code}>
                             <table className="resultItemsTable">
                                 <tbody>
                                     <tr>
-                                        <td rowSpan="5"><img src={item.libb_img} alt="도서 이미지"/></td>
-                                        <td id="td_title">{item.libb_title}</td>
+                                        <td rowSpan="5"><img src={libb_img} alt="도서 이미지"/></td>
+                                        <td id="td_title">{libb_title}</td>
                                     </tr>
                                     <tr>
-                                        <td id="td_content">{item.libb_author}</td>
+                                        <td id="td_content">{libb_author}</td>
                                     </tr>
                                     <tr>
-                                        <td id="td_content">{item.libb_publisher}</td>
+                                        <td id="td_content">{libb_publisher}</td>
                                     </tr>
                                     <tr>
-                                        <td id="td_content">{(item.libb_pub_date).slice(0,10)}</td>
+                                        <td id="td_content">{(libb_pub_date).slice(0,10)}</td>
                                     </tr>
                                     <tr>
-                                        <td id="td_content">{item.libb_state?"대출 가능":"대출중"}</td>
+                                        <td id="td_content">{libb_state ? "대출 가능" : "대출중"}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button id="upd_btn" onClick={() => goUpdateBook(item.libb_code)}>수정</button>
-                            <button id="del_btn" onClick={() =>goDeleteBook(item.libb_code)}>삭제</button>
+                            <button id="upd_btn" onClick={() => goUpdateBook(libb_code)}>수정</button>
+                            <button id="del_btn" onClick={() =>goDeleteBook(libb_code)}>삭제</button>
                         </div>
                     )
                 }) : <p id="message">검색 결과가 없습니다.</p>}

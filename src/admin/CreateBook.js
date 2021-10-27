@@ -88,18 +88,18 @@ export default function CreateBook() {
             
             <input className="input" type="text" id="classCode" placeholder="분류 기호" {...classCode}/>
             <select className="inputSelect" {...room}>
-                {roomOp.map(item => {
-                    return <option key={item.value} value={item.value}>{item.label}</option>
+                {roomOp.map(({ value, label }) => {
+                    return <option key={value} value={value}>{label}</option>
                 })}
             </select>
             <select className="inputSelect" {...bookshelf}>
-                {bookshelfOp.map(item => {
-                    return <option key={item.value} value={item.value}>{item.label}</option>
+                {bookshelfOp.map(({ value, label }) => {
+                    return <option key={value} value={value}>{label}</option>
                 })}
             </select>
             <select className="inputSelect" {...shelf}>
-                {shelfOp.map(item => {
-                    return <option key={item.value} value={item.value}>{item.label}</option>
+                {shelfOp.map(({ value, label }) => {
+                    return <option key={value} value={value}>{label}</option>
                 })}
             </select>
             <div id="inputImg">
