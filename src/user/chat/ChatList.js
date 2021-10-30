@@ -38,17 +38,17 @@ export default function ChatList() {
     return (
         <div id="chat_list" className="contents">
             {chat_list.length !== 0 ? 
-            chat_list.map((item) => {
+            chat_list.map(({ chat_code, stdb_code, borrower, part1, part2, Messages}) => {
                return (
-                   <div key={item.chat_code} className="list_item" onClick={() => enterChat(item.chat_code, item.stdb_code)}>
+                   <div key={chat_code} className="list_item" onClick={() => enterChat(chat_code, stdb_code)}>
                        <table>
                            <tbody>
                                 <tr>
                                     <td rowSpan="2"><CgProfile size="70"/></td>
-                                    {item.borrower !== std_num ? <td>{item.part1}</td> : <td>{item.part2}</td>}
+                                    {borrower !== std_num ? <td>{part1}</td> : <td>{part2}</td>}
                                 </tr>
                                 <tr>
-                                    <td>{item.Messages.length !== 0 ? item.Messages[0].msg : "채팅 시작 전입니다."}</td>
+                                    <td>{Messages.length !== 0 ? Messages[0].msg : "채팅 시작 전입니다."}</td>
                                 </tr>
                            </tbody>
                        </table>

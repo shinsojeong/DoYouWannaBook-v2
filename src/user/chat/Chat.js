@@ -16,10 +16,20 @@ export default function Chat() {
     const scrollRef = useRef();
 
     const std_num = useSelector(state => state.user.user.std_num);
-    const book = useSelector(state => state.userBook.chat_book);
-    const chat = useSelector(state => state.chat.selected_chat);
-    const chat_code = chat.chat_code;
-    const messages = chat.msg;
+    const {
+        stdb_code,
+        stdb_img,
+        stdb_title,
+        lender,
+        borrower,
+        stdb_ret_date
+    } = useSelector(state => state.userBook.chat_book);
+    const {
+        chat_code,
+        msg,
+        part1,
+        part2
+    } = useSelector(state => state.chat.selected_chat);
 
     const [message, setMessage] = useState("");
     const [retDate, setRetDate] = useState("");
@@ -28,7 +38,7 @@ export default function Chat() {
         dispatch(
             changeBar(
                 "back", 
-                { title: `${chat.part1 === std_num ? chat.part2 : chat.part1}`, data: null }, 
+                { title: `${part1 === std_num ? part2 : part1}`, data: null }, 
                 "null",
                 () => history.goBack(),
                 null,
@@ -36,24 +46,24 @@ export default function Chat() {
             )
         );
         scrollToBottom();
-    }, [dispatch, history, chat, std_num]);
+    }, [dispatch, history, part1, part2, std_num]);
 
     //대여 정보 등록하기
     const register = debounce(() => {
-        if (chat.part1 === std_num) {
+        if (part1 === std_num) {
             dispatch(
                 registerLental(
-                    book.stdb_code, 
+                    stdb_code, 
                     retDate, 
-                    chat.part2
+                    part2
                 )
             );
         } else {
             dispatch(
                 registerLental(
-                    book.stdb_code, 
+                    stdb_code, 
                     retDate, 
-                    chat.part1
+                    part1
                 )
             );
         }
@@ -74,22 +84,22 @@ export default function Chat() {
     return (
         <div id="chat" className="contents">
             <div id="book_info">
-                <img src={book.stdb_img} alt="bookimg"/>
-                <p>{book.stdb_title}</p>
+                <img src={stdb_img} alt="bookimg"/>
+                <p>{stdb_title}</p>
             </div>
 
             <div id="chat_messages" ref={scrollRef}>
-                {messages.length !== 0 ?
-                messages.map((item) => {
+                {msg.length !== 0 ?
+                msg.map(({ sender, msg, created_at, msg, }) => {
                     return (
-                        item.sender === std_num ? 
+                        sender === std_num ? 
                         <div id="me">
-                            <p id="message">{item.msg}</p>
-                            <p id="time">{item.created_at.toString().slice(0,10)}</p>    
+                            <p id="message">{msg}</p>
+                            <p id="time">{created_at.toString().slice(0,10)}</p>    
                         </div>
                         : <div id="you">
-                            <p id="message">{item.msg}</p>
-                            <p id="time">{item.created_at.slice(0,10)+" "+item.created_at.slice(11,19)}</p>  
+                            <p id="message">{msg}</p>
+                            <p id="time">{created_at.slice(0,10)+" "+created_at.slice(11,19)}</p>  
                         </div>
                     )
                 })
@@ -97,8 +107,8 @@ export default function Chat() {
             </div>
 
             <div id="rent_info">
-                {book.lender === std_num ?
-                !book.borrower ?
+                {lender === std_num ?
+                !borrower ?
                     <div id="register">
                         <label>반납 예정일</label>
                         <input type="date" value={retDate||''} onChange={(e) => setRetDate(e.target.value)} />
@@ -106,15 +116,15 @@ export default function Chat() {
                     </div>
                     : 
                     <div id="info">
-                        <p>반납 예정일 : {book.stdb_ret_date.slice(0,10)}</p>
+                        <p>반납 예정일 : {stdb_ret_date.slice(0,10)}</p>
                     </div>
-                :!book.borrower ?
+                :!borrower ?
                 <div id="register">
                     <p>상대방이 반납 예정일을 등록하지 않았습니다.</p>
                 </div>
                 : 
                 <div id="info">
-                    <p>반납 예정일 : {book.stdb_ret_date.slice(0,10)}</p>
+                    <p>반납 예정일 : {stdb_ret_date.slice(0,10)}</p>
                 </div>
                 }
                 )
