@@ -9,8 +9,15 @@ export default function SearchLocation() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const info = useSelector(state => state.libBook.selected_book);
-    const location = useSelector(state => state.libBook.book_location);
+    const {
+        libb_title,
+        libb_author,
+        libb_code
+    } = useSelector(state => state.libBook.selected_book);
+    const { 
+        shelf,
+        bookshelf
+     } = useSelector(state => state.libBook.book_location);
 
     useEffect(() => {
         dispatch(
@@ -36,7 +43,7 @@ export default function SearchLocation() {
     const createBox = (idx, num) => {
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={(location.shelf === idx) && (location.bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
+                return(<div id={(shelf === idx) && (bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
             })
         );
     }
@@ -44,7 +51,7 @@ export default function SearchLocation() {
     const createShelf = (num) => { 
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={location.shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
+                return(<div id={shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
             })
         );
     }
@@ -65,9 +72,9 @@ export default function SearchLocation() {
                 </div>
                 <table id="book_info">
                     <tbody>
-                        <tr><td id="td_title">{info.libb_title}</td></tr>
-                        <tr><td>{info.libb_author}</td></tr>
-                        <tr><td>{info.libb_code}</td></tr>
+                        <tr><td id="td_title">{libb_title}</td></tr>
+                        <tr><td>{libb_author}</td></tr>
+                        <tr><td>{libb_code}</td></tr>
                     </tbody>
                 </table>
             </div>

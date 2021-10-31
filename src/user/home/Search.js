@@ -49,32 +49,32 @@ export default function Search() {
 
             <div id="search_result">
                 {searchResult.length !== 0 ?
-                    searchResult.map((item, index) => {
+                    searchResult.map(({ libb_img, libb_title, libb_author, libb_publisher, libb_pub_date, libb_state, libb_code }, index) => {
                         return (
                             <div className="item_wrap" key={index}>
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td rowSpan="5">
-                                                <img id="book_img" src={item.libb_img} alt="book-img" width="120px"/>
+                                                <img id="book_img" src={libb_img} alt="book-img" width="120px"/>
                                             </td>
-                                            <td id="title">{item.libb_title}</td>
+                                            <td id="title">{libb_title}</td>
                                         </tr>
                                         <tr>
-                                            <td>{item.libb_author}</td>
+                                            <td>{libb_author}</td>
                                         </tr>
                                         <tr>
-                                            <td>{item.libb_publisher}</td>
+                                            <td>{libb_publisher}</td>
                                         </tr>
                                         <tr>
-                                            <td>{item.libb_pub_date.slice(0,10)}</td>
+                                            <td>{libb_pub_date.slice(0,10)}</td>
                                         </tr>
                                         <tr>
-                                            <td>{item.libb_state}</td>
+                                            <td>{libb_state}</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button onClick={() => goDetail(item.libb_code)}>상세 정보</button>
+                                <button onClick={() => goDetail(libb_code)}>상세 정보</button>
                             </div>
                         )
                     })

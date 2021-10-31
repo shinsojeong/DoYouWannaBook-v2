@@ -47,12 +47,12 @@ export default function Home() {
                 <p className="title">· 추천 신작 도서</p>
                 <div id="list">
                     {recommendedBook.length !== 0 ? 
-                        recommendedBook.map((item) => {
+                        recommendedBook.map(({ libb_code, libb_img, libb_title, libb_author } ) => {
                             return (
-                                <div className="list_item" key={item.libb_code}>
-                                    <div className="img-container"><img id="book_img" src={item.libb_img} alt="book-img" width="120px"/></div>
-                                    <p id="book_name">{item.libb_title}</p>
-                                    <p id="author">{item.libb_author}</p>
+                                <div className="list_item" key={libb_code}>
+                                    <div className="img-container"><img id="book_img" src={libb_img} alt="book-img" width="120px"/></div>
+                                    <p id="book_name">{libb_title}</p>
+                                    <p id="author">{libb_author}</p>
                                 </div>
                             );
                         })
