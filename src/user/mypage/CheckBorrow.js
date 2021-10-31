@@ -38,21 +38,21 @@ export default function CheckBorrow() {
     return (
         <div id="check_borrow" className="contents">
             {borrowList.length !== 0 ? 
-                borrowList.map((item) => {
+                borrowList.map(({ libb_code, libb_img, libb_title, libb_ret_date }) => {
                     return (
-                        <table key={item.libb_code}>
+                        <table key={libb_code}>
                             <tbody>
                                 <tr>
                                     <td rowSpan="3">
-                                        <img src={item.libb_img} alt="bookImage" width="120px"/>
+                                        <img src={libb_img} alt="bookImage" width="120px"/>
                                     </td>
-                                    <td id="td_title">{item.libb_title}</td>
+                                    <td id="td_title">{libb_title}</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.libb_ret_date.slice(0,10)}</td>
+                                    <td>{libb_ret_date.slice(0,10)}</td>
                                 </tr>
                                 <tr>
-                                    <button onClick={() => extend(item.libb_code, item.libb_ret_date)}>대출 연장</button>
+                                    <button onClick={() => extend(libb_code, libb_ret_date)}>대출 연장</button>
                                 </tr>
                             </tbody>
                         </table>

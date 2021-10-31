@@ -29,19 +29,19 @@ export default function CheckStdBorrow() {
     return (
         <div id="check_std_borrow" className="contents">
             {borrow_list.length !== 0 ? 
-                borrow_list.map((item) => {
+                borrow_list.map(({ stdb_code, stdb_img, stdb_title, lender, stdb_ret_date }) => {
                     return(
-                        <table key={item.stdb_code}>
+                        <table key={stdb_code}>
                             <tbody>
                                 <tr>
-                                    <td rowSpan="3"><img src={item.stdb_img} width="120px" alt="bookimg"/></td>
-                                    <td id="td_title">{item.stdb_title}</td>
+                                    <td rowSpan="3"><img src={stdb_img} width="120px" alt="bookimg"/></td>
+                                    <td id="td_title">{stdb_title}</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.lender}의 도서</td>
+                                    <td>{lender}의 도서</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.stdb_ret_date.slice(0,10)} 반납必</td>
+                                    <td>{stdb_ret_date.slice(0,10)} 반납必</td>
                                 </tr>
                             </tbody>
                         </table>
