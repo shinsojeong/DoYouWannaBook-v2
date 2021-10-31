@@ -64,32 +64,43 @@ export default function StdMain() {
 
             <div id="search_result" className="contents">
                 {searchResult.length !== 0 ?
-                    searchResult.map((item, index) => {
+                    searchResult.map(({ 
+                        stdb_img,
+                        stdb_title,
+                        stdb_author,
+                        stdb_publisher,
+                        stdb_pub_date,
+                        stdb_rental_fee,
+                        stdb_rental_date,
+                        stdb_comment,
+                        stdb_code,
+                        lender
+                    }, index) => {
                         return (
                             <div className="item_wrap" key={index}>
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td rowSpan="4">
-                                                <img id="book_img" src={item.stdb_img} alt="book-img" width="120px"/>
+                                                <img id="book_img" src={stdb_img} alt="book-img" width="120px"/>
                                             </td>
-                                            <td id="td_title">{item.stdb_title}</td>
+                                            <td id="td_title">{stdb_title}</td>
                                         </tr>
                                         <tr>
-                                            <td id="td_content">{item.stdb_author} | {item.stdb_publisher}</td>
+                                            <td id="td_content">{stdb_author} | {stdb_publisher}</td>
                                         </tr>
                                         <tr>
-                                            <td id="td_content">출판일 : {item.stdb_pub_date.slice(0,10)}</td>
+                                            <td id="td_content">출판일 : {stdb_pub_date.slice(0,10)}</td>
                                         </tr>
                                         <tr>
-                                            <td id="td_content">{item.stdb_rental_fee}원 ({item.stdb_rental_date} 대여)</td>
+                                            <td id="td_content">{stdb_rental_fee}원 ({stdb_rental_date} 대여)</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div className="detail">
-                                    <p id="td_content">{item.stdb_comment}</p>
+                                    <p id="td_content">{stdb_comment}</p>
                                 </div>
-                                <button onClick={() => goChat(item.stdb_code, item.lender)}>대여자와 채팅하기</button>
+                                <button onClick={() => goChat(stdb_code, lender)}>대여자와 채팅하기</button>
                             </div>
                         )
                     })

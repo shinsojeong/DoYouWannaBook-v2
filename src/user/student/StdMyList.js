@@ -37,25 +37,37 @@ export default function StdMyList() {
     return (
         <div id="std_my_list" className="contents">
             {bookList.length !== 0 ? 
-            bookList.map((item) => {
+            bookList.map(({ 
+                stdb_code, 
+                stdb_img, 
+                stdb_title, 
+                stdb_author, 
+                stdb_publisher, 
+                stdb_pub_date, 
+                stdb_rental_fee, 
+                stdb_rental_date,
+                stdb_state,
+                stdb_ret_date,
+                stdb_comment
+            }) => {
                 return(
-                    <div id={item.stdb_code} className="list_item">
+                    <div id={stdb_code} className="list_item">
                         <table id="table1">
                             <tbody>
                                 <tr>
                                     <td rowSpan="4">
-                                        <img id="book_img" src={item.stdb_img} alt="book-img" width="120px"/>
+                                        <img id="book_img" src={stdb_img} alt="book-img" width="120px"/>
                                     </td>
-                                    <td id="td_title">{item.stdb_title}</td>
+                                    <td id="td_title">{stdb_title}</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.stdb_author} | {item.stdb_publisher}</td>
+                                    <td>{stdb_author} | {stdb_publisher}</td>
                                 </tr>
                                 <tr>
-                                    <td>출판일 : {item.stdb_pub_date.slice(0,10)}</td>
+                                    <td>출판일 : {stdb_pub_date.slice(0,10)}</td>
                                 </tr>
                                 <tr>
-                                    <td>{item.stdb_rental_fee} ({item.stdb_rental_date}대여)</td>
+                                    <td>{stdb_rental_fee} ({stdb_rental_date}대여)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -65,18 +77,18 @@ export default function StdMyList() {
                                 <tbody>
                                     <tr>
                                         <td id="td1">대여 상태</td>
-                                        <td id="td2">{item.stdb_state ? "대여가능" : "대여중"}</td>
+                                        <td id="td2">{stdb_state ? "대여가능" : "대여중"}</td>
                                     </tr>
                                     <tr>
                                         <td id="td1">반납 예정일</td>
-                                        <td id="td2">{item.stdb_ret_date !== null ? item.stdb_ret_date : "정보 없음"}</td>
+                                        <td id="td2">{stdb_ret_date !== null ? stdb_ret_date : "정보 없음"}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <p>{item.stdb_comment}</p>
+                            <p>{stdb_comment}</p>
                         </div>
 
-                        <button onClick={() => deleteInfo(item.stdb_code)}>삭제</button>
+                        <button onClick={() => deleteInfo(stdb_code)}>삭제</button>
                     </div>
                 )
             }) : <p id="message">등록된 도서가 없습니다.</p>}
