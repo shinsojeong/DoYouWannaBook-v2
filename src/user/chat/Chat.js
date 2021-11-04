@@ -90,14 +90,14 @@ export default function Chat() {
 
             <div id="chat_messages" ref={scrollRef}>
                 {msg.length !== 0 ?
-                msg.map(({ sender, msg, created_at, msg, }) => {
+                msg.map(({ sender, msg, created_at }) => {
                     return (
-                        sender === std_num ? 
-                        <div id="me">
+                        sender.toString() === std_num ? 
+                        <div id="me" key="created_at">
                             <p id="message">{msg}</p>
                             <p id="time">{created_at.toString().slice(0,10)}</p>    
                         </div>
-                        : <div id="you">
+                        : <div id="you" key="created_at">
                             <p id="message">{msg}</p>
                             <p id="time">{created_at.slice(0,10)+" "+created_at.slice(11,19)}</p>  
                         </div>
