@@ -48,15 +48,23 @@ export const searchBook = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/admin/admin_search_book?keyword=${keyword}`, { withCredentials: true });
-        if (res.data.code === 406) {
-            alert(res.data.message);
+        const { 
+            data: { 
+                code, 
+                message,
+                status,
+                data
+            } 
+        } = await axios.get(`${url}/admin/admin_search_book?keyword=${keyword}`, { withCredentials: true });
+        
+        if (code === 406) {
+            alert(message);
             return history.push("/user/home");
         }
-        else if (res.data.status === "OK") {
+        else if (status === "OK") {
             dispatch({
                 type: SEARCHBOOK,
-                payload: res.data.data
+                payload: data
             });
         } else {
             dispatch({
@@ -75,16 +83,23 @@ export const getBook = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/admin/admin_get_info?libb_code=${libb_code}`, { withCredentials: true });
+        const { 
+            data: { 
+                code, 
+                message,
+                status,
+                data
+            }
+        } = await axios.get(`${url}/admin/admin_get_info?libb_code=${libb_code}`, { withCredentials: true });
 
-        if (res.data.code === 406) {
-            alert(res.data.message);
+        if (code === 406) {
+            alert(message);
             return history.push("/user/home");
         }
-        else if (res.data.status === "OK") {
+        else if (status === "OK") {
             dispatch({
                 type: GETBOOK,
-                payload: res.data.data
+                payload: data
             });
             return history.push("/admin/update-book");
         } else {
@@ -103,12 +118,18 @@ export const uploadImg = (
     formData
 ) => async() => {
     try {
-        const res = await axios.post(`${url}/upload/libimg`, formData, { withCredentials: "true" });
+        const { 
+            data: { 
+                message,
+                status,
+                data
+            }
+        } = await axios.post(`${url}/upload/libimg`, formData, { withCredentials: "true" });
 
-        if (res.data.status === "OK") {
-            return res.data.data.url;
+        if (status === "OK") {
+            return data.url;
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -133,7 +154,7 @@ export const createBook = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/admin/admin_create_book`, {
+        const { data } = await axios.post(`${url}/admin/admin_create_book`, {
             libb_code: code,
             libb_title: title,
             libb_author: author,
@@ -143,26 +164,26 @@ export const createBook = (
             libb_isbn: isbn,
             libb_barcode: barcode,
             libb_class: classCode,
-            room: room,
-            bookshelf: bookshelf,
-            shelf: shelf,
+            room,
+            bookshelf,
+            shelf,
             libb_img: imgUrl
         }, { 
             withCredentials: "true" 
         });
 
-        if (res.data.code === 406) {
-            alert(res.data.message);
+        if (data.code === 406) {
+            alert(data.message);
             return history.push("/user/home");
         }
-        else if (res.data.status === "OK") {
+        else if (data.status === "OK") {
             dispatch({
                 type: CREATEBOOK
             });
-            alert(res.data.message);
+            alert(data.message);
             return history.push("/admin/home");
         } else {
-            return alert(res.data.message);
+            return alert(data.message);
         }
     } catch (err) {
         return console.log(err);
@@ -188,7 +209,13 @@ export const updateBook = (
     history
 ) => async() => {
     try {
-        const res = await axios.post(`${url}/admin/admin_update_book`, {
+        const { 
+            data: { 
+                code, 
+                message,
+                status
+            }
+        } = await axios.post(`${url}/admin/admin_update_book`, {
             pre_code, 
             libb_code, 
             libb_title, 
@@ -207,10 +234,10 @@ export const updateBook = (
             withCredentials: true 
         });
 
-        if (res.data.code === 406) {
-            alert(res.data.message);
+        if (code === 406) {
+            alert(message);
             return history.push("/user/home");
-        } else if (res.data.status === "OK") {
+        } else if (status === "OK") {
             alert("수정이 완료되었습니다.");
             return history.push("/admin/home");
         } else {
@@ -227,12 +254,18 @@ export const deleteBook = (
     history
 ) => async() => {
     try {
-        const res = await axios.get(`${url}/admin/admin_delete_book?libb_code=${libb_code}`, { withCredentials: true });
+        const { 
+            data: { 
+                code, 
+                message,
+                status
+            }
+        } = await axios.get(`${url}/admin/admin_delete_book?libb_code=${libb_code}`, { withCredentials: true });
 
-        if (res.data.code === 406) {
-            alert(res.data.message);
+        if (code === 406) {
+            alert(message);
             return history.push("/user/home");
-        } else if (res.data.status === "OK") {
+        } else if (status === "OK") {
             alert("삭제가 완료되었습니다.");
             return history.push("/admin/home");
         } else {
@@ -244,7 +277,7 @@ export const deleteBook = (
 }
 
 //리덕스 리셋
-export const reset = () => (dispatch) => {
+export const resetAdmin = () => (dispatch) => {
     dispatch({
         type: RESET
     });
@@ -267,28 +300,18 @@ const admin = (state = INIT_ADMIN_STATE, action) => {
                 selected_book: action.payload.selected_book
             }
         case UPLOADIMG:
-            return {
-                ...state
-            }
+            return state;
         case CREATEBOOK:
-            return {
-                ...state
-            }
+            return state;
         case UPDATEBOOK:
             return { 
                 ...state, 
                 selected_book: INIT_ADMIN_STATE.selected_book
             }
         case DELETEBOOK:
-            return {
-                ...state
-            }
+            return state;
         case RESET:
-            return {
-                ...state,
-                search_result: INIT_ADMIN_STATE.search_result,
-                selected_book: INIT_ADMIN_STATE.selected_book
-            }
+            return INIT_ADMIN_STATE;
         default:
             return state;
     }

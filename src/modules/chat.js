@@ -16,6 +16,7 @@ const CREATECHAT = "CREATECHAT";
 const GETCHATLIST = "GETCHATLIST";
 const SENDCHAT = "SENDCHAT";
 const GETCHATDETAIL = "GETCHATDETAIL";
+const RESETCHAT = "RESETCHAT";
 
 //채팅방 생성
 export const createChat = (
@@ -24,7 +25,13 @@ export const createChat = (
     part2
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/chat/create_chat`, {
+        const { 
+            data: {
+                status,
+                data,
+                message
+            } 
+        } = await axios.post(`${url}/chat/create_chat`, {
             stdb_code, 
             part1, 
             part2
@@ -32,13 +39,13 @@ export const createChat = (
             withCredentials: true 
         });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: CREATECHAT,
-                payload: res.data.data
+                payload: data
             });
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -50,12 +57,17 @@ export const getChatList = (
     std_num
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/chat/get_chat_list?std_num=${std_num}`, { withCredentials: true })
+        const { 
+            data: {
+                status,
+                data
+            } 
+        } = await axios.get(`${url}/chat/get_chat_list?std_num=${std_num}`, { withCredentials: true })
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETCHATLIST,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -70,7 +82,11 @@ export const sendChat = (
     msg
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/chat/send_chat`, {
+        const { 
+            data: { 
+                status 
+            }
+        } = await axios.post(`${url}/chat/send_chat`, {
             chat_code, 
             std_num, 
             msg
@@ -78,7 +94,7 @@ export const sendChat = (
             withCredentials: true 
         });
         
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: SENDCHAT,
                 payload: {
@@ -101,21 +117,27 @@ export const getChatDetail1 = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/chat/get_chat_detail1`, {
+        const { 
+            data: {
+                status,
+                data,
+                message
+            } 
+        } = await axios.post(`${url}/chat/get_chat_detail1`, {
             stdb_code, 
             std_num
         }, { 
             withCredentials: true 
         });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETCHATDETAIL,
-                payload: res.data.data
+                payload: data
             });
             return history.push('/user1/chat');  //채팅방 내로 이동
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -129,26 +151,39 @@ export const getChatDetail2 = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/chat/get_chat_detail2`, {
+        const { 
+            data: {
+                status,
+                data,
+                message
+            }
+        } = await axios.post(`${url}/chat/get_chat_detail2`, {
             chat_code, 
             std_num
         }, { 
             withCredentials: true 
         });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETCHATDETAIL,
-                payload: res.data.data
+                payload: data
             });
             return history.push('/user1/chat');  //채팅방 내로 이동
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
     }
 }
+
+//리덕스 리셋
+export const resetChat = () => (dispatch) => {
+    dispatch({
+        type: RESETCHAT
+    });
+};
 
 
 
@@ -186,6 +221,8 @@ const chat = (state = INIT_CHAT_STATE, action) => {
                     msg: action.payload.messages
                 }
             }
+        case RESETCHAT:
+            return INIT_CHAT_STATE;
         default:
             return state;
     }

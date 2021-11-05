@@ -22,12 +22,12 @@ export const changeBar = (
     size
 ) => ({
     type: CHANGEBAR,
-    left: left,
-    center: center,
-    right: right,
-    lfunc: lfunc,
-    rfunc: rfunc,
-    size: size
+    left,
+    center,
+    right,
+    lfunc,
+    rfunc,
+    size
 });
 
 

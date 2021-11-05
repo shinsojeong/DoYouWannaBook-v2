@@ -34,6 +34,7 @@ const GETBOOKLOC = "GETBOOKLOC";
 const BORROW = "BORROW";
 const GETMYPAGEBORROWLIST = "GETMYPAGEBORROWLIST";
 const EXTENDDATE = "EXTENDDATE";
+const RESETLIBBOOK = "RESETLIBBOOK";
 
 
 //도서관 도서 검색
@@ -41,12 +42,17 @@ export const searchBook = (
     keyword
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/libbook/search_book?keyword=${keyword}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/libbook/search_book?keyword=${keyword}`, { withCredentials: true });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: SEARCHBOOK,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -59,15 +65,21 @@ export const selectBook = (
     libb_code
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/libbook/search_book_detail?libb_code=${libb_code}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data,
+                message
+            }
+        } = await axios.get(`${url}/libbook/search_book_detail?libb_code=${libb_code}`, { withCredentials: true });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: SELECTBOOK,
-                payload: res.data.data
+                payload: data
             });
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -77,12 +89,17 @@ export const selectBook = (
 //추천 도서
 export const getRecommendedBook = () => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/libbook/get_recommended_book`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/libbook/get_recommended_book`, { withCredentials: true });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETRECOMMENDEDBOOK,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -95,12 +112,17 @@ export const getBookLoc = (
     libb_class
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/libbook/get_book_location?libb_class=${libb_class}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/libbook/get_book_location?libb_class=${libb_class}`, { withCredentials: true });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETBOOKLOC,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -114,20 +136,25 @@ export const borrow = (
     std_num
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/libbook/borrow`, {
+        const {
+            data: {
+                status,
+                message
+            }
+        } = await axios.post(`${url}/libbook/borrow`, {
             libb_barcode: barcode, 
             borrower: std_num
         }, { 
             withCredentials: true 
         });
 
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: BORROW
             });
             return alert("대출 성공");
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -139,12 +166,17 @@ export const getMypageBorrowList = (
     std_num
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/libbook/mypage_borrow_list?std_num=${std_num}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/libbook/mypage_borrow_list?std_num=${std_num}`, { withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETMYPAGEBORROWLIST,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -159,7 +191,12 @@ export const extendDate = (
     libb_ret_date
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/libbook/mypage_borrow_extend`, {
+        const {
+            data: {
+                status,
+                message
+            }
+        } = await axios.post(`${url}/libbook/mypage_borrow_extend`, {
             std_num: std_num,
             libb_code: libb_code,
             libb_ret_date: libb_ret_date
@@ -167,16 +204,23 @@ export const extendDate = (
             withCredentials: true 
         });
         
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: EXTENDDATE
             });
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
     }
 }
+
+//리덕스 리셋
+export const resetLibbook = () => (dispatch) => {
+    dispatch({
+        type: RESETLIBBOOK
+    });
+};
 
 
 //reducer
@@ -212,6 +256,8 @@ const libBook = (state = INIT_LIBBOOK_STATE, action) => {
             }
         case EXTENDDATE:
             return state;
+        case RESETLIBBOOK:
+            return INIT_LIBBOOK_STATE;
         
         default:
             return state;

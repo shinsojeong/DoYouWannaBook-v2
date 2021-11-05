@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { resetAdmin } from './admin';
+import { resetChat } from './chat';
+import { resetLibbook } from './libBook';
+import { resetUserbook } from './userBook';
+
 const url = process.env.REACT_APP_SERVER;
 
 //initial state
@@ -30,25 +35,30 @@ export const register = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/auth/join`, {
-            std_num: std_num, 
-            name: name, 
-            dept: dept, 
-            gender: gender, 
-            ph_num: ph_num, 
-            email: email, 
-            password: password
+        const {
+            data: {
+                code,
+                message
+            }
+        } = await axios.post(`${url}/auth/join`, {
+            std_num, 
+            name, 
+            dept, 
+            gender, 
+            ph_num, 
+            email, 
+            password
         }, { 
             withCredentials: true 
         })
         
-        if (res.data.code === 200) {
+        if (code === 200) {
             dispatch({
                 type: REGISTER
             });
             history.push("/login");
         }
-        return alert(res.data.message);
+        return alert(message);
     } catch (err) {
         return console.log(err);
     }
@@ -61,35 +71,41 @@ export const login = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/auth/login`, {
+        const {
+            data: {
+                code,
+                message,
+                data
+            }
+        } = await axios.post(`${url}/auth/login`, {
             std_num: std_num, 
             password: password
         }, { 
             withCredentials: true 
         });
         
-        if (res.data.code  ===200) {
+        if (code === 200) {
             dispatch({
                 type: LOGIN,
                 payload: {
                     std_num: std_num,
-                    name: res.data.data.name,
-                    dept: res.data.data.dept
+                    name: data.name,
+                    dept: data.dept
                 }
             });
             return history.push("/user/home");
-        } else if (res.data.code === 20911) {
+        } else if (code === 20911) {
             dispatch({
                 type: LOGIN,
                 payload: {
                     std_num: std_num,
-                    name: res.data.data.name,
-                    dept: res.data.data.dept
+                    name: data.name,
+                    dept: data.dept
                 }
             });
             return history.replace("/admin/home");
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.log(err);
@@ -105,22 +121,27 @@ export const findPw = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/mail/findpw`, {
-            std_num: std_num,
-            name: name,
-            ph_num: ph_num,
-            email: email
+        const {
+            data: {
+                code,
+                message
+            }
+        } = await axios.post(`${url}/mail/findpw`, {
+            std_num,
+            name,
+            ph_num,
+            email
         }, { 
             withCredentials: true 
         });
         
-        if (res.data.code === 200) {
+        if (code === 200) {
             dispatch({
                 type: FINDPW
             });
             return history.push("/user1/find_pw_res");
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.log(err);
@@ -132,12 +153,20 @@ export const logout = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/auth/logout`, { withCredentials: true });
+        const {
+            data: {
+                code
+            }
+        } = await axios.get(`${url}/auth/logout`, { withCredentials: true });
 
-        if (res.data.code === 200) {
+        if (code === 200) {
             dispatch({
                 type: LOGOUT
             });
+            dispatch(resetAdmin());
+            dispatch(resetChat());
+            dispatch(resetLibbook());
+            dispatch(resetUserbook());
         } else {
             alert("이미 로그아웃 상태입니다.");
         }
@@ -153,23 +182,16 @@ const user = (state = INIT_USER_STATE, action) => {
     switch(action.type) {
 
         case REGISTER:
-            return { 
-                ...state
-            }
+            return state;
         case LOGIN:
             return {
                 ...state,
                 user: action.payload
             }
         case FINDPW:
-            return {
-                ...state
-            }
+            return state;
         case LOGOUT:
-            return {
-                ...state,
-                user: INIT_USER_STATE.user
-            }
+            return INIT_USER_STATE;
         
         default:
             return state;
