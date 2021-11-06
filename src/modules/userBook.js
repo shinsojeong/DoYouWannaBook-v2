@@ -19,6 +19,7 @@ const GETMYBOOKLIST = "GETMYBOOKLIST";
 const GETBORROWSTDBOOKLIST = "GETBORROWSTDBOOKLIST";
 const GETCHATBOOK = "GETCHATBOOK";
 const REGISTERLENTAL = "REGISTERLENTAL";
+const RESETUSERBOOK = "RESETUSERBOOK";
 
 
 //학생 대여 검색
@@ -26,12 +27,17 @@ export const searchStdBook = (
     keyword
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/stdbook/search_std_book?keyword=${keyword}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/stdbook/search_std_book?keyword=${keyword}`, { withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: SEARCHSTDBOOK,
-                payload: res.data.data
+                payload: data
             });
         }
     } catch (err) {
@@ -44,11 +50,17 @@ export const uploadImg = (
     formData
 ) => async() => {
     try {
-        const res = await axios.post(`${url}/upload/stdimg`, formData, { withCredentials: "true" });
-        if (res.data.status === "OK") {
-            return res.data.data.url;
+        const {
+            data: {
+                status,
+                message,
+                data
+            }
+        } = await axios.post(`${url}/upload/stdimg`, formData, { withCredentials: "true" });
+        if (status === "OK") {
+            return data.url;
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch(err) {
         return console.error(err);
@@ -70,7 +82,11 @@ export const createStdBook = (
     history
 ) => async() => {
     try {
-        const res = await axios.post(`${url}/stdbook/create_std_book`, {
+        const {
+            data: {
+                status
+            }
+        } = await axios.post(`${url}/stdbook/create_std_book`, {
             std_num, 
             stdb_title, 
             stdb_author,
@@ -85,7 +101,7 @@ export const createStdBook = (
             withCredentials: true 
         });
         
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             alert("도서 등록 완료");
             return history.push("/user/std-main");
         }
@@ -100,15 +116,20 @@ export const deleteStdBook = (
     history
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/stdbook/delete_std_book?stdb_code=${stdb_code}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                message
+            }
+        } = await axios.get(`${url}/stdbook/delete_std_book?stdb_code=${stdb_code}`, { withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: DELETESTDBOOK
             });
             return alert("삭제가 완료되었습니다.");
         } else {
-            alert(res.data.message);
+            alert(message);
             return history.push("/user/std-main");
         }
     } catch (err)  {
@@ -121,15 +142,21 @@ export const getMyBookList = (
     std_num
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/stdbook/get_my_book_list?std_num=${std_num}`,{ withCredentials: true });
+        const {
+            data: {
+                status,
+                message,
+                data
+            }
+        } = await axios.get(`${url}/stdbook/get_my_book_list?std_num=${std_num}`,{ withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETMYBOOKLIST,
-                payload: res.data.data
+                payload: data
             });
         } else {
-            return alert(res.data.message);
+            return alert(message);
         }
     } catch (err) {
         return console.error(err);
@@ -141,12 +168,17 @@ export const getBorrowStdBookList = (
     std_num
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/stdbook/mypage_std_borrow_list?std_num=${std_num}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/stdbook/mypage_std_borrow_list?std_num=${std_num}`, { withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETBORROWSTDBOOKLIST,
-                payload: res.data.data
+                payload: data
             });
         } else {
             dispatch({
@@ -164,12 +196,17 @@ export const getChatBook = (
     stdb_code
 ) => async(dispatch) => {
     try {
-        const res = await axios.get(`${url}/stdbook/get_chat_book?stdb_code=${stdb_code}`, { withCredentials: true });
+        const {
+            data: {
+                status,
+                data
+            }
+        } = await axios.get(`${url}/stdbook/get_chat_book?stdb_code=${stdb_code}`, { withCredentials: true });
     
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: GETCHATBOOK,
-                payload: res.data.data
+                payload: data
             });
         } else {
             dispatch({
@@ -189,7 +226,11 @@ export const registerLental = (
     borrower
 ) => async(dispatch) => {
     try {
-        const res = await axios.post(`${url}/stdbook/register_lental`, {
+        const {
+            data: {
+                status
+            }
+        } = await axios.post(`${url}/stdbook/register_lental`, {
             stdb_code, 
             stdb_ret_date, 
             borrower
@@ -197,7 +238,7 @@ export const registerLental = (
             withCredentials: true 
         })
         
-        if (res.data.status === "OK") {
+        if (status === "OK") {
             dispatch({
                 type: REGISTERLENTAL,
                 payload: {
@@ -212,24 +253,27 @@ export const registerLental = (
     }
 }
 
+//리덕스 리셋
+export const resetUserbook = () => (dispatch) => {
+    dispatch({
+        type: RESETUSERBOOK
+    });
+};
+
 
 //reducer
-const userBook = (state = INIT_USERBOOK_STATE, action) => {
-    switch(action.type) {
+const userBook = (state = INIT_USERBOOK_STATE, { type, payload }) => {
+    switch(type) {
 
         case SEARCHSTDBOOK:
             return {
                 ...state,
-                search_list: action.payload
+                search_list: payload
             }
         case UPLOADIMG:
-            return {
-                ...state
-            }
+            return state;
         case CREATESTDBOOK:
-            return { 
-                ...state
-            }
+            return state;
         case DELETESTDBOOK:
             return {
                 ...state,
@@ -238,37 +282,30 @@ const userBook = (state = INIT_USERBOOK_STATE, action) => {
         case GETMYBOOKLIST:
             return {
                 ...state,
-                my_book_list: action.payload
+                my_book_list: payload
             }
         case GETBORROWSTDBOOKLIST:
             return {
                 ...state,
-                borrow_book_list: action.payload
+                borrow_book_list: payload
             }
         case GETCHATBOOK:
             return {
                 ...state,
-                chat_book: action.payload
+                chat_book: payload
             }
         case REGISTERLENTAL:
             return {
                 ...state,
                 chat_book: {
-                    stdb_code: state.chat_book.stdb_code,
-                    stdb_title: state.chat_book.stdb_title,
-                    stdb_author: state.chat_book.stdb_author,
-                    stdb_publisher: state.chat_book.stdb_publisher,
-                    stdb_pub_date: state.chat_book.stdb_pub_date,
-                    stdb_rental_date: state.chat_book.stdb_rental_date,
-                    stdb_rental_fee: state.chat_book.stdb_rental_fee,
+                    ...state.chat_book,
                     stdb_state: false,
-                    stdb_comment: state.chat_book.stdb_comment,
-                    stdb_ret_date: action.payload.stdb_ret_date,
-                    stdb_img: state.chat_book.stdb_img,
-                    lender: state.chat_book.lender,
-                    borrower: action.payload.borrower
+                    stdb_ret_date: payload.stdb_ret_date,
+                    borrower: payload.borrower
                 }
             }
+        case RESETUSERBOOK:
+            return INIT_USERBOOK_STATE;
         
         default:
             return state;
