@@ -85,7 +85,7 @@ export default function StdCreate() {
             <textarea className="textarea" placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요." {...comment}/>
             <div id="inputImg">
                 <p>도서 이미지</p>
-                <label for="stdb" id="upload">업로드</label>
+                <label htmlFor="stdb" id="upload">업로드</label>
                 <input type="file" id="stdb" {...stdb}></input>
             </div>
         </div>
