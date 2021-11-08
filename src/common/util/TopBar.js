@@ -5,28 +5,28 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import '../../styles/top_bar.scss';
 
 export default function TopBar() {
-    const topbar = useSelector(state => state.topBar); //left, center, right, lfunc, rfunc, size
+    const { left, right, lfunc, rfunc, size, center } = useSelector(state => state.topBar); //left, center, right, lfunc, rfunc, size
 
     const getLeft = () => {
-        if (topbar.left === "back") {
+        if (left === "back") {
             return (
-                <div className="back" onClick={topbar.lfunc}>
+                <div className="back" onClick={lfunc}>
                     <IoChevronBackSharp />
                 </div>
             );
-        } else if (topbar.left === "null") {
+        } else if (left === "null") {
             return (
                 <div className="null"></div>
             );
-        } else if (topbar.left === "menu") {
+        } else if (left === "menu") {
             return (
                 <div className="menu">
                     <AiOutlineMenu />
                 </div>
             );
-        } else if (topbar.left === "cancel") {
+        } else if (left === "cancel") {
             return (
-                <div className="cancel" onClick={topbar.lfunc}>
+                <div className="cancel" onClick={lfunc}>
                     <p>취소</p>
                 </div>
             );
@@ -34,19 +34,19 @@ export default function TopBar() {
     }
 
     const getRight = () => {
-        if (topbar.right === "cancel") {              //x표시
+        if (right === "cancel") {              //x표시
             return (
-                <div className="cancel" onClick={topbar.rfunc}>
+                <div className="cancel" onClick={rfunc}>
                     <IoCloseSharp />
                 </div>
             );
-        } else if (topbar.right === "create") {
+        } else if (right === "create") {
             return (
-                <div className="create" onClick={topbar.rfunc}>
+                <div className="create" onClick={rfunc}>
                     <p>등록</p>
                 </div>
             );
-        } else if (topbar.right === "null") {
+        } else if (right === "null") {
             return (
                 <div className="null"></div>
             );
@@ -54,7 +54,7 @@ export default function TopBar() {
     }
     
     return (
-        <header className="topBar" id={topbar.size}>
+        <header className="topBar" id={size}>
             
             {/* left option : {back, null, cancel} */}
             <div className="left">
@@ -63,11 +63,11 @@ export default function TopBar() {
 
             {/* center option : {title}, {date, null} */}
             <div className="center">
-                <p className="title">{topbar.center.title}</p>
-                {topbar.center.data !== null 
+                <p className="title">{center.title}</p>
+                {center.data !== null 
                 || 
                 <p className="data">
-                    {topbar.center.data}
+                    {center.data}
                 </p>
                 }
             </div>

@@ -8,7 +8,7 @@ export default function Landing() {
 
     useEffect(() => {
         setTimeout(() => {
-            history.replace('/login');
+            history.replace("/login");
         }, 4000);
     });
 

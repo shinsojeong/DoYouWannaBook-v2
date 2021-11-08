@@ -86,8 +86,8 @@ export default function Join() {
             <input className="input" type="password" id="pwCheck" placeholder="패스워드 확인" required {...pwCheck}/>
             <input className="input" type="text" id="name" placeholder="이름" required {...name}/>
             <select className="inputSelect" placeholder="학과" required {...dept}>
-                { option.map((item) => {
-                    return <option key={item.label} value={item.value}>{item.label}</option>
+                { option.map(({ value, label }) => {
+                    return <option key={label} value={value}>{label}</option>
                 })}
             </select>
             <div id="gender_input">
