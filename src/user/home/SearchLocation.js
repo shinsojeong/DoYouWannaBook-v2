@@ -35,7 +35,7 @@ export default function SearchLocation() {
     const createRow = (row, num) => {
         return(
             [...Array(row)].map((n, index) => {
-                return(<div className="boxRow" key={index}>{createBox(index+1,num)}</div>)
+                return(<div key={index} className="boxRow">{createBox(index+1,num)}</div>)
             })
         );
     }
@@ -43,7 +43,7 @@ export default function SearchLocation() {
     const createBox = (idx, num) => {
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={(shelf === idx) && (bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
+                return(<div key={index} id={(shelf === idx) && (bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
             })
         );
     }
@@ -51,7 +51,7 @@ export default function SearchLocation() {
     const createShelf = (num) => { 
         return(
             [...Array(num)].map((n, index) => {
-                return(<div id={shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
+                return(<div key={index} id={shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
             })
         );
     }
