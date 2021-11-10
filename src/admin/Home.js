@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { changeBar } from '../modules/topBar';
-import { reset } from '../modules/admin';
+import { resetAdmin } from '../modules/admin';
 import { logout } from '../modules/user';
 import { AiOutlineBook } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
@@ -40,7 +40,7 @@ export default function Home() {
 
     //도서 조회/수정/삭제로 이동
     const goSearchBook = debounce(async() => {
-        await dispatch(reset());
+        await dispatch(resetAdmin());
         history.push("/admin/search-book");
     }, 800);
 
