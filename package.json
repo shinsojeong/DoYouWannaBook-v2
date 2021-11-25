@@ -10,10 +10,8 @@
   "scripts": {
     "client": "react-scripts start",
     "server": "nodemon ./server/app.js --ignore sessions/*",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "react-scripts build"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "proxy": "http://localhost:8001/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shinsojeong/DoYouWannaBook-v2.git"
