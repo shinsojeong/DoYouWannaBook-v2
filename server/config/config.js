@@ -13,15 +13,14 @@ const development = {
 const production = {
   username: env.MYSQL_USERNAME,
   password: env.MYSQL_PASSWORD,
-  database: env.MYSQL_DATABASE_TEST,
-  host: env.MYSQL_HOST,
-  dialect: "mysql"
+  database: env.MYSQL_DATABASE_PROD,
+  host: env.MYSQL_HOST
 };
 
 const test = {
   username: env.MYSQL_USERNAME,
   password: env.MYSQL_PASSWORD,
-  database: env.MYSQL_DATABASE_PROD,
+  database: env.MYSQL_DATABASE_TEST,
   host: env.MYSQL_HOST,
   dialect: "mysql"
 };
