@@ -4,11 +4,13 @@
   "engines": {
     "node": "14.15.4"
   },
+  "proxy": "https://doyouwannabook.herokuapp.com:8001",
   "description": "",
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
     "client": "react-scripts start",
+    "build": "react-scripts build",
     "server": "nodemon ./server/app.js --ignore sessions/*",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build"

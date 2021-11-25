@@ -28,7 +28,7 @@ import passportConfig from './passport/index.js';
 dotenv.config();
 const app = express();
 passportConfig(); //passport 설정
-app.set("port", process.env.PORT || 8001);
+app.set("port", process.env.PORT ? process.env.PORT : 8001);
 
 //sequelize 연동
 db.sequelize.sync({ force : true })  //true:실행 시마다 테이블 재생성
