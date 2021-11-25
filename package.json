@@ -7,7 +7,8 @@
   "scripts": {
     "client": "react-scripts start",
     "server": "nodemon ./server/app.js --ignore sessions/*",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "react-scripts build"
   },
   "proxy": "http://localhost:8001/",
   "repository": {
