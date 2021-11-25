@@ -12,7 +12,8 @@
     "client": "react-scripts start",
     "build": "react-scripts build",
     "server": "nodemon ./server/app.js --ignore sessions/*",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "react-scripts build"
   },
   "repository": {
     "type": "git",
