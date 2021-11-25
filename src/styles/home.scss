@@ -119,6 +119,7 @@
         border-bottom: 1px solid $BorderGray;
         border-collapse: separate;
         border-spacing: 0 10px;
+        margin: 0 auto;
         #book_name {
             font-size: large;
             font-weight: bold;
@@ -156,10 +157,10 @@
 }
 
 #search_location {
+    width: 90%;
     animation: fadein 2s;
     -webkit-animation: fadein 2s;
-    margin-bottom: 20px;
-    position: fixed;
+    margin: 100px auto 60px auto;
     #highlight {
         background-color: $Back3 !important;
     }
