@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { debounce } from 'lodash';
+// import io from 'socket.io-client';
 
 import { sendChat } from '../../modules/chat';
 import { registerLental } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 
 import '../../styles/chat.scss';
+
+// const socket = io(process.env.REACT_APP_CLIENT);
 
 export default function Chat() {
     const dispatch = useDispatch();
@@ -45,6 +48,11 @@ export default function Chat() {
                 "small"
             )
         );
+
+        //socket 연결
+        // socket.emit("join", chat_code);
+        // socket.on("user", message);
+
         scrollToBottom();
     }, [dispatch, history, part1, part2, std_num]);
 
@@ -72,6 +80,7 @@ export default function Chat() {
     //메세지 전송
     const sendMessage = debounce(async() => {
         await dispatch(sendChat(chat_code, std_num, message));
+        // socket.emit("send", message);
         scrollToBottom();
         setMessage("");
     }, 800);

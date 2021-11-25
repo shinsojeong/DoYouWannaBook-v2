@@ -1,6 +1,9 @@
 {
   "name": "doyouwannabook-v2",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.15.4"
+  },
   "description": "",
   "main": "./src/index.js",
   "type": "module",
@@ -10,7 +13,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build"
   },
-  "proxy": "http://localhost:8001/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shinsojeong/DoYouWannaBook-v2.git"
@@ -56,6 +58,8 @@
     "sass": "^1.38.1",
     "sequelize": "^6.6.5",
     "sequelize-cli": "^6.2.0",
+    "socket.io": "^4.3.2",
+    "socket.io-client": "^4.3.2",
     "upgrade": "^1.1.0",
     "web-vitals": "^1.0.1"
   },
@@ -76,5 +80,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://doyouwannabook.herokuapp.com"
 }

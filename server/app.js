@@ -7,8 +7,11 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import cors from 'cors';
+import httpModule from 'http';
+import { Server } from 'socket.io';
 import helmet from 'helmet';
 import hpp from 'hpp';
+import path from 'path';
 
 import adminRouter from './routes/admin.js';
 import authRouter from './routes/auth.js';
@@ -28,7 +31,7 @@ passportConfig(); //passport 설정
 app.set("port", process.env.PORT || 8001);
 
 //sequelize 연동
-db.sequelize.sync({ force : false })  //true:실행 시마다 테이블 재생성
+db.sequelize.sync({ force : true })  //true:실행 시마다 테이블 재생성
 .then(() => {
     console.log("데이터베이스 연결 성공");
 })
@@ -61,7 +64,7 @@ const sessionOption = {
         client: redisClient
     })
 }
-if(process.env.NODE_ENV==='production') {
+if (process.env.NODE_ENV==='production') {
     // sessionOption.proxy = true;  //https일 때
     // sessionOption.cookie.secure = true;  //https일 때
     app.use(morgan('combined'));
@@ -91,3 +94,31 @@ app.use((err, req, res, next) => {
 app.listen(app.get("port"), () => {
     console.log(app.get("port"),'번 포트에서 대기 중');
 });
+
+
+//react build 연동
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../build"));
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "build", "index.html"));
+    });
+}
+
+
+//socket
+// const http = httpModule.createServer(app);
+// const io = new Server(http);
+
+// io.on("connection", (socket) => {
+//     socket.on("join", (userid) => {  //join 이벤트로 데이터 받음
+//         socket.join(userid);  //userid로 방 생성
+//     });
+
+//     socket.on("send", (touserid) => {  //send 이벤트로 데이터 받음 
+//         io.to(touserid).emit("user", touserid);
+//     });
+
+//     socket.on("disconnetcion", () => {
+        
+//     })
+// });
