@@ -43,8 +43,8 @@ export default function StdMain() {
     }, 800);
 
     //대여자와 채팅
-    const goChat = debounce(async(stdb_code, lender) => {
-        await dispatch(createChat(stdb_code, lender, std_num, history));
+    const goChat = debounce((stdb_code, lender) => {
+        dispatch(createChat(stdb_code, lender, std_num, history));
         dispatch(getChatDetail1(stdb_code, std_num, history));
     }, 800);
 

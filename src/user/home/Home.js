@@ -30,8 +30,8 @@ export default function Home() {
     }, [dispatch]);
 
     //검색
-    const search = debounce(async() => {
-        await dispatch(searchBook(keyword));
+    const search = debounce(() => {
+        dispatch(searchBook(keyword));
         history.push("/user1/search");
     }, 800);
 

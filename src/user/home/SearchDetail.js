@@ -37,8 +37,8 @@ export default function SearchDetail() {
     }, [dispatch, history]);
     
     //위치 정보 보기
-    const goLocation = debounce(async(class_sign) => {
-        await dispatch(getBookLoc(class_sign));
+    const goLocation = debounce((class_sign) => {
+        dispatch(getBookLoc(class_sign));
         history.push("/user1/search-location");
     }, 800);
 

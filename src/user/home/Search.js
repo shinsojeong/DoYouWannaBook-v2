@@ -29,14 +29,14 @@ export default function Search() {
     }, [dispatch, history]);
     
     //검색
-    const search = debounce(async() => {
-        await dispatch(searchBook(keyword))
+    const search = debounce(() => {
+        dispatch(searchBook(keyword))
         history.push("/user1/search");
     }, 800);
 
     //상세 페이지로 이동
-    const goDetail = debounce(async(libb_code) => {
-        await dispatch(selectBook(libb_code))
+    const goDetail = debounce((libb_code) => {
+        dispatch(selectBook(libb_code))
         history.push("/user1/search-detail");
     }, 800);
 
