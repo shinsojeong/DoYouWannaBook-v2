@@ -1,7 +1,7 @@
 import passport from 'passport';
-import local from './localStrategy.js';
-import kakao from './kakaoStrategy.js';
-import User from '../models/user.js';
+import local from './localStrategy.mjs';
+import kakao from './kakaoStrategy.mjs';
+import User from '../models/user.mjs';
 
 export default() => {
     //로그인 시 실행 (user 정보를 session에 저장)

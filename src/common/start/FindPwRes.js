@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { changeBar } from '../../modules/topBar';
 
 export default function FindPwRes() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function FindPwRes() {
 
     //로그인하러 가기
     const goLogin = debounce(() => {
-        history.push("/login");
+        navigate("/login");
     }, 800);
 
     return (

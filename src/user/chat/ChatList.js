@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { getChatBook } from '../../modules/userBook';
@@ -10,7 +10,7 @@ import { CgProfile } from 'react-icons/cg';
 
 export default function ChatList() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const std_num = useSelector(state => state.user.user.std_num);
     const chat_list = useSelector(state => state.chat.chat_list);
@@ -32,7 +32,7 @@ export default function ChatList() {
     //채팅방 입장
     const enterChat = debounce((chat_code, stdb_code) => {
         dispatch(getChatBook(stdb_code));
-        dispatch(getChatDetail2(chat_code, std_num, history));
+        dispatch(getChatDetail2(chat_code, std_num, navigate));
     }, 800);
 
     return (

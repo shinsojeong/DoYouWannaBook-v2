@@ -114,7 +114,7 @@ export const sendChat = (
 export const getChatDetail1 = (
     stdb_code, 
     std_num, 
-    history
+ navigate
 ) => async(dispatch) => {
     try {
         const { 
@@ -135,7 +135,7 @@ export const getChatDetail1 = (
                 type: GETCHATDETAIL,
                 payload: data
             });
-            return history.push('/user1/chat');  //채팅방 내로 이동
+            return navigate('/user1/chat');  //채팅방 내로 이동
         } else {
             return alert(message);
         }
@@ -148,7 +148,7 @@ export const getChatDetail1 = (
 export const getChatDetail2 = (
     chat_code, 
     std_num, 
-    history
+ navigate
 ) => async(dispatch) => {
     try {
         const { 
@@ -169,7 +169,7 @@ export const getChatDetail2 = (
                 type: GETCHATDETAIL,
                 payload: data
             });
-            return history.push('/user1/chat');  //채팅방 내로 이동
+            return navigate('/user1/chat');  //채팅방 내로 이동
         } else {
             return alert(message);
         }

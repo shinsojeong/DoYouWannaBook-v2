@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
@@ -10,7 +10,7 @@ import '../../styles/student.scss';
 
 export default function StdMyList() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     
     const bookList = useSelector(state => state.userBook.my_book_list);
     const std_num = useSelector(state => state.user.user.std_num);
@@ -22,16 +22,16 @@ export default function StdMyList() {
                 "back", 
                 { title: "내 도서 조회", data: null },
                 "null",
-                () => history.goBack(),
+                () => navigate(-1),
                 null,
                 "small"
             )
         );
-    }, [dispatch, history, std_num]);
+    }, [dispatch, navigate, std_num]);
 
     //도서 정보 삭제
     const deleteInfo = debounce((stdb_code) => {
-        dispatch(deleteStdBook(stdb_code, history));
+        dispatch(deleteStdBook(stdb_code, navigate));
     }, 800);
 
     return (

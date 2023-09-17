@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { getMypageBorrowList } from '../../modules/libBook';
@@ -11,7 +11,7 @@ import '../../styles/mypage.scss';
 
 export default function CheckBorrow() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const std_num = useSelector(state => state.user.user.std_num);
     const borrowList = useSelector(state => state.libBook.borrow_list);
@@ -23,12 +23,12 @@ export default function CheckBorrow() {
                 "back", 
                 { title: "도서 대출 조회", data: null },
                 "null",
-                () => history.goBack(),
+                () => navigate(-1),
                 null,
                 "small"
             )
         );
-    }, [dispatch, history, std_num]);
+    }, [dispatch, navigate, std_num]);
 
     const extend = debounce(async(libb_code, libb_ret_date) => {
         await dispatch(extendDate(std_num, libb_code, libb_ret_date));

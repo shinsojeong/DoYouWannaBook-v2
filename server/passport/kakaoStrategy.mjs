@@ -1,7 +1,7 @@
 import passport from 'passport';
 import KakaoStrategy from 'passport-kakao';
 
-import User from '../models/user.js';
+import User from '../models/user.mjs';
 
 const kakaoStrategy = () => {
     passport.use(new KakaoStrategy.Strategy({

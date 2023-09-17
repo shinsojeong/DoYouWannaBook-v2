@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { logout } from '../../modules/user';
@@ -10,7 +10,7 @@ import { CgProfile } from 'react-icons/cg';
 import '../../styles/mypage.scss';
 
 export default function Mypage() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {
@@ -33,18 +33,18 @@ export default function Mypage() {
 
     //대출 조회,연장
     const goCheckBorrow = debounce(() => {
-        history.push("/user1/check-borrow");
+        navigate("/user1/check-borrow");
     }, 800);
 
     //공유 도서 대여 조회
     const goCheckStdBorrow = debounce(() => {
-        history.push("/user1/check-std-borrow");
+        navigate("/user1/check-std-borrow");
     }, 800);
 
     //로그아웃
     const goLogout = debounce(() => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            dispatch(logout(history));
+            dispatch(logout(navigate));
         }
     }, 800);
 

@@ -32,7 +32,7 @@ export const register = (
     ph_num, 
     email, 
     password, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const {
@@ -56,7 +56,7 @@ export const register = (
             dispatch({
                 type: REGISTER
             });
-            history.push("/login");
+            navigate("/login");
         }
         return alert(message);
     } catch (err) {
@@ -68,7 +68,7 @@ export const register = (
 export const login = (
     std_num, 
     password, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const {
@@ -93,7 +93,7 @@ export const login = (
                     dept: data.dept
                 }
             });
-            return history.push("/user/home");
+            return navigate("/user/home");
         } else if (code === 20911) {
             dispatch({
                 type: LOGIN,
@@ -103,7 +103,7 @@ export const login = (
                     dept: data.dept
                 }
             });
-            return history.replace("/admin/home");
+            return navigate("/admin/home");
         } else {
             return alert(message);
         }
@@ -118,7 +118,7 @@ export const findPw = (
     name, 
     ph_num, 
     email, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const {
@@ -139,7 +139,7 @@ export const findPw = (
             dispatch({
                 type: FINDPW
             });
-            return history.push("/user1/find_pw_res");
+            return navigate("/user1/find_pw_res");
         } else {
             return alert(message);
         }
@@ -150,7 +150,7 @@ export const findPw = (
 
 //로그아웃
 export const logout = (
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const {
@@ -170,7 +170,7 @@ export const logout = (
         } else {
             alert("이미 로그아웃 상태입니다.");
         }
-        return history.push("/login");
+        return navigate("/login");
     } catch (err) {
         return console.log(err);
     }

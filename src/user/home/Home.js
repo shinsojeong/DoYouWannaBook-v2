@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -10,7 +10,7 @@ import '../../styles/home.scss';
 
 export default function Home() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const recommendedBook = useSelector(state => state.libBook.recommended_book);  //추천 신작 도서 받아옴
     const [keyword, setKeyword] = useState("");
@@ -32,7 +32,7 @@ export default function Home() {
     //검색
     const search = debounce(() => {
         dispatch(searchBook(keyword));
-        history.push("/user1/search");
+        navigate("/user1/search");
     }, 800);
 
     return (

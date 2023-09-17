@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { getBook, searchBook, deleteBook } from '../modules/admin';
@@ -9,7 +9,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function SearchBook() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     
     const searchRes = useSelector(state => state.admin.search_result);
     const [keyword, setKeyword] = useState("");
@@ -20,27 +20,27 @@ export default function SearchBook() {
                 "back", 
                 { title: "도서 조회", data: null }, 
                 "null", 
-                () => history.goBack(), 
+                () => navigate(-1), 
                 null, 
                 "small"
             )
         );
-    }, [dispatch, history]);
+    }, [dispatch, navigate]);
 
     //검색
     const search = debounce(() => {
-        dispatch(searchBook(keyword, history));
+        dispatch(searchBook(keyword, navigate));
     }, 800);
     
     //수정
     const goUpdateBook = debounce((libb_code) => {
-        dispatch(getBook(libb_code, history))
+        dispatch(getBook(libb_code, navigate))
     }, 800);
 
     //삭제
     const goDeleteBook = debounce((libb_code) => {
         if(window.confirm("도서 정보를 삭제하시겠습니까?")) {
-            dispatch(deleteBook(libb_code, history));
+            dispatch(deleteBook(libb_code, navigate));
         }
     }, 800);
     

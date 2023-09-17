@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../source/logo.png';
 import '../../styles/start.scss';
 
 export default function Landing() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setTimeout(() => {
-            history.replace("/login");
-        }, 4000);
+            navigate("/login");
+        }, 2000);
     });
 
     return (

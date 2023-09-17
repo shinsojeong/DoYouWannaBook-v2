@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from "lodash";
 
 import { selectBook, searchBook } from '../../modules/libBook';
@@ -10,7 +10,7 @@ import '../../styles/home.scss';
 
 export default function Search() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const searchResult = useSelector(state => state.libBook.search_result);  //검색도서 받아옴
     const [keyword, setKeyword] = useState("");
@@ -21,23 +21,23 @@ export default function Search() {
                 "back", 
                 { title: "도서 검색", data: null },
                 "null",
-                () => history.goBack(),
+                () => navigate(-1),
                 null,
                 "small"
             )
         );
-    }, [dispatch, history]);
+    }, [dispatch, navigate]);
     
     //검색
     const search = debounce(() => {
         dispatch(searchBook(keyword))
-        history.push("/user1/search");
+        navigate("/user1/search");
     }, 800);
 
     //상세 페이지로 이동
     const goDetail = debounce((libb_code) => {
         dispatch(selectBook(libb_code))
-        history.push("/user1/search-detail");
+        navigate("/user1/search-detail");
     }, 800);
 
     return (

@@ -1,9 +1,9 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
-import senderInfo from '../config/mail.js';
-import { isNotLoggedIn } from './middlewares.js';
-import User from '../models/user.js';
+import senderInfo from '../config/mail.mjs';
+import { isNotLoggedIn } from './middlewares.mjs';
+import User from '../models/user.mjs';
 
 //메일 객체
 const mailSender = {

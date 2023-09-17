@@ -1,7 +1,7 @@
 import express from 'express';
 import sequelize from 'sequelize';
-import Stdbook from '../models/stdbook.js';
-import { isLoggedIn } from './middlewares.js';
+import Stdbook from '../models/stdbook.mjs';
+import { isLoggedIn } from './middlewares.mjs';
 
 const router = express.Router();
 

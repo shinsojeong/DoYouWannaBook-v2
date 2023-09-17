@@ -1,17 +1,12 @@
 {
   "name": "doyouwannabook-v2",
   "version": "1.0.0",
-  "engines": {
-    "node": "14.15.4"
-  },
-  "proxy": "https://doyouwannabook.herokuapp.com:8001",
+  "proxy": "http://localhost:8001",
   "description": "",
-  "main": "./src/index.js",
-  "type": "module",
   "scripts": {
-    "start": "node ./server/app.js && react-scripts start",
-    "client": "react-scripts start",
-    "server": "nodemon ./server/app.js --ignore sessions/*",
+    "start": "node ./server/app.mjs && react-scripts --openssl-legacy-provider start",
+    "client": "react-scripts --openssl-legacy-provider start",
+    "server": "nodemon ./server/app.mjs --ignore sessions/*",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -26,7 +21,6 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
-    "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^6.2.1",
     "connect-redis": "^6.0.0",
     "cookie-parser": "^1.4.5",
@@ -51,7 +45,7 @@
     "react-icons": "^4.2.0",
     "react-qr-barcode-scanner": "^1.0.6",
     "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.16.0",
     "react-scripts": "4.0.3",
     "redis": "^3.1.2",
     "redux": "^4.1.0",
@@ -85,8 +79,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://doyouwannabook.herokuapp.com",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "webpack": "^4.44.0",
     "webpack-cli": "^4.9.1"
   }
 }

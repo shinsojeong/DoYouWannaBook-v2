@@ -7,22 +7,22 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import cors from 'cors';
-import httpModule from 'http';
-import { Server } from 'socket.io';
+//import httpModule from 'http';
+//import { Server } from 'socket.io';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import path from 'path';
 
-import adminRouter from './routes/admin.js';
-import authRouter from './routes/auth.js';
-import chatRouter from './routes/chat.js';
-import libbookRouter from './routes/libbook.js';
-import stdbookRouter from './routes/stdbook.js';
-import mailRouter from './routes/mail.js';
-import uploadRouter from './routes/upload.js';
+import adminRouter from './routes/admin.mjs';
+import authRouter from './routes/auth.mjs';
+import chatRouter from './routes/chat.mjs';
+import libbookRouter from './routes/libbook.mjs';
+import stdbookRouter from './routes/stdbook.mjs';
+import mailRouter from './routes/mail.mjs';
+import uploadRouter from './routes/upload.mjs';
 
-import db from './models/index.js';
-import passportConfig from './passport/index.js';
+import db from './models/index.mjs';
+import passportConfig from './passport/index.mjs';
 
 
 dotenv.config();
@@ -50,7 +50,7 @@ const redisClient = redis.createClient({
     url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
     password: process.env.REDIS_PASSWORD
 });
-const redisStore = connectRedis(session);
+const redisStore = new connectRedis(session);
 app.use(cookieParser(process.env.COOKIE_SECRET));
 const sessionOption = {
     resave: false,

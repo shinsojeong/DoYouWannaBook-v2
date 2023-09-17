@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { searchStdBook } from '../../modules/userBook';
@@ -12,7 +12,7 @@ import '../../styles/student.scss';
 
 export default function StdMain() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const std_num = useSelector(state => state.user.user.std_num);
     const searchResult = useSelector(state => state.userBook.search_list);  //검색도서 받아옴
@@ -44,8 +44,8 @@ export default function StdMain() {
 
     //대여자와 채팅
     const goChat = debounce((stdb_code, lender) => {
-        dispatch(createChat(stdb_code, lender, std_num, history));
-        dispatch(getChatDetail1(stdb_code, std_num, history));
+        dispatch(createChat(stdb_code, lender, std_num, navigate));
+        dispatch(getChatDetail1(stdb_code, std_num, navigate));
     }, 800);
 
     return (
@@ -53,8 +53,8 @@ export default function StdMain() {
             <AiOutlineMenu id="menu_icon" size="20" onClick={() => openMenu(true)}/>
             <div id="menu" className={menuState ? "menu" : "hidden"}>
                 <AiOutlineClose className={menuState ? "x_icon" : "hidden"} size="20" onClick={() => openMenu(false)}/>
-                <p id="item1" className={menuState ? "menu_item" : "hidden"} onClick={() => history.push("/user1/std-create")}>대여 등록</p>
-                <p id="item2" className={menuState ? "menu_item" : "hidden"} onClick={() => history.push("/user1/std-my-list")}>내가 쓴 글</p>
+                <p id="item1" className={menuState ? "menu_item" : "hidden"} onClick={() => navigate("/user1/std-create")}>대여 등록</p>
+                <p id="item2" className={menuState ? "menu_item" : "hidden"} onClick={() => navigate("/user1/std-my-list")}>내가 쓴 글</p>
             </div>
 
             <div id="search_book" className="item">

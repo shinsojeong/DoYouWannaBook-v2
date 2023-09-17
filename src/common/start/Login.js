@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from "lodash";
 
 import { login } from '../../modules/user';
@@ -9,7 +9,7 @@ import { useInput } from '../../common/util/Reusable';
 
 export default function Login() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const id = useInput("");
     const pw = useInput("");
@@ -17,17 +17,17 @@ export default function Login() {
     //로그인
     const goLogin = debounce(async(e) => {
         e.preventDefault();
-        dispatch(login(id.value, pw.value, history))
+        dispatch(login(id.value, pw.value, navigate))
     }, 800);
 
     //비밀번호 찾기
     const goFindPw = debounce(() => {
-        history.push("/user1/find_pw");
+        navigate("/user1/find_pw");
     }, 800);
 
     //회원가입
     const goJoin = debounce(() => {
-        history.push("/user1/join");
+        navigate("/user1/join");
     }, 800);
 
     return (

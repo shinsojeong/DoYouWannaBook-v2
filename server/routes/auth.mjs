@@ -1,9 +1,9 @@
 import express from 'express';
 import passport from 'passport';
 import bcrypt from 'bcrypt';
-import { isLoggedIn } from './middlewares.js';
-import { isNotLoggedIn } from './middlewares.js';
-import User from '../models/user.js';
+import { isLoggedIn } from './middlewares.mjs';
+import { isNotLoggedIn } from './middlewares.mjs';
+import User from '../models/user.mjs';
 
 const router = express.Router();
 
@@ -92,14 +92,5 @@ router.get('/logout', isLoggedIn, (req, res) => {
         code: 200
     });
 });
-
-
-//카카오 로그인
-router.get('/kakao', passport.authenticate('kakao'));
-router.get('/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: '/',
-}), (req, res) => {
-    res.redirect('/');
-})
 
 export default router;

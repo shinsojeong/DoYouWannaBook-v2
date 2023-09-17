@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { uploadImg, createBook } from '../modules/admin';
@@ -9,7 +9,7 @@ import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/
 
 export default function CreateBook() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const code = useInput("");
     const title = useInput("");
@@ -28,9 +28,9 @@ export default function CreateBook() {
     //취소
     const cancel = debounce(useCallback(() => {
         if (window.confirm("도서 등록을 취소하시겠습니까?")) {
-            history.push("/admin/home");
+            navigate("/admin/home");
         }
-    }, [history]), 800);
+    }, [navigate]), 800);
 
     //제출
     const submit = debounce(useCallback(async() => {
@@ -53,10 +53,10 @@ export default function CreateBook() {
                 bookshelf.value, 
                 shelf.value, 
                 res, 
-                history
+                navigate
             )
         );
-    }, [code, title, author, barcode, bookshelf, classCode, dispatch, history, isbn, libb, pubDate, publisher, room, shelf, state]), 800);
+    }, [code, title, author, barcode, bookshelf, classCode, dispatch, navigate, isbn, libb, pubDate, publisher, room, shelf, state]), 800);
 
     useEffect(() => {
         dispatch(

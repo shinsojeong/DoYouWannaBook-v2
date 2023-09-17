@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { findPw } from '../../modules/user';
@@ -9,7 +9,7 @@ import { useInput } from '../../common/util/Reusable';
 
 export default function FindPw() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const id = useInput("");
     const name = useInput("");
@@ -24,12 +24,12 @@ export default function FindPw() {
                 "back", 
                 { title: "비밀번호 찾기", data: null }, 
                 "null", 
-                () => history.goBack(), 
+                () => navigate(-1), 
                 null, 
                 "small"
             )
         );
-    }, [dispatch, history]);
+    }, [dispatch, navigate]);
 
     //비밀번호 찾기
     const submit = debounce(() => {
@@ -39,7 +39,7 @@ export default function FindPw() {
                 name.value, 
                 phNum.value, 
                 email.value, 
-                history
+                navigate
             )
         );
     }, 800);

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { getBorrowStdBookList } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 
 export default function CheckStdBorrow() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const std_num = useSelector(state => state.user.user.std_num);
     const borrow_list = useSelector(state => state.userBook.borrow_book_list);
@@ -19,12 +19,12 @@ export default function CheckStdBorrow() {
                 "back", 
                 { title: "공유 도서 조회", data: null },
                 "null",
-                () => history.goBack(),
+                () => navigate(-1),
                 null,
                 "small"
             )
         );
-    },[dispatch, history, std_num]);
+    },[dispatch, navigate, std_num]);
 
     return (
         <div id="check_std_borrow" className="contents">

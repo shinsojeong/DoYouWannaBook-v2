@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 
-import { isLoggedIn, isAdmin } from './middlewares.js';
+import { isLoggedIn, isAdmin } from './middlewares.mjs';
 
 const router = express.Router();
 

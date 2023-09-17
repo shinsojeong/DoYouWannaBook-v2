@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import TopBar from '../common/util/TopBar';
 import Barcode from './barcode/Barcode';
@@ -13,13 +13,13 @@ export default function User() {
     return (
         <div id="user">
             <TopBar/>
-            <Switch>
-                <Route exact path="/user/barcode" component={Barcode}/>
-                <Route exact path="/user/chat-list" component={ChatList}/>
-                <Route exact path="/user/home" component={Home}/>
-                <Route exact path="/user/mypage" component={Mypage}/>
-                <Route exact path="/user/std-main" component={StdMain}/>
-            </Switch>
+            <Routes>
+                <Route path="/barcode" element={<Barcode/>}/>
+                <Route path="/chat-list" element={<ChatList/>}/>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/mypage" element={<Mypage/>}/>
+                <Route path="/std-main" element={<StdMain/>}/>
+            </Routes>
             <Menu/>
         </div>
     );

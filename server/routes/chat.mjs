@@ -1,8 +1,8 @@
 import express from 'express';
 import sequelize from 'sequelize';
-import Chat from '../models/chat.js';
-import Message from '../models/message.js';
-import { isLoggedIn } from './middlewares.js';
+import Chat from '../models/chat.mjs';
+import Message from '../models/message.mjs';
+import { isLoggedIn } from './middlewares.mjs';
 
 const router = express.Router();
 

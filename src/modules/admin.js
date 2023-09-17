@@ -45,7 +45,7 @@ const RESET = "RESET";
 //도서 검색
 export const searchBook = (
     keyword, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const { 
@@ -59,7 +59,7 @@ export const searchBook = (
         
         if (code === 406) {
             alert(message);
-            return history.push("/user/home");
+            return navigate("/user/home");
         }
         else if (status === "OK") {
             dispatch({
@@ -80,7 +80,7 @@ export const searchBook = (
 //도서 정보 가져오기
 export const getBook = (
     libb_code, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const { 
@@ -94,14 +94,14 @@ export const getBook = (
 
         if (code === 406) {
             alert(message);
-            return history.push("/user/home");
+            return navigate("/user/home");
         }
         else if (status === "OK") {
             dispatch({
                 type: GETBOOK,
                 payload: data
             });
-            return history.push("/admin/update-book");
+            return navigate("/admin/update-book");
         } else {
             dispatch({
                 type: GETBOOK,
@@ -151,7 +151,7 @@ export const createBook = (
     bookshelf, 
     shelf, 
     imgUrl, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const { data } = await axios.post(`${url}/admin/admin_create_book`, {
@@ -174,14 +174,14 @@ export const createBook = (
 
         if (data.code === 406) {
             alert(data.message);
-            return history.push("/user/home");
+            return navigate("/user/home");
         }
         else if (data.status === "OK") {
             dispatch({
                 type: CREATEBOOK
             });
             alert(data.message);
-            return history.push("/admin/home");
+            return navigate("/admin/home");
         } else {
             return alert(data.message);
         }
@@ -206,7 +206,7 @@ export const updateBook = (
     room, 
     bookshelf, 
     shelf, 
-    history
+    navigate
 ) => async() => {
     try {
         const { 
@@ -236,10 +236,10 @@ export const updateBook = (
 
         if (code === 406) {
             alert(message);
-            return history.push("/user/home");
+            return navigate("/user/home");
         } else if (status === "OK") {
             alert("수정이 완료되었습니다.");
-            return history.push("/admin/home");
+            return navigate("/admin/home");
         } else {
             return alert("도서 정보 수정 실패");
         }
@@ -251,7 +251,7 @@ export const updateBook = (
 //도서 정보 삭제
 export const deleteBook = (
     libb_code, 
-    history
+    navigate
 ) => async() => {
     try {
         const { 
@@ -264,10 +264,10 @@ export const deleteBook = (
 
         if (code === 406) {
             alert(message);
-            return history.push("/user/home");
+            return navigate("/user/home");
         } else if (status === "OK") {
             alert("삭제가 완료되었습니다.");
-            return history.push("/admin/home");
+            return navigate("/admin/home");
         } else {
             return alert("도서 정보 삭제 실패");
         }

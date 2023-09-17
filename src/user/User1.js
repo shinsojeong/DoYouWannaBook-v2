@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import TopBar from '../common/util/TopBar';
 import Chat from './chat/Chat';
@@ -18,19 +18,19 @@ export default function User() {
     return (
         <div id="user">
             <TopBar/>
-            <Switch>
-                <Route exact path="/user1/chat" component={Chat}/>
-                <Route exact path="/user1/search" component={Search}/>
-                <Route exact path="/user1/search-detail" component={SearchDetail}/>
-                <Route exact path="/user1/search-location" component={SearchLocation}/>
-                <Route exact path="/user1/check-borrow" component={CheckBorrow}/>
-                <Route exact path="/user1/check-std-borrow" component={CheckStdBorrow}/>
-                <Route exact path="/user1/std-create" component={StdCreate}/>
-                <Route exact path="/user1/std-my-list" component={StdMyList}/>
-                <Route exact path="/user1/join" component={Join}/>
-                <Route exact path="/user1/find_pw" component={FindPw}/>
-                <Route exact path="/user1/find_pw_res" component={FindPwRes}/>
-            </Switch>
+            <Routes>
+                <Route path="/chat" element={<Chat/>}/>
+                <Route path="/search" element={<Search/>}/>
+                <Route path="/search-detail" element={<SearchDetail/>}/>
+                <Route path="/search-location" element={<SearchLocation/>}/>
+                <Route path="/check-borrow" element={<CheckBorrow/>}/>
+                <Route path="/check-std-borrow" element={<CheckStdBorrow/>}/>
+                <Route path="/std-create" element={<StdCreate/>}/>
+                <Route path="/std-my-list" element={<StdMyList/>}/>
+                <Route path="/join" element={<Join/>}/>
+                <Route path="/find_pw" element={<FindPw/>}/>
+                <Route path="/find_pw_res" element={<FindPwRes/>}/>
+            </Routes>
         </div>
     );
 }

@@ -79,7 +79,7 @@ export const createStdBook = (
     stdb_state, 
     stdb_comment, 
     stdb, 
-    history
+    navigate
 ) => async() => {
     try {
         const {
@@ -103,7 +103,7 @@ export const createStdBook = (
         
         if (status === "OK") {
             alert("도서 등록 완료");
-            return history.push("/user/std-main");
+            return navigate("/user/std-main");
         }
     } catch (err) {
         return console.error(err);
@@ -113,7 +113,7 @@ export const createStdBook = (
 //학생 대여 도서 삭제
 export const deleteStdBook = (
     stdb_code, 
-    history
+    navigate
 ) => async(dispatch) => {
     try {
         const {
@@ -130,7 +130,7 @@ export const deleteStdBook = (
             return alert("삭제가 완료되었습니다.");
         } else {
             alert(message);
-            return history.push("/user/std-main");
+            return navigate("/user/std-main");
         }
     } catch (err)  {
         return console.error(err)

@@ -1,16 +1,16 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { AiOutlineHome, AiOutlineBarcode, AiOutlineShareAlt, AiOutlineMessage, AiOutlineUser } from 'react-icons/ai';
 import '../../styles/menu.scss';
 
 export default function Menu() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     //function
     const go = debounce((url) => {
-        history.push(`${url}`);
+        navigate(`${url}`);
     }, 800);
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { register } from '../../modules/user';
@@ -10,7 +10,7 @@ import { useInput } from '../../common/util/Reusable';
 
 export default function Join() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const id = useInput("");
     const pw = useInput("");
@@ -27,12 +27,12 @@ export default function Join() {
                 "back", 
                 { title: "회원가입", data: null }, 
                 "null", 
-                () => history.goBack(), 
+                () => navigate(-1), 
                 null, 
                 "small"
             )
         );
-    }, [dispatch, history]);
+    }, [dispatch, navigate]);
 
     //회원가입
     const submit = debounce(() => {
@@ -74,7 +74,7 @@ export default function Join() {
                 phNum.value, 
                 email.value, 
                 pw.value, 
-                history
+                navigate
             )
         );
     }, 800);

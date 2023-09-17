@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 // import io from 'socket.io-client';
 
@@ -14,7 +14,7 @@ import '../../styles/chat.scss';
 
 export default function Chat() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const scrollRef = useRef();
 
@@ -43,7 +43,7 @@ export default function Chat() {
                 "back", 
                 { title: `${part1 === std_num ? part2 : part1}`, data: null }, 
                 "null",
-                () => history.goBack(),
+                () => navigate(-1),
                 null,
                 "small"
             )
@@ -54,7 +54,7 @@ export default function Chat() {
         // socket.on("user", message);
 
         scrollToBottom();
-    }, [dispatch, history, part1, part2, std_num]);
+    }, [dispatch, navigate, part1, part2, std_num]);
 
     //대여 정보 등록하기
     const register = debounce(() => {

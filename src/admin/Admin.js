@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import TopBar from '../common/util/TopBar';
 import CreateBook from '../admin/CreateBook';
@@ -11,12 +11,12 @@ export default function Admin() {
     return (
         <div>
             <TopBar/>
-            <Switch>
-                <Route exact path="/admin/create-book" component={CreateBook}/>
-                <Route exact path="/admin/update-book" component={UpdateBook}/>
-                <Route exact path="/admin/home" component={Home}/>
-                <Route exact path="/admin/search-book" component={SearchBook}/>
-            </Switch>
+            <Routes>
+                <Route path="/create-book" element={<CreateBook/>}/>
+                <Route path="/update-book" element={<UpdateBook/>}/>
+                <Route path="/home" element={<Home/>}/>
+                <Route path="/search-book" element={<SearchBook/>}/>
+            </Routes>
         </div>
     );
 }

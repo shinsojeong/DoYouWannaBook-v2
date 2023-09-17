@@ -1,8 +1,8 @@
 import express from 'express';
 import sequelize from 'sequelize';
-import Libbook from '../models/libbook.js';
-import Libclass from '../models/libclass.js';
-import { isLoggedIn } from './middlewares.js';
+import Libbook from '../models/libbook.mjs';
+import Libclass from '../models/libclass.mjs';
+import { isLoggedIn } from './middlewares.mjs';
 
 const router = express.Router();
 

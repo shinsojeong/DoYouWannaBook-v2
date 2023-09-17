@@ -7,13 +7,12 @@ import persistedReducer from './modules/store';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, legacy_createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import ReduxThunk from "redux-thunk";
+import ReduxThunk from 'redux-thunk';
 
-const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
-
+const store = legacy_createStore(persistedReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 const persistor = persistStore(store);
 
 ReactDOM.render(

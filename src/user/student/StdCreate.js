@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { uploadImg, createStdBook } from '../../modules/userBook';
@@ -9,7 +9,7 @@ import { useInput, useInputFile } from '../../common/util/Reusable';
 
 export default function StdCreate() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const std_num = useSelector(state => state.user.user.std_num);
 
@@ -29,7 +29,7 @@ export default function StdCreate() {
     //topbar function
     const cancel = debounce(() => {
         if (window.confirm("도서 등록을 취소하시겠습니까?")) {
-            history.push("/user/std-main");
+            navigate("/user/std-main");
         }
     }, 800);
 
@@ -61,7 +61,7 @@ export default function StdCreate() {
                 state, 
                 comment.value, 
                 res, 
-                history
+                navigate
             )
         );
     }, 800);

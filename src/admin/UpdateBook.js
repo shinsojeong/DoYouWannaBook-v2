@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { uploadImg, updateBook } from '../modules/admin';
@@ -10,7 +10,7 @@ import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/
 
 export default function CreateBook() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const {
         libb_code,
@@ -47,9 +47,9 @@ export default function CreateBook() {
     //취소
     const cancel = debounce(useCallback(() => {
         if (window.confirm("도서 수정을 취소하시겠습니까?")) {
-            history.goBack();
+            navigate(-1);
         }
-    }, [history]), 800);
+    }, [navigate]), 800);
 
     //제출
     const submit = debounce(useCallback(async() => {
@@ -73,10 +73,10 @@ export default function CreateBook() {
                 roomInputState.value, 
                 bookshelfInputState.value, 
                 shelfInputState.value, 
-                history
+                navigate
             )
         );
-    }, [dispatch, libbInputState, libb_code, codeInputState, titleInputState, authorInputState, publisherInputState, pubDateInputState, stateInputState, isbnInputState, barcodeInputState, classCodeInputState, roomInputState, bookshelfInputState, shelfInputState, history]), 800);
+    }, [dispatch, libbInputState, libb_code, codeInputState, titleInputState, authorInputState, publisherInputState, pubDateInputState, stateInputState, isbnInputState, barcodeInputState, classCodeInputState, roomInputState, bookshelfInputState, shelfInputState, navigate]), 800);
 
     useEffect(() => {
         dispatch(

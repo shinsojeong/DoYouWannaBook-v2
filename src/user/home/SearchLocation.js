@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { changeBar } from '../../modules/topBar';
 import '../../styles/home.scss';
 
 export default function SearchLocation() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const {
         libb_title,
@@ -25,12 +25,12 @@ export default function SearchLocation() {
                 "back", 
                 { title: "도서 위치", data: null }, 
                 "null", 
-                () => history.goBack(), 
+                () => navigate(-1), 
                 null, 
                 "small"
             )
         );
-    }, [dispatch, history]);
+    }, [dispatch, navigate]);
 
     const createRow = (row, num) => {
         return(
