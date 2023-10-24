@@ -1,163 +1,186 @@
-@import './valiables.scss';
+@import "./valiables.scss";
 
 .hidden {
-    width: 0;
-    height: 0;
-    display: none;
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 #std_main {
-    margin-top: 60px;
-    text-align: center;
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-    #search_result {
-        margin: 30px auto;
-        .item_wrap {
-            width: 100%;
-            padding: 10px 0px;
-            border: 1px solid $BorderGray;
-            border-radius: 5px;
-            animation: fadein 2s;
-            -webkit-animation: fadein 2s;
-            #td_title {
-                font-weight: bold;
-            }
-            #td_content {
-                font-size: small;
-            }
-            table {
-                margin: 0 auto;
-                padding-bottom: 10px;
-                border-bottom: 1px solid $BorderGray;
-            }
+  margin-top: 60px;
+  text-align: center;
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  #search_result {
+    margin: 30px auto;
+    #item_wrap {
+      width: 100%;
+      padding: 10px 0px;
+      border: 1px solid $BorderGray;
+      border-radius: 5px;
+      animation: fadein 2s;
+      -webkit-animation: fadein 2s;
+      margin-bottom: 10px;
+      img {
+        margin-left: 10px;
+      }
+      #info {
+        margin: 10px;
+        #title {
+          font-weight: bold;
+          margin-bottom: 5px;
         }
-    }
-    .menu {
-        animation: fade-in-right 1s;
-        -webkit-animation: fade-in-right 1s;
-        width: 300px;
-        height: 800px;
-        position: fixed;
-        z-index: 3;
-        top: 0;
-        left: 0;
-        background-color: $white;
-        border-right: 1px solid $BorderGray;
-        .x_icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        #content {
+          font-size: small;
+          margin-bottom: 5px;
         }
-        #item1 {
-            margin-top: 70px;
-        }
-        .menu_item {
-            padding: 10px 0px;
-            font-size: large;
-            font-weight: bold;
-        }
+      }
     }
-    #menu_icon {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 2;
-        color: $white;
+  }
+  .menu {
+    animation: fade-in-right 1s;
+    -webkit-animation: fade-in-right 1s;
+    width: 300px;
+    height: 800px;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: $white;
+    border-right: 1px solid $BorderGray;
+    .x_icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
-    #search_input {
-        width: 90%;
-        height: 25px;
+    #item1 {
+      margin-top: 70px;
     }
-    #search_button {
-        width: 27px;
-        top: 67px;
-        right: 40px;
-        margin: 0 auto;
-        position: absolute;
-        float: right;
-        color: $Back2
+    .menu_item {
+      padding: 10px 0px;
+      font-size: large;
+      font-weight: bold;
     }
-    #hidden {
-        height: 0;
-    }
+  }
+  #menu_icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    color: $white;
+  }
+  #search_input {
+    width: 90%;
+    height: 25px;
+  }
+  #search_button {
+    width: 27px;
+    top: 67px;
+    right: 40px;
+    margin: 0 auto;
+    position: absolute;
+    float: right;
+    color: $Back2;
+  }
+  #hidden {
+    height: 0;
+  }
 }
 
 #std_my_list {
-    text-align: center;
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-    .list_item {
-        padding: 10px 0;
-        border: 1px solid $BorderGray;
-        border-radius: 5px;
-        #table1 {
-            margin: 0 auto;
-            padding-bottom: 15px;
-            border-bottom: 1px solid $BackDarkGray;
-            #td_title {
-                font-weight: bold;
-            }
+  text-align: center;
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  .list_item {
+    padding: 10px 0;
+    border: 1px solid $BorderGray;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    #table1 {
+      margin: 0 auto;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $BackDarkGray;
+      img {
+        margin-left: 10px;
+      }
+      #info {
+        * {
+          flex: 1;
+          line-height: 40px;
         }
-        #table2 {
-            width: 90%;
-            margin: 0 auto;
-            padding: 10px 0;
-            #td1 {
-                text-align: right;
-                padding-right: 15px;
-                font-weight: bold;
-            }
-            #td2 {
-                width: 130px;
-                text-align: left;
-            }
-            button {
-                margin: 10px 0px;
-            }
+        #title {
+          font-weight: bold;
         }
-    }   
+      }
+    }
+    #table2 {
+      width: 90%;
+      margin: 0 auto;
+      padding: 10px 0;
+      * {
+        flex: 1;
+        margin: 2px auto;
+      }
+      #td1 {
+        text-align: right;
+        padding-right: 15px;
+        font-weight: bold;
+      }
+      #td2 {
+        width: 130px;
+        text-align: left;
+      }
+    }
+    p {
+      margin: 7px auto;
+    }
+    button {
+      width: 80%;
+      margin: 10px 0px;
+    }
+  }
 }
 
-#createStdBook {
+#create_std_book {
+  text-align: center;
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  .input {
+    width: 230px;
+    height: 24px;
+    margin: 5px auto;
+  }
+  .input_select,
+  .input_date {
+    width: 244px;
+    height: 36px;
+    margin: 5px auto;
+  }
+  .textarea {
+    width: 232px;
+    height: 80px;
+    padding: 5px;
+    border: 1px solid $BorderGray;
+    border-radius: 5px;
+  }
+  #input_img {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 10px;
     text-align: center;
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-    .input {
-        width: 230px;
-        height: 24px;
-        margin: 5px auto;
+    p {
+      text-align: left;
+      margin: 5px 5px;
+      font-weight: bold;
+      display: inline-block;
     }
-    .inputSelect, .inputDate {
-        width: 244px;
-        height: 36px;
-        margin: 5px auto;
+    #upload {
+      padding: 5px 20px;
+      font-weight: bold;
+      color: $white;
+      background-color: $Back1;
+      border: 1px solid $Back1;
+      border-radius: 5px;
     }
-    .textarea {
-        width: 232px;
-        height: 80px;
-        padding: 5px;
-        border: 1px solid $BorderGray;
-        border-radius: 5px;
-    }
-    #inputImg {
-        width: 75%;
-        margin: 0 auto;
-        margin-top: 10px;
-        text-align: center;
-        p {
-            text-align: left;
-            margin: 5px 5px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        #upload {
-            padding: 5px 20px;
-            font-weight: bold;
-            color: $white;
-            background-color: $Back1;
-            border: 1px solid $Back1;
-            border-radius: 5px;
-        }
-    }
+  }
 }

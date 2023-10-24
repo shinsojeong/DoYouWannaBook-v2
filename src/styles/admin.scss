@@ -1,132 +1,142 @@
-@import './valiables.scss';
+@import "./valiables.scss";
 
 #home {
-    margin-top: 80px;
-    margin-bottom: 20px;
-    #profile {
-        table {
-            width: 100%;
-            padding: 20px 0;
-            box-shadow: 0 0 4px $BorderGray;
-            border-radius: 10px;
-            #td1 {
-                width: 150px;
-                text-align: center;
-            }
-        }
+  margin-top: 80px;
+  margin-bottom: 20px;
+  #profile {
+    width: 100%;
+    padding: 20px 0;
+    box-shadow: 0 0 4px $BorderGray;
+    border-radius: 10px;
+    #td1 {
+      width: 150px;
+      text-align: center;
     }
-    #menu {
-        margin-top: 20px;
-        padding-top: 20px;
-        text-align: center;
-        font-weight: bold;
-        table {
-            width: 100%;
-            padding-bottom: 40px;
-            text-align: center;
-            border-bottom: 1px solid $BorderGray;
-            #icon1 {
-                color: $Back1;
-            }
-            #icon2 {
-                color: $Back3;
-            }
-        }
-        p {
-            padding: 10px 0;
-        }
+    #td2 {
+      flex: 1;
+      line-height: 37px;
+      font-weight: 600;
     }
+  }
+  #menu {
+    margin-top: 20px;
+    padding-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    #bookMenu {
+      width: 100%;
+      padding-bottom: 40px;
+      text-align: center;
+      border-bottom: 1px solid $BorderGray;
+      #icon1 {
+        color: $Back1;
+        margin: 0 auto;
+      }
+      #icon2 {
+        color: $Back3;
+        margin: 0 auto;
+      }
+    }
+    p {
+      padding: 10px 0;
+    }
+  }
 }
 
-#create_book, #update_book {
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
+#create_or_update_book {
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  text-align: center;
+  * {
     text-align: center;
-    * {
-        text-align: center;
+  }
+  margin-bottom: 40px;
+  #Read_only {
+    background-color: $BorderGray;
+    color: $white;
+  }
+  .input {
+    width: 250px;
+    height: 24px;
+    margin: 5px auto;
+  }
+  .input_date,
+  .input_select {
+    width: 80%;
+    height: 36px;
+    margin: 5px auto;
+  }
+  #input_img {
+    margin-top: 20px;
+    label {
+      padding: 5px 10px;
+      background-color: $Back1;
+      color: $white;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px $BorderGray;
     }
-    margin-bottom: 40px;
-    #ReadOnly {
-        background-color: $BorderGray;
-        color: $white;
-    }
-    .input {
-        width: 250px;
-        height: 24px;
-        margin: 5px auto;
-    }
-    .inputDate, .inputSelect {
-        width: 264px;
-        height: 36px;
-        margin: 5px auto;
-    }
-    #inputImg {
-        margin-top: 20px;
-        label {
-            padding: 5px 10px;
-            background-color: $Back1;
-            color: $white;
-            border-radius: 5px;
-            box-shadow: 2px 2px 2px $BorderGray;
-        }
-    }
+  }
 }
 
 #search_book {
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-    #search {
-        .search_input {
-            width: 90%;
-            height: 25px;
-        }
-        #search_button {
-            width: 27px;
-            top: 67px;
-            right: 40px;
-            margin: 0 auto;
-            position: absolute;
-            float: right;
-            color: $Back2
-        }
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  #search {
+    .search_input {
+      width: 90%;
+      height: 25px;
     }
-    #searchResult {
-        width: 90%;
+    #search_button {
+      width: 27px;
+      top: 67px;
+      right: 40px;
+      margin: 0 auto;
+      position: absolute;
+      float: right;
+      color: $Back2;
+    }
+  }
+  #search_result {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    .result_item {
+      animation: fadein 2s;
+      -webkit-animation: fadein 2s;
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border: 1px solid $BorderGray;
+      border-radius: 10px;
+      #result_item_wrap {
+        padding-bottom: 10px;
         margin: 0 auto;
-        text-align: center;
-        .resultItems {
-            animation: fadein 2s;
-            -webkit-animation: fadein 2s;
-            width: 90%;
-            margin: 10px auto;
-            padding: 10px;
-            border: 1px solid $BorderGray;
-            border-radius: 10px;
-            .resultItemsTable {
-                padding-bottom: 10px;
-                margin: 0 auto;
-                margin-bottom: 10px;
-                border-bottom: 1px solid $BorderGray;
-                img {
-                    width: 120px;
-                    border: 1px solid $BorderGray;
-                }
-                #td_title {
-                    font-size: small;
-                    font-weight: bold;
-                }
-                #td_content {
-                    font-size: small;
-                }
-            }
-            button {
-                width: 100px;
-                height: 30px;
-                margin: 5px 10px
-            }
-            #del_btn {
-                background-color: $Back3;
-            }
+        margin-bottom: 10px;
+        border-bottom: 1px solid $BorderGray;
+        img {
+          width: 120px;
+          border: 1px solid $BorderGray;
         }
+        #title {
+          font-size: medium;
+          font-weight: bold;
+          margin: 2px 5px;
+          flex: 1;
+        }
+        #content {
+          font-size: medium;
+          margin: 2px;
+          flex: 1;
+        }
+      }
+      button {
+        width: 100px;
+        height: 30px;
+        margin: 5px 10px;
+      }
+      #del_btn {
+        background-color: $Back3;
+      }
     }
+  }
 }
