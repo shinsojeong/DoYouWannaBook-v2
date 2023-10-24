@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useMove from '../../hook/useMove';
+import useDebounce from '../../hook/useDebounce';
 
 import { register } from '../../modules/user';
 import { option } from '../util/Reusable';
@@ -9,17 +10,11 @@ import { changeBar } from '../../modules/topBar';
 import { useInput } from '../../common/util/Reusable';
 
 export default function Join() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
-    const id = useInput("");
-    const pw = useInput("");
-    const pwCheck = useInput("");
-    const name = useInput("");
-    const dept = useInput("간호학과");
+    const id = useInput(""), pw = useInput(""), pwCheck = useInput(""), name = useInput(""),
+          dept = useInput("간호학과"), phNum = useInput(""), email = useInput("");
     const [gender, setGender] = useState(0);
-    const phNum = useInput("");
-    const email = useInput("");
 
     useEffect(() => {
         dispatch(
@@ -34,37 +29,31 @@ export default function Join() {
         );
     }, [dispatch, navigate]);
 
-    //회원가입
+    /** 회원가입 */
     const submit = debounce(() => {
-        if (id.value === "" || pw.value === "" || pwCheck.value === "" || name.value === "" || phNum.value === "" || email.value === "") {
-            alert("모든 항목을 입력해주세요.");
-            return;
+        //입력값 유효성 검사
+        if(!id.value || !pw.value || !pwCheck.value || !name.value || !phNum.value || !email.value ) {
+            return alert("모든 항목을 입력해주세요.");
         }
-        //input 유효성 검사
-        if (id.value.length !== 10) {
-            alert("학번은 10자리 숫자로 입력해주세요.");
-            return;
+        if(id.value.length !== 10) {
+            return alert("학번은 10자리 숫자로 입력해주세요.");
         }
-        if ((/([^a-zA-z0-9])/).test(pw.value)) {
-            alert("비밀번호는 숫자, 영문으로만 구성되어야 합니다.");
-            return;
+        if((/([^a-zA-z0-9])/).test(pw.value)) {
+            return alert("비밀번호는 숫자, 영문으로만 구성되어야 합니다.");
         }
-        if (pw.value !== pwCheck.value) {
-            alert("비밀번호 확인이 일치하지 않습니다.");
-            return;
+        if(pw.value !== pwCheck.value) {
+            return alert("비밀번호 확인이 일치하지 않습니다.");
         }
-        if ((/([^가-힇\x20])/i).test(name.value)) {
-            alert("이름은 한글만 입력 가능합니다.");
-            return;
+        if((/([^가-힇\x20])/i).test(name.value)) {
+            return alert("이름은 한글만 입력 가능합니다.");
         }
-        if (!(/[0-9]{10,11}$/).test(phNum.value)) {
-            alert("연락처 형식이 잘못되었습니다.");
-            return;
+        if(!(/[0-9]{10,11}$/).test(phNum.value)) {
+            return alert("연락처 형식이 잘못되었습니다.");
         }
-        if (!(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i).test(email.value)) {
-            alert("이메일 형식이 잘못되었습니다.");
-            return;
+        if(!(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i).test(email.value)) {
+            return alert("이메일 형식이 잘못되었습니다.");
         }
+
         dispatch(
             register(
                 id.value, 
@@ -77,7 +66,7 @@ export default function Join() {
                 navigate
             )
         );
-    }, 800);
+    });
 
     return (
         <div id="join" className="start_contents">

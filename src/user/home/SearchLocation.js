@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
+import useMove from '../../hook/useMove';
 
 import { changeBar } from '../../modules/topBar';
+
 import '../../styles/home.scss';
 
 export default function SearchLocation() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate] = [useDispatch(), useMove()];
 
     const {
-        libb_title,
-        libb_author,
-        libb_code
+        libb_title, libb_author, libb_code
     } = useSelector(state => state.libBook.selected_book);
     const { 
-        shelf,
-        bookshelf
+        shelf, bookshelf
      } = useSelector(state => state.libBook.book_location);
 
     useEffect(() => {
@@ -32,25 +30,28 @@ export default function SearchLocation() {
         );
     }, [dispatch, navigate]);
 
-    const createRow = (row, num) => {
-        return(
-            [...Array(row)].map((n, index) => {
-                return(<div key={index} className="boxRow">{createBox(index+1,num)}</div>)
-            })
-        );
-    }
-
+    /** 열람실 책장 뷰 반환 */
     const createBox = (idx, num) => {
         return(
-            [...Array(num)].map((n, index) => {
+            [...Array(num)].map((_, index) => {
                 return(<div key={index} id={(shelf === idx) && (bookshelf === index+1) ? "highlight" : "none"} className="box"/>)
             })
         );
     }
 
+    /** 열람실 뷰 반환 */
+    const createRow = (row, num) => {
+        return(
+            [...Array(row)].map((_, index) => {
+                return(<div key={index} className="boxRow">{createBox(index+1,num)}</div>)
+            })
+        );
+    }
+
+    /** 선반 뷰 반환 */
     const createShelf = (num) => { 
         return(
-            [...Array(num)].map((n, index) => {
+            [...Array(num)].map((_, index) => {
                 return(<div key={index} id={shelf === index+1 ? "highlight" : "none"} className="shelf"/>)
             })
         );

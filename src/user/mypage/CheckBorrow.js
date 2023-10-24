@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { getMypageBorrowList } from '../../modules/libBook';
 import { extendDate } from '../../modules/libBook';
@@ -10,11 +11,10 @@ import { changeBar } from '../../modules/topBar';
 import '../../styles/mypage.scss';
 
 export default function CheckBorrow() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const std_num = useSelector(state => state.user.user.std_num);
-    const borrowList = useSelector(state => state.libBook.borrow_list);
+    const borrowList = useSelector(state => state.libBook.borrow_list);  //대출한 도서 목록
 
     useEffect(() => {
         dispatch(getMypageBorrowList(std_num));
@@ -30,10 +30,11 @@ export default function CheckBorrow() {
         );
     }, [dispatch, navigate, std_num]);
 
-    const extend = debounce(async(libb_code, libb_ret_date) => {
-        await dispatch(extendDate(std_num, libb_code, libb_ret_date));
+    /** 대출 연장 */
+    const extend = debounce((libb_code, libb_ret_date) => {
+        dispatch(extendDate(std_num, libb_code, libb_ret_date));
         dispatch(getMypageBorrowList(std_num));
-    }, 800);
+    });
 
     return (
         <div id="check_borrow" className="contents">

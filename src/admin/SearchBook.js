@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useMove from '../hook/useMove';
+import useDebounce from '../hook/useDebounce';
 
 import { getBook, searchBook, deleteBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
+
 import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function SearchBook() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
     
     const searchRes = useSelector(state => state.admin.search_result);
     const [keyword, setKeyword] = useState("");
@@ -27,22 +28,18 @@ export default function SearchBook() {
         );
     }, [dispatch, navigate]);
 
-    //검색
-    const search = debounce(() => {
-        dispatch(searchBook(keyword, navigate));
-    }, 800);
+    /** 도서 검색 */
+    const search = debounce(() => dispatch(searchBook(keyword, navigate)));
     
-    //수정
-    const goUpdateBook = debounce((libb_code) => {
-        dispatch(getBook(libb_code, navigate))
-    }, 800);
+    /** 도서 수정 */
+    const goUpdateBook = debounce((libb_code) => dispatch(getBook(libb_code, navigate)));
 
-    //삭제
+    /** 도서 삭제 */
     const goDeleteBook = debounce((libb_code) => {
         if(window.confirm("도서 정보를 삭제하시겠습니까?")) {
             dispatch(deleteBook(libb_code, navigate));
         }
-    }, 800);
+    });
     
     return (
         <div id="search_book">

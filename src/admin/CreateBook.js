@@ -1,62 +1,53 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../hook/useDebounce';
+import useMove from '../hook/useMove';
 
 import { uploadImg, createBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
 import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/util/Reusable';
 
 export default function CreateBook() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
-    const code = useInput("");
-    const title = useInput("");
-    const author = useInput("");
-    const publisher = useInput("");
-    const pubDate = useInput("");
-    const state = useInput(true);
-    const isbn = useInput("");
-    const barcode = useInput("");
-    const classCode = useInput("");
-    const room = useInput("1");
-    const bookshelf = useInput("1");
-    const shelf = useInput("1");
-    const libb = useInputFile([]);
+    const code = useInput(""), title = useInput(""), author = useInput(""), publisher = useInput(""),
+          pubDate = useInput(""), state = useInput(true), isbn = useInput(""), barcode = useInput(""),
+          classCode = useInput(""), room = useInput("1"), bookshelf = useInput("1"),
+          shelf = useInput("1"), libb = useInputFile([]);
 
-    //취소
-    const cancel = debounce(useCallback(() => {
-        if (window.confirm("도서 등록을 취소하시겠습니까?")) {
-            navigate("/admin/home");
-        }
-    }, [navigate]), 800);
+    /** 도서 등록 취소 */
+    const cancel = debounce(() => navigate("/admin/home", window.confirm("도서 등록을 취소하시겠습니까?")));
 
-    //제출
-    const submit = debounce(useCallback(async() => {
+    /** 도서 등록 */
+    const submit = debounce(async() => {
         const formData = new FormData();
         formData.append('libb', libb.files[0]);
 
-        const res = await dispatch(uploadImg(formData));
-        dispatch(
-            createBook(
-                code.value, 
-                title.value, 
-                author.value, 
-                publisher.value, 
-                pubDate.value, 
-                state.value, 
-                isbn.value, 
-                barcode.value, 
-                classCode.value, 
-                room.value, 
-                bookshelf.value, 
-                shelf.value, 
-                res, 
-                navigate
-            )
-        );
-    }, [code, title, author, barcode, bookshelf, classCode, dispatch, navigate, isbn, libb, pubDate, publisher, room, shelf, state]), 800);
+        try {
+            const res = await dispatch(uploadImg(formData));
+            dispatch(
+                createBook(
+                    code.value, 
+                    title.value, 
+                    author.value, 
+                    publisher.value, 
+                    pubDate.value, 
+                    state.value, 
+                    isbn.value, 
+                    barcode.value, 
+                    classCode.value, 
+                    room.value, 
+                    bookshelf.value, 
+                    shelf.value, 
+                    res,
+                    navigate
+                )
+            );
+        } catch(e) {
+            alert("도서 등록 실패");
+        }
+    });
 
     useEffect(() => {
         dispatch(

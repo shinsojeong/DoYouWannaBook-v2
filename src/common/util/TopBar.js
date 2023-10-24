@@ -1,5 +1,6 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+
 import { IoChevronBackSharp, IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
 import '../../styles/top_bar.scss';

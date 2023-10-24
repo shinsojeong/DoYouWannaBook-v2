@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-//학과 옵션
+/** 학과 옵션 */
 export const department = [
     {value: '간호학과', label: '간호학과'},
     {value: '건축학과', label: '건축학과'},
@@ -52,14 +52,14 @@ export const department = [
     {value: '교양성경과', label: '교양성경과'},
 ];
 
-//열람실 옵션
+/** 열람실 옵션 */
 export const roomOp = [
     {value: '1', label: '제1열람실'},
     {value: '2', label: '제2열람실'},
     {value: '3', label: '제3열람실'}
 ];
 
-//책장 옵션
+/** 책장 옵션 */
 export const bookshelfOp = [
     {value: '1', label: 'a-1 책장'},
     {value: '2', label: 'a-2 책장'},
@@ -87,7 +87,7 @@ export const bookshelfOp = [
     {value: '24', label: 'd-6 책장'},
 ];
 
-//선반 옵션
+/** 선반 옵션 */
 export const shelfOp = [
     {value: '1', label: '선반 1'},
     {value: '2', label: '선반 2'},
@@ -95,23 +95,23 @@ export const shelfOp = [
     {value: '4', label: '선반 4'}
 ];
 
-//학과 옵션 정렬
-export const option = department.sort((a,b) => {  //객체 정렬 형식 (오름차순), 실제로 import 시키는 값
+/** 학과 옵션 정렬 */
+export const option = department.sort((a,b) => {  // 객체 정렬 형식 (오름차순), 실제로 import 시키는 값
     return a - b;
 });
 
-//정렬 옵션
+/** 정렬 옵션 */
 export const soor = [
     {value: 'desc', label: '내림차순'},
     {value: 'asc', label: '오름차순'}
 ];
 
-//정렬 함수
+/** 정렬 함수 */
 export const sort = soor.sort((a,b) => {
     return a.value < b.value ? -1 : a.value > b.value ? 1 : 0;
 });
 
-//input state
+/** input state */
 export const useInput = (init) => {
     const [value, setValue] = useState(init);
     const onChange = (e) => {

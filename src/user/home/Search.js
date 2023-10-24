@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from "lodash";
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { selectBook, searchBook } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
+
 import { AiOutlineSearch } from 'react-icons/ai';
 import '../../styles/home.scss';
 
 export default function Search() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
-    const searchResult = useSelector(state => state.libBook.search_result);  //검색도서 받아옴
-    const [keyword, setKeyword] = useState("");
+    const searchResult = useSelector(state => state.libBook.search_result);  //검색도서
+    const [keyword, setKeyword] = useState("");  //검색 키워드
 
     useEffect(() => {
         dispatch(
@@ -28,17 +29,17 @@ export default function Search() {
         );
     }, [dispatch, navigate]);
     
-    //검색
+    /** 검색 */
     const search = debounce(() => {
-        dispatch(searchBook(keyword))
+        dispatch(searchBook(keyword));
         navigate("/user1/search");
-    }, 800);
+    });
 
-    //상세 페이지로 이동
+    /** 상세 페이지로 이동 */
     const goDetail = debounce((libb_code) => {
-        dispatch(selectBook(libb_code))
+        dispatch(selectBook(libb_code));
         navigate("/user1/search-detail");
-    }, 800);
+    });
 
     return (
         <div id="search" className="contents">

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { changeBar } from '../../modules/topBar';
 
 export default function FindPwRes() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     useEffect(() => {
         dispatch(
@@ -22,10 +22,8 @@ export default function FindPwRes() {
         );
     }, [dispatch]);
 
-    //로그인하러 가기
-    const goLogin = debounce(() => {
-        navigate("/login");
-    }, 800);
+    /** 로그인 페이지로 이동 */
+    const goLogin = debounce(() => navigate("/login"));
 
     return (
         <div id="find_pw_res" className="start_contents">

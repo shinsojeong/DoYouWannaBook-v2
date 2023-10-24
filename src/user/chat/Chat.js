@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
+
 // import io from 'socket.io-client';
 
 import { sendChat } from '../../modules/chat';
@@ -13,25 +15,16 @@ import '../../styles/chat.scss';
 // const socket = io(process.env.REACT_APP_CLIENT);
 
 export default function Chat() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
-    const scrollRef = useRef();
+    const scrollRef = useRef();  //스크롤을 위한 ref
 
     const std_num = useSelector(state => state.user.user.std_num);
     const {
-        stdb_code,
-        stdb_img,
-        stdb_title,
-        lender,
-        borrower,
-        stdb_ret_date
+        stdb_code, stdb_img, stdb_title, lender, borrower, stdb_ret_date
     } = useSelector(state => state.userBook.chat_book);
     const {
-        chat_code,
-        msg,
-        part1,
-        part2
+        chat_code, msg, part1, part2
     } = useSelector(state => state.chat.selected_chat);
 
     const [message, setMessage] = useState("");
@@ -56,7 +49,7 @@ export default function Chat() {
         scrollToBottom();
     }, [dispatch, navigate, part1, part2, std_num]);
 
-    //대여 정보 등록하기
+    /** 대여 정보 등록하기 */
     const register = debounce(() => {
         if (part1 === std_num) {
             dispatch(
@@ -75,20 +68,18 @@ export default function Chat() {
                 )
             );
         }
-    }, 800);
+    });
 
-    //메세지 전송
+    /** 메세지 전송 */
     const sendMessage = debounce(async() => {
-        await dispatch(sendChat(chat_code, std_num, message));
+        dispatch(sendChat(chat_code, std_num, message));
         // socket.emit("send", message);
         scrollToBottom();
         setMessage("");
-    }, 800);
+    });
 
-    //스크롤
-    const scrollToBottom = () => {
-        scrollRef.current.scrollIntoView({behavior: 'smooth', block: 'end',});
-    }
+    /** 스크롤 */
+    const scrollToBottom = () => scrollRef.current.scrollIntoView({behavior: 'smooth', block: 'end',});
 
     return (
         <div id="chat" className="contents">
@@ -136,7 +127,6 @@ export default function Chat() {
                     <p>반납 예정일 : {stdb_ret_date.slice(0,10)}</p>
                 </div>
                 }
-                )
             </div>
 
             <div id="send">

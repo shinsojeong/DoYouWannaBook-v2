@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { getChatBook } from '../../modules/userBook';
 import { getChatList, getChatDetail2 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
+
 import { CgProfile } from 'react-icons/cg';
 
 export default function ChatList() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const std_num = useSelector(state => state.user.user.std_num);
     const chat_list = useSelector(state => state.chat.chat_list);
@@ -29,11 +30,11 @@ export default function ChatList() {
         );
     }, [dispatch, std_num])
 
-    //채팅방 입장
+    /** 채팅방 입장 */
     const enterChat = debounce((chat_code, stdb_code) => {
         dispatch(getChatBook(stdb_code));
         dispatch(getChatDetail2(chat_code, std_num, navigate));
-    }, 800);
+    });
 
     return (
         <div id="chat_list" className="contents">

@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { searchStdBook } from '../../modules/userBook';
 import { createChat, getChatDetail1 } from '../../modules/chat';
 import { changeBar } from '../../modules/topBar';
-import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 
+import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 import '../../styles/student.scss';
 
 export default function StdMain() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const std_num = useSelector(state => state.user.user.std_num);
-    const searchResult = useSelector(state => state.userBook.search_list);  //검색도서 받아옴
-    const [keyword, setKeyword] = useState("");
-    const [menuState, setMenuState] = useState(false);
+    const searchResult = useSelector(state => state.userBook.search_list);  //공유 도서 검색 결과 리스트
+    const [keyword, setKeyword] = useState("");  //공유 도서 검색 키워드
+    const [menuState, setMenuState] = useState(false);  //메뉴 표시 상태
 
     useEffect(() => {
         dispatch(
@@ -32,21 +32,17 @@ export default function StdMain() {
         );
     },[dispatch]);
     
-    //메뉴
-    const openMenu = debounce((state) => {
-        setMenuState(state);
-    }, 800);
+    /** 메뉴 열기/닫기 */
+    const openMenu = debounce((state) => setMenuState(state));
 
-    //검색
-    const search = debounce(() => {
-        dispatch(searchStdBook(keyword));
-    }, 800);
+    /** 공유 도서 검색 */
+    const search = debounce(() => dispatch(searchStdBook(keyword)));
 
-    //대여자와 채팅
+    /** 대여자와 채팅하기 */
     const goChat = debounce((stdb_code, lender) => {
         dispatch(createChat(stdb_code, lender, std_num, navigate));
         dispatch(getChatDetail1(stdb_code, std_num, navigate));
-    }, 800);
+    });
 
     return (
         <div id="std_main" className="contents">

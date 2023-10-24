@@ -1,7 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../hook/useDebounce';
+import useMove from '../hook/useMove';
 
 import { uploadImg, updateBook } from '../modules/admin';
 import { changeBar } from '../modules/topBar';
@@ -9,27 +10,16 @@ import { roomOp, bookshelfOp, shelfOp, useInput, useInputFile } from '../common/
 
 
 export default function CreateBook() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
+    /** 기존 도서 상태 */
     const {
-        libb_code,
-        libb_title,
-        libb_author,
-        libb_publisher,
-        libb_pub_date,
-        libb_state,
-        libb_isbn,
-        libb_barcode,
-        libb_class
+        libb_code, libb_title, libb_author, libb_publisher, libb_pub_date,
+        libb_state, libb_isbn, libb_barcode, libb_class
     } = useSelector(state => state.admin.selected_book.book);
-    const {
-        room,
-        bookshelf,
-        shelf
-    } = useSelector(state => state.admin.selected_book.location);
+    const { room, bookshelf, shelf } = useSelector(state => state.admin.selected_book.location);
 
-    //states
+    /** 입력한 도서 상태 */
     const codeInputState = useInput(libb_code)
     const titleInputState = useInput(libb_title);
     const authorInputState = useInput(libb_author);
@@ -44,39 +34,39 @@ export default function CreateBook() {
     const shelfInputState = useInput(shelf);
     const libbInputState = useInputFile([]);
 
-    //취소
-    const cancel = debounce(useCallback(() => {
-        if (window.confirm("도서 수정을 취소하시겠습니까?")) {
-            navigate(-1);
-        }
-    }, [navigate]), 800);
+    /** 도서 수정 취소 */
+    const cancel = debounce(() => navigate(-1, window.confirm("도서 수정을 취소하시겠습니까?")));
 
-    //제출
-    const submit = debounce(useCallback(async() => {
+    /** 도서 수정 */
+    const submit = debounce(async() => {
         const formData = new FormData();
         formData.append('libb', libbInputState.files[0]);
 
-        const res = await dispatch(uploadImg(formData));
-        dispatch(
-            updateBook(
-                libb_code, 
-                codeInputState.value, 
-                titleInputState.value, 
-                authorInputState.value, 
-                publisherInputState.value, 
-                pubDateInputState.value, 
-                stateInputState, 
-                isbnInputState.value, 
-                barcodeInputState.value, 
-                res, 
-                classCodeInputState.value, 
-                roomInputState.value, 
-                bookshelfInputState.value, 
-                shelfInputState.value, 
-                navigate
-            )
-        );
-    }, [dispatch, libbInputState, libb_code, codeInputState, titleInputState, authorInputState, publisherInputState, pubDateInputState, stateInputState, isbnInputState, barcodeInputState, classCodeInputState, roomInputState, bookshelfInputState, shelfInputState, navigate]), 800);
+        try {
+            const res = await dispatch(uploadImg(formData));
+            dispatch(
+                updateBook(
+                    libb_code, 
+                    codeInputState.value, 
+                    titleInputState.value, 
+                    authorInputState.value, 
+                    publisherInputState.value, 
+                    pubDateInputState.value, 
+                    stateInputState, 
+                    isbnInputState.value, 
+                    barcodeInputState.value, 
+                    res, 
+                    classCodeInputState.value, 
+                    roomInputState.value, 
+                    bookshelfInputState.value, 
+                    shelfInputState.value, 
+                    navigate
+                )
+            );
+        } catch(e) {
+            alert("도서 수정 실패");
+        }
+    });
 
     useEffect(() => {
         dispatch(

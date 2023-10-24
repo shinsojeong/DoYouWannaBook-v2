@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { uploadImg, createStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 import { useInput, useInputFile } from '../../common/util/Reusable';
 
 export default function StdCreate() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const std_num = useSelector(state => state.user.user.std_num);
+
+    const title = useInput(""), author = useInput(""), publisher = useInput(""), pubDate = useInput(""),
+          rentDate = useInput("7일"), state = true, rentFee = useInput(0), comment = useInput(""),
+          stdb = useInputFile([]);
 
     useEffect(() => {
         dispatch(
@@ -26,45 +30,37 @@ export default function StdCreate() {
         );
     });
 
-    //topbar function
+    /** 상단바 좌측 함수: 도서 등록 취소 */
     const cancel = debounce(() => {
-        if (window.confirm("도서 등록을 취소하시겠습니까?")) {
-            navigate("/user/std-main");
-        }
-    }, 800);
+        navigate("/user/std-main", window.confirm("도서 등록을 취소하시겠습니까?"));
+    });
 
-    const title = useInput("");
-    const author = useInput("");
-    const publisher = useInput("");
-    const pubDate = useInput("");
-    const rentDate = useInput("7일");
-    const state = true;
-    const rentFee = useInput(0);
-    const comment = useInput("");
-    const stdb = useInputFile([]);
-
-    //제출
+    /** 상단바 우측 함수: 도서 등록 */
     const submit = debounce(async() => {
         const formData = new FormData();
         formData.append('stdb', stdb.files[0]);
 
-        const res = await dispatch(uploadImg(formData))
-        dispatch(
-            createStdBook(
-                std_num, 
-                title.value, 
-                author.value, 
-                publisher.value, 
-                pubDate.value, 
-                rentDate.value, 
-                rentFee.value, 
-                state, 
-                comment.value, 
-                res, 
-                navigate
-            )
-        );
-    }, 800);
+        try {
+            const uploadRes = await dispatch(uploadImg(formData));
+            dispatch(
+                createStdBook(
+                    std_num, 
+                    title.value, 
+                    author.value, 
+                    publisher.value, 
+                    pubDate.value, 
+                    rentDate.value, 
+                    rentFee.value, 
+                    state, 
+                    comment.value, 
+                    uploadRes,
+                )
+            );
+            navigate("/user/std-main");
+        } catch(e) {
+            alert("도서 등록 실패");
+        }
+    });
 
 
     return (

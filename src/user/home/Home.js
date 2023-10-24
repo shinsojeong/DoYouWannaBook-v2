@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
-import { AiOutlineSearch } from 'react-icons/ai';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { changeBar } from '../../modules/topBar';
 import { getRecommendedBook, searchBook } from '../../modules/libBook';
+
+import { AiOutlineSearch } from 'react-icons/ai';
 import '../../styles/home.scss';
 
 export default function Home() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const recommendedBook = useSelector(state => state.libBook.recommended_book);  //추천 신작 도서 받아옴
-    const [keyword, setKeyword] = useState("");
+    const [keyword, setKeyword] = useState("");  //검색 키워드
 
     useEffect(() => {
         dispatch(
@@ -29,11 +30,11 @@ export default function Home() {
         dispatch(getRecommendedBook());
     }, [dispatch]);
 
-    //검색
+    /** 검색 */
     const search = debounce(() => {
         dispatch(searchBook(keyword));
         navigate("/user1/search");
-    }, 800);
+    });
 
     return (
         <div id="home" className="contents">

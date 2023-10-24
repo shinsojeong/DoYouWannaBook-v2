@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+
+import useDebounce from '../hook/useDebounce';
+import useMove from '../hook/useMove';
 
 import { changeBar } from '../modules/topBar';
 import { resetAdmin } from '../modules/admin';
 import { logout } from '../modules/user';
+
 import { AiOutlineBook } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 
 import '../styles/admin.scss';
 
 export default function Home() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const { 
         std_num,
@@ -33,23 +34,15 @@ export default function Home() {
         );
     }, [dispatch]);
 
-    //도서 등록으로 이동
-    const goCreateBook = debounce(() => {
-        navigate("/admin/create-book");
-    }, 800);
-
-    //도서 조회/수정/삭제로 이동
-    const goSearchBook = debounce(async() => {
-        await dispatch(resetAdmin());
-        navigate("/admin/search-book");
-    }, 800);
-
-    //로그아웃
-    const goLogout = debounce(() => {
-        if (window.confirm("로그아웃 하시겠습니까?")) {            
-            dispatch(logout(navigate));
+    /** 버튼 클릭 시 수행 (로그아웃, 페이지 이동) */
+    const click = debounce((path) => {
+        if(path === '/logout') {
+            if(window.confirm("로그아웃 하시겠습니까?")) dispatch(logout(navigate));
+        } else {
+            if(path === '/admin/search-book') dispatch(resetAdmin());
+            navigate(path);
         }
-    }, 800);
+    });
 
     return (
         <div id="home" className="contents">
@@ -67,20 +60,20 @@ export default function Home() {
                 </table>
             </div>
 
-            <div id="menu">
+            <div id="menu" onClick={(e) => click(e.target.getAttribute('name'))}>
                 <table id="bookMenu">
                     <tbody>
                         <tr>
-                            <td onClick={goCreateBook}><AiOutlineBook size="100px" id="icon1"/></td>
-                            <td onClick={goSearchBook}><AiOutlineBook size="100px" id="icon2"/></td>
+                            <td name="/admin/create-book"><AiOutlineBook size="100px" id="icon1"/></td>
+                            <td name="/admin/search-book"><AiOutlineBook size="100px" id="icon2"/></td>
                         </tr>
                         <tr>
-                            <td onClick={goCreateBook}>도서 등록</td>
-                            <td onClick={goSearchBook}>조회/수정/삭제</td>
+                            <td name="/admin/create-book">도서 등록</td>
+                            <td name="/admin/search-book">조회/수정/삭제</td>
                         </tr>
                     </tbody>
                 </table>
-                <p onClick={goLogout}>로그아웃</p>
+                <p name="/logout">로그아웃</p>
             </div>
         </div>
     );

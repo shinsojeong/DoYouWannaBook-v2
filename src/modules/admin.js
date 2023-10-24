@@ -117,23 +117,24 @@ export const getBook = (
 export const uploadImg = (
     formData
 ) => async() => {
-    try {
-        const { 
-            data: { 
-                message,
-                status,
-                data
+    return new Promise(async (resolve, reject) => {
+        try {
+            const {
+                data: {
+                    status,
+                    message,
+                    data
+                }
+            } = await axios.post(`${url}/upload/libimg`, formData, { withCredentials: "true" });
+            if (status === "OK") {
+                return resolve(data.url);
+            } else {
+                return reject(message);
             }
-        } = await axios.post(`${url}/upload/libimg`, formData, { withCredentials: "true" });
-
-        if (status === "OK") {
-            return data.url;
-        } else {
-            return alert(message);
+        } catch(e) {
+            console.error(e);
         }
-    } catch (err) {
-        return console.error(err);
-    }
+    });
 }
 
 //도서 정보 등록
@@ -186,7 +187,7 @@ export const createBook = (
             return alert(data.message);
         }
     } catch (err) {
-        return console.log(err);
+        return alert(err);
     }
 }
 

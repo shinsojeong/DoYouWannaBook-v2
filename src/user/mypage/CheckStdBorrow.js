@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
+import useMove from '../../hook/useMove';
 
 import { getBorrowStdBookList } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
 
 export default function CheckStdBorrow() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate] = [useDispatch(), useMove()];
 
     const std_num = useSelector(state => state.user.user.std_num);
-    const borrow_list = useSelector(state => state.userBook.borrow_book_list);
+    const borrow_list = useSelector(state => state.userBook.borrow_book_list);  //공유 도서 대여 목록
 
     useEffect(() => {
         dispatch(getBorrowStdBookList(std_num));

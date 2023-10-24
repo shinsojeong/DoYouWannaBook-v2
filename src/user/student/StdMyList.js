@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { getMyBookList, deleteStdBook } from '../../modules/userBook';
 import { changeBar } from '../../modules/topBar';
@@ -9,10 +10,9 @@ import { changeBar } from '../../modules/topBar';
 import '../../styles/student.scss';
 
 export default function StdMyList() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
     
-    const bookList = useSelector(state => state.userBook.my_book_list);
+    const bookList = useSelector(state => state.userBook.my_book_list);  //내가 등록한 공유 도서 목록
     const std_num = useSelector(state => state.user.user.std_num);
 
     useEffect(() => {
@@ -29,10 +29,8 @@ export default function StdMyList() {
         );
     }, [dispatch, navigate, std_num]);
 
-    //도서 정보 삭제
-    const deleteInfo = debounce((stdb_code) => {
-        dispatch(deleteStdBook(stdb_code, navigate));
-    }, 800);
+    /** 도서 정보 삭제 */
+    const deleteInfo = debounce((stdb_code) => dispatch(deleteStdBook(stdb_code, navigate)));
 
     return (
         <div id="std_my_list" className="contents">
@@ -51,7 +49,7 @@ export default function StdMyList() {
                 stdb_comment
             }) => {
                 return(
-                    <div id={stdb_code} className="list_item">
+                    <div id={stdb_code} className="list_item" key={stdb_code}>
                         <table id="table1">
                             <tbody>
                                 <tr>

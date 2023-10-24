@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useMove from '../../hook/useMove';
+import useDebounce from '../../hook/useDebounce';
 
 import { findPw } from '../../modules/user';
 import { changeBar } from '../../modules/topBar';
 import { useInput } from '../../common/util/Reusable';
 
 export default function FindPw() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
-    const id = useInput("");
-    const name = useInput("");
-    const phNum = useInput("");
-    const email = useInput("");
+    const id = useInput(""), name = useInput(""), phNum = useInput(""), email = useInput("");
 
     const isDisabled = false;
 
@@ -31,7 +28,7 @@ export default function FindPw() {
         );
     }, [dispatch, navigate]);
 
-    //비밀번호 찾기
+    /** 비밀번호 찾기 */
     const submit = debounce(() => {
         dispatch(
             findPw(
@@ -42,7 +39,7 @@ export default function FindPw() {
                 navigate
             )
         );
-    }, 800);
+    });
 
     return (
         <div id="find_pw" className="start_contents">

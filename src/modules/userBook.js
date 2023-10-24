@@ -48,23 +48,25 @@ export const searchStdBook = (
 //학생 대여 도서 이미지 등록
 export const uploadImg = (
     formData
-) => async() => {
-    try {
-        const {
-            data: {
-                status,
-                message,
-                data
+) => () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const {
+                data: {
+                    status,
+                    message,
+                    data
+                }
+            } = await axios.post(`${url}/upload/stdimg`, formData, { withCredentials: "true" });
+            if (status === "OK") {
+                return resolve(data.url);
+            } else {
+                return reject(message);
             }
-        } = await axios.post(`${url}/upload/stdimg`, formData, { withCredentials: "true" });
-        if (status === "OK") {
-            return data.url;
-        } else {
-            return alert(message);
+        } catch(e) {
+            console.error(e);
         }
-    } catch(err) {
-        return console.error(err);
-    }
+    });
 }
 
 //학생 대여 도서 등록
@@ -78,8 +80,7 @@ export const createStdBook = (
     stdb_rental_fee, 
     stdb_state, 
     stdb_comment, 
-    stdb, 
-    navigate
+    stdb
 ) => async() => {
     try {
         const {
@@ -103,7 +104,6 @@ export const createStdBook = (
         
         if (status === "OK") {
             alert("도서 등록 완료");
-            return navigate("/user/std-main");
         }
     } catch (err) {
         return console.error(err);
@@ -125,7 +125,8 @@ export const deleteStdBook = (
     
         if (status === "OK") {
             dispatch({
-                type: DELETESTDBOOK
+                type: DELETESTDBOOK,
+                payload: stdb_code
             });
             return alert("삭제가 완료되었습니다.");
         } else {
@@ -277,7 +278,7 @@ const userBook = (state = INIT_USERBOOK_STATE, { type, payload }) => {
         case DELETESTDBOOK:
             return {
                 ...state,
-                my_book_list: []
+                my_book_list: state.my_book_list.filter(({stdb_code}) => stdb_code !== payload)
             }
         case GETMYBOOKLIST:
             return {

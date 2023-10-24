@@ -1,26 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { getBookLoc } from '../../modules/libBook';
 import { changeBar } from '../../modules/topBar';
+
 import '../../styles/home.scss';
 
 export default function SearchDetail() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce()];
 
     const {
-        libb_title,
-        libb_author,
-        libb_img,
-        libb_isbn,
-        libb_publisher,
-        libb_pub_date,
-        libb_code,
-        libb_state,
-        libb_class
+        libb_title, libb_author, libb_img, libb_isbn, libb_publisher,
+        libb_pub_date, libb_code, libb_state, libb_class
     } = useSelector(state => state.libBook.selected_book);
 
     useEffect(() => {
@@ -36,11 +30,11 @@ export default function SearchDetail() {
         );
     }, [dispatch, navigate]);
     
-    //위치 정보 보기
+    /** 위치 정보 보기 */
     const goLocation = debounce((class_sign) => {
         dispatch(getBookLoc(class_sign));
         navigate("/user1/search-location");
-    }, 800);
+    });
 
     return (
         <div id="search_detail" className="contents">

@@ -1,43 +1,37 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { debounce } from "lodash";
+
+import useDebounce from '../../hook/useDebounce';
+import useMove from '../../hook/useMove';
 
 import { login } from '../../modules/user';
-import logo from '../../source/logo.png';
 import { useInput } from '../../common/util/Reusable';
 
+import logo from '../../source/logo.png';
+
 export default function Login() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [dispatch, navigate, debounce] = [useDispatch(), useMove(), useDebounce];
 
-    const id = useInput("");
-    const pw = useInput("");
+    const id = useInput(""), pw = useInput("");
 
-    //로그인
-    const goLogin = debounce(async(e) => {
-        e.preventDefault();
-        dispatch(login(id.value, pw.value, navigate))
-    }, 800);
+    /** 타입(name)에 맞는 함수를 리턴 */
+    const func = (type) => {
+        if(type === 'login') return dispatch(login(id.value, pw.value, navigate));
+        else if(type === 'find_pw') return navigate("/user1/find_pw");
+        else if(type === 'go_join') return navigate("/user1/join");
+    }
 
-    //비밀번호 찾기
-    const goFindPw = debounce(() => {
-        navigate("/user1/find_pw");
-    }, 800);
-
-    //회원가입
-    const goJoin = debounce(() => {
-        navigate("/user1/join");
-    }, 800);
+    /** 버튼 클릭 시, 타입에 맞는 함수 실행 */
+    const click = (type) => debounce(func(type));
 
     return (
-        <div id="login">
+        <div id="login" onClick={(e) => click(e.target.getAttribute('name'))}>
             <img src={logo} alt="logo" id="logo" width="170px"/>
             <input type="text" id="id" placeholder="학번" {...id}/>
             <input type="password" id="pw" placeholder="패스워드" {...pw}/>
-            <button onClick={goLogin} id="login_btn">로그인</button>
-            <button onClick={goFindPw}>비밀번호 찾기</button>
-            <button onClick={goJoin}>회원가입</button>
+            <button name="login" id="login_btn">로그인</button>
+            <button name="find_pw">비밀번호 찾기</button>
+            <button name="go_join">회원가입</button>
         </div>
     );
 }
