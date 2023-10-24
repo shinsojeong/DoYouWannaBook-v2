@@ -23,11 +23,11 @@ const INIT_ADMIN_STATE = {
             bookshelf: "",
             shelf: ""
         },
-        locaiton: {
-            class_sign: "",
-            room: "",
-            bookshelf: "",
-            shelf: ""
+        location: {
+            class_sign: "1",
+            room: 1,
+            bookshelf: 1,
+            shelf: 1
         }
     }
 }
@@ -101,7 +101,7 @@ export const getBook = (
                 type: GETBOOK,
                 payload: data
             });
-            return navigate("/admin/update-book");
+            return navigate("/admin/book/update");
         } else {
             dispatch({
                 type: GETBOOK,
@@ -138,37 +138,37 @@ export const uploadImg = (
 }
 
 //도서 정보 등록
-export const createBook = (
-    code, 
-    title, 
-    author, 
-    publisher, 
-    pubDate, 
-    state, 
-    isbn, 
-    barcode, 
-    classCode, 
+export const createBook = ({
+    libb_code, 
+    libb_title, 
+    libb_author, 
+    libb_publisher, 
+    libb_pub_date, 
+    libb_state, 
+    libb_isbn, 
+    libb_barcode, 
+    libb_class, 
     room, 
     bookshelf, 
     shelf, 
-    imgUrl, 
+    libb_img, 
     navigate
-) => async(dispatch) => {
+}) => async(dispatch) => {
     try {
         const { data } = await axios.post(`${url}/admin/admin_create_book`, {
-            libb_code: code,
-            libb_title: title,
-            libb_author: author,
-            libb_publisher: publisher,
-            libb_pub_date: pubDate,
-            libb_state: state,
-            libb_isbn: isbn,
-            libb_barcode: barcode,
-            libb_class: classCode,
+            libb_code,
+            libb_title,
+            libb_author,
+            libb_publisher,
+            libb_pub_date,
+            libb_state,
+            libb_isbn,
+            libb_barcode,
+            libb_class,
             room,
             bookshelf,
             shelf,
-            libb_img: imgUrl
+            libb_img
         }, { 
             withCredentials: "true" 
         });
@@ -192,7 +192,7 @@ export const createBook = (
 }
 
 //도서 정보 수정
-export const updateBook = (
+export const updateBook = ({
     pre_code, 
     libb_code, 
     libb_title, 
@@ -208,7 +208,7 @@ export const updateBook = (
     bookshelf, 
     shelf, 
     navigate
-) => async() => {
+}) => async(dispatch) => {
     try {
         const { 
             data: { 
@@ -239,6 +239,9 @@ export const updateBook = (
             alert(message);
             return navigate("/user/home");
         } else if (status === "OK") {
+            dispatch({
+                type: UPDATEBOOK
+            });
             alert("수정이 완료되었습니다.");
             return navigate("/admin/home");
         } else {
@@ -307,7 +310,10 @@ const admin = (state = INIT_ADMIN_STATE, action) => {
         case UPDATEBOOK:
             return { 
                 ...state, 
-                selected_book: INIT_ADMIN_STATE.selected_book
+                selected_book: {
+                    book: INIT_ADMIN_STATE.selected_book.book,
+                    location: INIT_ADMIN_STATE.selected_book.location
+                }
             }
         case DELETEBOOK:
             return state;
