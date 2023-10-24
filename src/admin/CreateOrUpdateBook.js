@@ -118,7 +118,7 @@ export default function CreateBook() {
   }, [dispatch, cancel, type, submit]);
 
   return (
-    <div id="create_book" className="contents">
+    <div id="create_or_update_book" className="contents">
       <input
         className="input"
         type="text"
@@ -152,7 +152,7 @@ export default function CreateBook() {
         onChange={(e) => set_libb_publisher(e.target.value)}
       />
       <input
-        className="inputDate"
+        className="input_date"
         type="date"
         id="pub_date"
         placeholder="출판일"
@@ -160,7 +160,7 @@ export default function CreateBook() {
         onChange={(e) => set_libb_pub_date(e.target.value)}
       />
       <select
-        className="inputSelect"
+        className="input_select"
         placeholder="상태"
         id="state"
         value={libb_state}
@@ -195,7 +195,7 @@ export default function CreateBook() {
         onChange={(e) => set_libb_class(e.target.value)}
       />
       <select
-        className="inputSelect"
+        className="input_select"
         id="room"
         value={room}
         onChange={(e) => set_room(e.target.value)}
@@ -209,7 +209,7 @@ export default function CreateBook() {
         })}
       </select>
       <select
-        className="inputSelect"
+        className="input_select"
         id="bookshelf"
         value={bookshelf}
         onChange={(e) => set_bookshelf(e.target.value)}
@@ -223,7 +223,7 @@ export default function CreateBook() {
         })}
       </select>
       <select
-        className="inputSelect"
+        className="input_select"
         id="shelf"
         value={shelf}
         onChange={(e) => set_shelf(e.target.value)}
@@ -236,7 +236,7 @@ export default function CreateBook() {
           );
         })}
       </select>
-      <div id="inputImg">
+      <div id="input_img">
         <label htmlFor="img">도서 이미지 업로드</label>
         <input
           type="file"

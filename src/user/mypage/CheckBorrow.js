@@ -40,32 +40,22 @@ export default function CheckBorrow() {
       {borrowList.length > 0 &&
         borrowList.map(({ libb_code, libb_img, libb_title, libb_ret_date }) => {
           return (
-            <table key={libb_code}>
-              <tbody>
-                <tr>
-                  <td rowSpan="3">
-                    <img
-                      src={libb_img}
-                      alt="bookImage"
-                      width="120px"
-                      height="160px"
-                      onError={(e) =>
-                        (e.target.src = "http://placehold.it/120x160")
-                      }
-                    />
-                  </td>
-                  <td id="td_title">{libb_title}</td>
-                </tr>
-                <tr>
-                  <td>{libb_ret_date.slice(0, 10)}</td>
-                </tr>
-                <tr>
-                  <button onClick={() => extend(libb_code, libb_ret_date)}>
-                    대출 연장
-                  </button>
-                </tr>
-              </tbody>
-            </table>
+            <div className="flex-row" id="table" key={libb_code}>
+              <img
+                src={libb_img}
+                alt="bookImage"
+                width="120px"
+                height="160px"
+                onError={(e) => (e.target.src = "http://placehold.it/120x160")}
+              />
+              <div className="flex-col" id="info">
+                <p id="title">{libb_title}</p>
+                <p>{libb_ret_date.slice(0, 10)}</p>
+                <button onClick={() => extend(libb_code, libb_ret_date)}>
+                  대출 연장
+                </button>
+              </div>
+            </div>
           );
         })}
       {borrowList.length === 0 && (

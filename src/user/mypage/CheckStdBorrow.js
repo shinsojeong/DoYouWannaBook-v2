@@ -28,30 +28,22 @@ export default function CheckStdBorrow() {
         borrow_list.map(
           ({ stdb_code, stdb_img, stdb_title, lender, stdb_ret_date }) => {
             return (
-              <table key={stdb_code}>
-                <tbody>
-                  <tr>
-                    <td rowSpan="3">
-                      <img
-                        src={stdb_img}
-                        width="120px"
-                        height="160px"
-                        onError={(e) =>
-                          (e.target.src = "http://placehold.it/120x160")
-                        }
-                        alt="bookimg"
-                      />
-                    </td>
-                    <td id="td_title">{stdb_title}</td>
-                  </tr>
-                  <tr>
-                    <td>{lender}의 도서</td>
-                  </tr>
-                  <tr>
-                    <td>{stdb_ret_date.slice(0, 10)} 반납必</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="flex-row" id="table" key={stdb_code}>
+                <img
+                  src={stdb_img}
+                  width="120px"
+                  height="160px"
+                  onError={(e) =>
+                    (e.target.src = "http://placehold.it/120x160")
+                  }
+                  alt="bookimg"
+                />
+                <div className="flex-col" id="info">
+                  <p id="title">{stdb_title}</p>
+                  <p>{lender}의 도서</p>
+                  <p>{stdb_ret_date.slice(0, 10)} 반납 필수</p>
+                </div>
+              </div>
             );
           }
         )}

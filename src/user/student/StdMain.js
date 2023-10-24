@@ -99,43 +99,33 @@ export default function StdMain() {
               index
             ) => {
               return (
-                <div className="item_wrap" key={index}>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td rowSpan="4">
-                          <img
-                            id="book_img"
-                            src={stdb_img}
-                            alt="book-img"
-                            width="120px"
-                          />
-                        </td>
-                        <td id="td_title">{stdb_title}</td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">
-                          {stdb_author} | {stdb_publisher}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">
-                          출판일 : {stdb_pub_date.slice(0, 10)}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">
-                          {stdb_rental_fee}원 ({stdb_rental_date} 대여)
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div className="detail">
-                    <p id="td_content">{stdb_comment}</p>
+                <div className="flex-row" id="item_wrap" key={index}>
+                  <img
+                    id="book_img"
+                    src={stdb_img}
+                    alt="book-img"
+                    width="120px"
+                    height="160px"
+                    onError={(e) =>
+                      (e.target.src = "http://placehold.it/120x160")
+                    }
+                  />
+                  <div className="flex-col" id="info">
+                    <div id="title">{stdb_title}</div>
+                    <div id="content">
+                      {stdb_author} | {stdb_publisher}
+                    </div>
+                    <div id="content">
+                      출판일 : {stdb_pub_date.slice(0, 10)}
+                    </div>
+                    <div id="content">
+                      {stdb_rental_fee}원 ({stdb_rental_date} 대여)
+                    </div>
+                    <div id="content">{stdb_comment}</div>
+                    <button onClick={() => goChat(stdb_code, lender)}>
+                      대여자와 채팅하기
+                    </button>
                   </div>
-                  <button onClick={() => goChat(stdb_code, lender)}>
-                    대여자와 채팅하기
-                  </button>
                 </div>
               );
             }

@@ -87,7 +87,7 @@ export default function StdCreate() {
 
   return (
     <div
-      id="createStdBook"
+      id="create_std_book"
       className="contents"
       onChange={(e) => changeEvent(e)}
     >
@@ -113,14 +113,14 @@ export default function StdCreate() {
         value={stdb_publisher}
       />
       <input
-        className="inputDate"
+        className="input_date"
         type="date"
         id="stdb_pub_date"
         placeholder="출판일"
         value={stdb_pub_date}
       />
       <select
-        className="inputSelect"
+        className="input_select"
         id="stdb_rental_date"
         value={stdb_rental_date}
       >
@@ -144,7 +144,7 @@ export default function StdCreate() {
         placeholder="도서 상태 및 대여 정보를 자세하게 작성해주세요."
         value={stdb_comment}
       />
-      <div id="inputImg">
+      <div id="input_img">
         <p>도서 이미지</p>
         <label htmlFor="stdb" id="upload">
           업로드

@@ -73,19 +73,11 @@ export default function SearchLocation() {
         <div id="bookshelf">
           <div className="shelf">{createShelf(4)}</div>
         </div>
-        <table id="book_info">
-          <tbody>
-            <tr>
-              <td id="td_title">{libb_title}</td>
-            </tr>
-            <tr>
-              <td>{libb_author}</td>
-            </tr>
-            <tr>
-              <td>{libb_code}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="flex-col" id="book_info">
+          <div id="title">{libb_title}</div>
+          <div id="content">작가: {libb_author}</div>
+          <div id="content">청구기호: {libb_code}</div>
+        </div>
       </div>
     </div>
   );

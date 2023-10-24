@@ -45,63 +45,55 @@ export default function SearchDetail() {
 
   return (
     <div id="search_detail" className="contents">
-      <table id="info">
-        <tbody>
-          <tr>
-            <td colSpan="2" id="book_name">
-              {libb_title}
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="2" id="author">
-              {libb_author}
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="2">
-              <img
-                src={libb_img}
-                onError={(e) => (e.target.src = "http://placehold.it/200x200")}
-                alt="bookImage"
-                width="200px"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td id="td_title">ISBN</td>
-            <td id="isbn">{libb_isbn}</td>
-          </tr>
-          <tr>
-            <td id="td_title">출판사</td>
-            <td id="publisher">{libb_publisher}</td>
-          </tr>
-          <tr>
-            <td id="td_title">출판일</td>
-            <td id="publish_date">{libb_pub_date.slice(0, 10)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div id="info" className="flex-col">
+        <div id="book_name">{libb_title}</div>
+        <div id="author">{libb_author}</div>
+        <img
+          src={libb_img}
+          onError={(e) => (e.target.src = "http://placehold.it/200x200")}
+          alt="bookImage"
+          width="200px"
+        />
+        <div className="flex-row">
+          <div className="sub_title">ISBN</div>
+          <div className="content" id="isbn">
+            {libb_isbn}
+          </div>
+        </div>
+        <div className="flex-row">
+          <div className="sub_title">출판사</div>
+          <div className="content" id="publisher">
+            {libb_publisher}
+          </div>
+        </div>
+        <div className="flex-row">
+          <div className="sub_title">출판일</div>
+          <div className="content" id="publish_date">
+            {libb_pub_date.slice(0, 10)}
+          </div>
+        </div>
+      </div>
 
       <div id="location">
         <p className="title">· 소장 정보</p>
-        <table>
-          <tbody>
-            <tr>
-              <td id="td_title">청구기호</td>
-              <td>{libb_code}</td>
-            </tr>
-            <tr>
-              <td id="td_title">대출상태</td>
-              <td>{libb_state ? "대출가능" : "대출중"}</td>
-            </tr>
-            <tr>
-              <td id="td_title">위치보기</td>
-              <td id="button" onClick={() => goLocation(libb_class)}>
-                보기
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="flex-row">
+          <div className="sub_title">청구기호</div>
+          <div className="content">{libb_code}</div>
+        </div>
+        <div className="flex-row">
+          <div className="sub_title">대출상태</div>
+          <div className="content">{libb_state ? "대출가능" : "대출중"}</div>
+        </div>
+        <div className="flex-row">
+          <div className="sub_title">위치보기</div>
+          <div
+            className="content"
+            id="button"
+            onClick={() => goLocation(libb_class)}
+          >
+            보기
+          </div>
+        </div>
       </div>
     </div>
   );

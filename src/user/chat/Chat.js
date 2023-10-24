@@ -87,7 +87,7 @@ export default function Chat() {
       </div>
 
       <div id="chat_messages" ref={scrollRef}>
-        {msg.length !== 0 ? (
+        {msg.length > 0 &&
           msg.map(({ sender, msg, created_at }) => {
             return sender.toString() === std_num ? (
               <div id="me" key={created_at}>
@@ -102,34 +102,38 @@ export default function Chat() {
                 </p>
               </div>
             );
-          })
-        ) : (
+          })}
+        {msg.length === 0 && (
           <p id="message">메세지를 전송하여 채팅을 시작해보세요.</p>
         )}
       </div>
 
       <div id="rent_info">
-        {lender === std_num ? (
-          !borrower ? (
-            <div id="register">
-              <label>반납 예정일</label>
-              <input
-                type="date"
-                value={retDate || ""}
-                onChange={(e) => setRetDate(e.target.value)}
-              />
-              <input type="button" value="등록" onClick={register} />
-            </div>
-          ) : (
-            <div id="info">
-              <p>반납 예정일 : {stdb_ret_date.slice(0, 10)}</p>
-            </div>
-          )
-        ) : !borrower ? (
+        {/** 현재 사용자가 책을 빌려주는 학생일 경우 */}
+        {lender === std_num && !borrower && (
+          <div id="register">
+            <label>반납 예정일</label>
+            <input
+              type="date"
+              value={retDate || ""}
+              onChange={(e) => setRetDate(e.target.value)}
+            />
+            <input type="button" value="등록" onClick={register} />
+          </div>
+        )}
+        {lender === std_num && borrower && (
+          <div id="info">
+            <p>반납 예정일 : {stdb_ret_date.slice(0, 10)}</p>
+          </div>
+        )}
+
+        {/** 현재 사용자가 책을 빌리는 학생일 경우 */}
+        {lender !== std_num && !borrower && (
           <div id="register">
             <p>상대방이 반납 예정일을 등록하지 않았습니다.</p>
           </div>
-        ) : (
+        )}
+        {lender !== std_num && borrower && (
           <div id="info">
             <p>반납 예정일 : {stdb_ret_date.slice(0, 10)}</p>
           </div>

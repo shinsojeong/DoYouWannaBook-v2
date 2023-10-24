@@ -27,7 +27,7 @@ export default function Barcode() {
       {/** 바코드 촬영중일 때 표시할 페이지 */}
       {state && (
         <>
-          <div id="scanner-container">
+          <div id="scanner_container">
             <BarcodeScannerComponent
               width={500}
               height={400}

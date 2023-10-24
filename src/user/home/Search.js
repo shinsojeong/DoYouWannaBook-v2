@@ -71,37 +71,25 @@ export default function Search() {
               index
             ) => {
               return (
-                <div className="item_wrap" key={index}>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td rowSpan="5">
-                          <img
-                            id="book_img"
-                            src={libb_img}
-                            onError={(e) =>
-                              (e.target.src = "http://placehold.it/120x160")
-                            }
-                            alt="book-img"
-                            width="120px"
-                          />
-                        </td>
-                        <td id="title">{libb_title}</td>
-                      </tr>
-                      <tr>
-                        <td>{libb_author}</td>
-                      </tr>
-                      <tr>
-                        <td>{libb_publisher}</td>
-                      </tr>
-                      <tr>
-                        <td>{libb_pub_date.slice(0, 10)}</td>
-                      </tr>
-                      <tr>
-                        <td>{libb_state}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div className="flex-col" id="item_wrap" key={index}>
+                  <div className="flex-row">
+                    <img
+                      id="book_img"
+                      src={libb_img}
+                      onError={(e) =>
+                        (e.target.src = "http://placehold.it/120x160")
+                      }
+                      alt="book-img"
+                      width="120px"
+                    />
+                    <div className="flex-col" id="info">
+                      <span id="title">{libb_title}</span>
+                      <span>{libb_author}</span>
+                      <span>{libb_publisher}</span>
+                      <span>{libb_pub_date.slice(0, 10)}</span>
+                      <span>{libb_state ? "대출 가능" : "대출 불가"}</span>
+                    </div>
+                  </div>
                   <button onClick={() => goDetail(libb_code)}>상세 정보</button>
                 </div>
               );

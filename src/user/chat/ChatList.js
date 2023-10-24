@@ -37,43 +37,32 @@ export default function ChatList() {
 
   return (
     <div id="chat_list" className="contents">
-      {chat_list.length !== 0 ? (
+      {chat_list.length > 0 &&
         chat_list.map(
           ({ chat_code, stdb_code, borrower, part1, part2, Messages }) => {
             return (
               <div
                 key={chat_code}
-                className="list_item"
+                className="flex-row"
+                id="list_item"
                 onClick={() => enterChat(chat_code, stdb_code)}
               >
-                <table>
-                  <tbody>
-                    <tr>
-                      <td rowSpan="2">
-                        <CgProfile size="70" />
-                      </td>
-                      {borrower !== std_num ? (
-                        <td>{part1}</td>
-                      ) : (
-                        <td>{part2}</td>
-                      )}
-                    </tr>
-                    <tr>
-                      <td>
-                        {Messages.length !== 0
-                          ? Messages[0].msg
-                          : "채팅 시작 전입니다."}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <CgProfile size="70" />
+                <div className="flex-col" id="info">
+                  <span id="std_num">
+                    {borrower !== std_num ? part1 : part2}
+                  </span>
+                  <div>
+                    {Messages.length > 0
+                      ? Messages[0].msg
+                      : "채팅 시작 전입니다."}
+                  </div>
+                </div>
               </div>
             );
           }
-        )
-      ) : (
-        <p id="message">진행중인 채팅이 없습니다.</p>
-      )}
+        )}
+      {chat_list.length === 0 && <p id="message">진행중인 채팅이 없습니다.</p>}
     </div>
   );
 }

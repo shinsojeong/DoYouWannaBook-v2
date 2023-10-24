@@ -37,19 +37,15 @@ export default function Mypage() {
 
   return (
     <div id="mypage" className="contents">
-      <table id="profile">
-        <tbody>
-          <tr>
-            <td rowSpan="2" id="td1">
-              <CgProfile size="70" />
-            </td>
-            <td>{name}</td>
-          </tr>
-          <tr>
-            <td id="td2">{std_num}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="flex-row" id="profile">
+        <div id="img">
+          <CgProfile size="70" />
+        </div>
+        <div className="flex-col" id="info">
+          <p>{name}</p>
+          <p>{std_num}</p>
+        </div>
+      </div>
 
       <div id="list">
         <ul onClick={(e) => click(e.target.getAttribute("name"))}>

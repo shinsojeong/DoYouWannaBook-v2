@@ -53,56 +53,42 @@ export default function StdMyList() {
           }) => {
             return (
               <div id={stdb_code} className="list_item" key={stdb_code}>
-                <table id="table1">
-                  <tbody>
-                    <tr>
-                      <td rowSpan="4">
-                        <img
-                          id="book_img"
-                          src={stdb_img}
-                          alt="book-img"
-                          width="120px"
-                          height="160px"
-                          onError={(e) =>
-                            (e.target.src = "http://placehold.it/120x160")
-                          }
-                        />
-                      </td>
-                      <td id="td_title">{stdb_title}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {stdb_author} | {stdb_publisher}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>출판일 : {stdb_pub_date.slice(0, 10)}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {stdb_rental_fee} ({stdb_rental_date}대여)
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className="detail">
-                  <table id="table2">
-                    <tbody>
-                      <tr>
-                        <td id="td1">대여 상태</td>
-                        <td id="td2">{stdb_state ? "대여가능" : "대여중"}</td>
-                      </tr>
-                      <tr>
-                        <td id="td1">반납 예정일</td>
-                        <td id="td2">
-                          {stdb_ret_date !== null ? stdb_ret_date : "정보 없음"}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p>{stdb_comment}</p>
+                <div id="table1" className="flex-row">
+                  <img
+                    id="book_img"
+                    src={stdb_img}
+                    alt="book-img"
+                    width="120px"
+                    height="160px"
+                    onError={(e) =>
+                      (e.target.src = "http://placehold.it/120x160")
+                    }
+                  />
+                  <div className="flex-col" id="info">
+                    <div id="title">{stdb_title}</div>
+                    <div>
+                      {stdb_author} | {stdb_publisher}
+                    </div>
+                    <div>출판일 : {stdb_pub_date.slice(0, 10)}</div>
+                    <div>
+                      {stdb_rental_fee} ({stdb_rental_date}대여)
+                    </div>
+                  </div>
                 </div>
+
+                <div id="table2" className="flex-col">
+                  <div className="flex-row">
+                    <div id="td1">대여 상태</div>
+                    <div id="td2">{stdb_state ? "대여가능" : "대여중"}</div>
+                  </div>
+                  <div className="flex-row">
+                    <div id="td1">반납 예정일</div>
+                    <div id="td2">
+                      {stdb_ret_date !== null ? stdb_ret_date : "정보 없음"}
+                    </div>
+                  </div>
+                </div>
+                <p>{stdb_comment}</p>
 
                 <button onClick={() => deleteInfo(stdb_code)}>삭제</button>
               </div>

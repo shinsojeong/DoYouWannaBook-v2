@@ -30,52 +30,43 @@ export default function Home() {
     });
   }, [dispatch]);
 
-  /** 버튼 클릭 시 수행 (로그아웃, 페이지 이동) */
-  const click = debounce((path) => {
-    if (path === "/logout") {
-      if (window.confirm("로그아웃 하시겠습니까?")) dispatch(logout(navigate));
-    } else {
-      dispatch(resetAdmin());
-      navigate(path);
+  /** 로그아웃 */
+  const out = debounce(() => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      dispatch(logout(navigate));
     }
+  });
+
+  /** 페이지 이동 */
+  const goTo = debounce((path) => {
+    dispatch(resetAdmin());
+    navigate(path);
   });
 
   return (
     <div id="home" className="contents">
-      <div id="profile">
-        <table>
-          <tbody>
-            <tr>
-              <td rowSpan="2" id="td1">
-                <CgProfile size="70" />
-              </td>
-              <td id="td2">{std_num}</td>
-            </tr>
-            <tr>
-              <td id="td2">{name}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div id="profile" className="flex-row">
+        <span id="td1">
+          <CgProfile size="70" />
+        </span>
+        <div className="flex-col">
+          <span id="td2">{std_num}</span>
+          <span id="td2">{name}</span>
+        </div>
       </div>
 
-      <div id="menu" onClick={(e) => click(e.target.getAttribute("name"))}>
-        <table id="bookMenu">
-          <tbody>
-            <tr>
-              <td name="/admin/book/create">
-                <AiOutlineBook size="100px" id="icon1" />
-              </td>
-              <td name="/admin/book/search">
-                <AiOutlineBook size="100px" id="icon2" />
-              </td>
-            </tr>
-            <tr>
-              <td name="/admin/book/create">도서 등록</td>
-              <td name="/admin/book/search">조회/수정/삭제</td>
-            </tr>
-          </tbody>
-        </table>
-        <p name="/logout">로그아웃</p>
+      <div id="menu">
+        <div id="bookMenu" className="flex-row">
+          <div onClick={() => goTo("/admin/book/create")} className="flex-col">
+            <AiOutlineBook size="100px" id="icon1" />
+            <span name="/admin/book/create">도서 등록</span>
+          </div>
+          <div onClick={() => goTo("/admin/book/search")} className="flex-col">
+            <AiOutlineBook size="100px" id="icon2" />
+            <span>조회/수정/삭제</span>
+          </div>
+        </div>
+        <p onClick={out}>로그아웃</p>
       </div>
     </div>
   );
