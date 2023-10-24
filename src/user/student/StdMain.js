@@ -6,7 +6,8 @@ import useMove from "../../hook/useMove";
 
 import { searchStdBook } from "../../modules/userBook";
 import { createChat, getChatDetail1 } from "../../modules/chat";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import { AiOutlineClose, AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import "../../styles/student.scss";
@@ -24,16 +25,10 @@ export default function StdMain() {
   const [menuState, setMenuState] = useState(false); //메뉴 표시 상태
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "null",
-        { title: "공유 도서", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userStdMain",
+      dispatch,
+    });
   }, [dispatch]);
 
   /** 메뉴 열기/닫기 */

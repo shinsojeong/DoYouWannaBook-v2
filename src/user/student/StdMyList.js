@@ -5,7 +5,8 @@ import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
 import { getMyBookList, deleteStdBook } from "../../modules/userBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import "../../styles/student.scss";
 
@@ -20,16 +21,11 @@ export default function StdMyList() {
   const std_num = useSelector((state) => state.user.user.std_num);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "내 도서 조회", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userStdMyList",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
     dispatch(getMyBookList(std_num));
   }, [dispatch, navigate, std_num]);
 
@@ -66,6 +62,10 @@ export default function StdMyList() {
                           src={stdb_img}
                           alt="book-img"
                           width="120px"
+                          height="160px"
+                          onError={(e) =>
+                            (e.target.src = "http://placehold.it/120x160")
+                          }
                         />
                       </td>
                       <td id="td_title">{stdb_title}</td>

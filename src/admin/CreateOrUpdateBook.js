@@ -103,14 +103,17 @@ export default function CreateBook() {
 
   useEffect(() => {
     dispatch(
-      changeBar(
-        "cancel",
-        { title: type === "create" ? "도서 등록" : "도서 수정", data: null },
-        "create",
-        cancel,
-        submit,
-        "small"
-      )
+      changeBar({
+        left: "cancel",
+        center: {
+          title: type === "create" ? "도서 등록" : "도서 수정",
+          data: null,
+        },
+        right: "create",
+        lfunc: cancel,
+        rfunc: submit,
+        size: "small",
+      })
     );
   }, [dispatch, cancel, type, submit]);
 

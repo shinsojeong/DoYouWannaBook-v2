@@ -5,7 +5,8 @@ import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
 import { uploadImg, createStdBook } from "../../modules/userBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 export default function StdCreate() {
   const [dispatch, navigate, debounce] = [
@@ -27,16 +28,12 @@ export default function StdCreate() {
     [stdb, set_stdb] = useState([]);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "대여 도서 등록", data: null },
-        "create",
-        cancel,
-        submit,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userStdCreate",
+      lfunc: cancel,
+      rfunc: submit,
+      dispatch,
+    });
   });
 
   /** 상단바 좌측 함수: 도서 등록 취소 */

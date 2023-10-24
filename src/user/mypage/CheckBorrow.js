@@ -6,7 +6,7 @@ import useMove from "../../hook/useMove";
 
 import { getMypageBorrowList } from "../../modules/libBook";
 import { extendDate } from "../../modules/libBook";
-import { changeBar } from "../../modules/topBar";
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import "../../styles/mypage.scss";
 
@@ -22,16 +22,11 @@ export default function CheckBorrow() {
 
   useEffect(() => {
     dispatch(getMypageBorrowList(std_num));
-    dispatch(
-      changeBar(
-        "back",
-        { title: "도서 대출 조회", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userCheckBorrow",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate, std_num]);
 
   /** 대출 연장 */

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 import { borrow } from "../../modules/libBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import "../../styles/barcode.scss";
 
@@ -15,16 +16,10 @@ export default function Barcode() {
   const [state, setState] = useState(false);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "null",
-        { title: "바코드 대출", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userBarcode",
+      dispatch,
+    });
   }, [dispatch]);
 
   return (

@@ -5,7 +5,8 @@ import useMove from "../hook/useMove";
 import useDebounce from "../hook/useDebounce";
 
 import { getBook, searchBook, deleteBook } from "../modules/admin";
-import { changeBar } from "../modules/topBar";
+
+import ChangeHeader from "../common/util/ChangeHeader";
 
 import { AiOutlineSearch } from "react-icons/ai";
 
@@ -20,16 +21,11 @@ export default function SearchBook() {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "도서 조회", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "adminSearchBook",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 도서 검색 */
@@ -61,8 +57,8 @@ export default function SearchBook() {
           <AiOutlineSearch onClick={search} size="27px" />
         </div>
       </div>
-      <div id="searchResult">
-        {searchRes.length !== 0 ? (
+      <div id="search_result">
+        {searchRes.length > 0 &&
           searchRes.map(
             ({
               libb_code,
@@ -74,31 +70,27 @@ export default function SearchBook() {
               libb_state,
             }) => {
               return (
-                <div className="resultItems" key={libb_code}>
-                  <table className="resultItemsTable">
-                    <tbody>
-                      <tr>
-                        <td rowSpan="5">
-                          <img src={libb_img} alt="도서 이미지" />
-                        </td>
-                        <td id="td_title">{libb_title}</td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">{libb_author}</td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">{libb_publisher}</td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">{libb_pub_date.slice(0, 10)}</td>
-                      </tr>
-                      <tr>
-                        <td id="td_content">
-                          {libb_state ? "대출 가능" : "대출중"}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div className="result_item" key={libb_code}>
+                  <div className="flex-row" id="result_item_wrap">
+                    <img
+                      src={libb_img}
+                      width="120px"
+                      height="160px"
+                      onError={(e) =>
+                        (e.target.src = "http://placehold.it/120x160")
+                      }
+                      alt="도서 이미지"
+                    />
+                    <div className="flex-col">
+                      <span id="title">{libb_title}</span>
+                      <span id="content">{libb_author}</span>
+                      <span id="content">{libb_publisher}</span>
+                      <span id="content">{libb_pub_date.slice(0, 10)}</span>
+                      <span id="content">
+                        {libb_state ? "대출 가능" : "대출중"}
+                      </span>
+                    </div>
+                  </div>
                   <button id="upd_btn" onClick={() => goUpdateBook(libb_code)}>
                     수정
                   </button>
@@ -108,10 +100,8 @@ export default function SearchBook() {
                 </div>
               );
             }
-          )
-        ) : (
-          <p id="message">검색 결과가 없습니다.</p>
-        )}
+          )}
+        {searchRes.length === 0 && <p id="message">검색 결과가 없습니다.</p>}
       </div>
     </div>
   );

@@ -5,7 +5,8 @@ import useMove from "../../hook/useMove";
 import useDebounce from "../../hook/useDebounce";
 
 import { findPw } from "../../modules/user";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 export default function FindPw() {
   const [dispatch, navigate, debounce] = [
@@ -22,16 +23,11 @@ export default function FindPw() {
   const isDisabled = false; //버튼 비활성화 상태
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "비밀번호 찾기", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "findPw",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 비밀번호 찾기 */

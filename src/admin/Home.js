@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import useDebounce from "../hook/useDebounce";
 import useMove from "../hook/useMove";
 
-import { changeBar } from "../modules/topBar";
 import { resetAdmin } from "../modules/admin";
 import { logout } from "../modules/user";
+
+import ChangeHeader from "../common/util/ChangeHeader";
 
 import { AiOutlineBook } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
@@ -23,16 +24,10 @@ export default function Home() {
   const { std_num, name } = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "null",
-        { title: "홈", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "adminHome",
+      dispatch,
+    });
   }, [dispatch]);
 
   /** 버튼 클릭 시 수행 (로그아웃, 페이지 이동) */
@@ -40,7 +35,7 @@ export default function Home() {
     if (path === "/logout") {
       if (window.confirm("로그아웃 하시겠습니까?")) dispatch(logout(navigate));
     } else {
-      if (path === "/admin/book/search") dispatch(resetAdmin());
+      dispatch(resetAdmin());
       navigate(path);
     }
   });

@@ -5,7 +5,8 @@ import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
 import { getBookLoc } from "../../modules/libBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import "../../styles/home.scss";
 
@@ -29,16 +30,11 @@ export default function SearchDetail() {
   } = useSelector((state) => state.libBook.selected_book);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "도서 정보", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userSearchDetail",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 위치 정보 보기 */

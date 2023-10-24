@@ -35,14 +35,14 @@ export default function Chat() {
 
   useEffect(() => {
     dispatch(
-      changeBar(
-        "back",
-        { title: `${part1 === std_num ? part2 : part1}`, data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
+      changeBar({
+        left: "back",
+        center: { title: `${part1 === std_num ? part2 : part1}`, data: null },
+        right: "null",
+        lfunc: () => navigate(-1),
+        rfunc: null,
+        size: "small",
+      })
     );
 
     //socket 연결

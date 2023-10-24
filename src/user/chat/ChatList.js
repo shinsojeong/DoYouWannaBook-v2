@@ -6,7 +6,8 @@ import useMove from "../../hook/useMove";
 
 import { getChatBook } from "../../modules/userBook";
 import { getChatList, getChatDetail2 } from "../../modules/chat";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import { CgProfile } from "react-icons/cg";
 
@@ -22,16 +23,10 @@ export default function ChatList() {
 
   useEffect(() => {
     dispatch(getChatList(std_num));
-    dispatch(
-      changeBar(
-        "null",
-        { title: "채팅", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userChatList",
+      dispatch,
+    });
   }, [dispatch, std_num]);
 
   /** 채팅방 입장 */

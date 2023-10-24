@@ -5,7 +5,8 @@ import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
 import { logout } from "../../modules/user";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import { CgProfile } from "react-icons/cg";
 import "../../styles/mypage.scss";
@@ -20,16 +21,10 @@ export default function Mypage() {
   const { name, std_num } = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "null",
-        { title: "마이페이지", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userMypage",
+      dispatch,
+    });
   }, [dispatch]);
 
   /** 카테고리 클릭 시, type에 맞는 함수를 실행 */

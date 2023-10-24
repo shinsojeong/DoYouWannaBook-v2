@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import useMove from "../../hook/useMove";
 
-import { changeBar } from "../../modules/topBar";
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import "../../styles/home.scss";
 
@@ -18,16 +18,11 @@ export default function SearchLocation() {
   );
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "도서 위치", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userSearchLocation",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 열람실 책장 뷰 반환 */

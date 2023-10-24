@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
-import { changeBar } from "../../modules/topBar";
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 export default function FindPwRes() {
   const [dispatch, navigate, debounce] = [
@@ -14,16 +14,10 @@ export default function FindPwRes() {
   ];
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "null",
-        { title: "비밀번호 찾기", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "findPwRes",
+      dispatch,
+    });
   }, [dispatch]);
 
   /** 로그인 페이지로 이동 */

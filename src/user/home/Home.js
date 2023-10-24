@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
-import { changeBar } from "../../modules/topBar";
 import { getRecommendedBook, searchBook } from "../../modules/libBook";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import "../../styles/home.scss";
@@ -24,16 +25,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getRecommendedBook());
-    dispatch(
-      changeBar(
-        "null",
-        { title: "홈", data: null },
-        "null",
-        null,
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userHome",
+      dispatch,
+    });
   }, [dispatch]);
 
   /** 검색 */

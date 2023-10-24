@@ -6,7 +6,8 @@ import useDebounce from "../../hook/useDebounce";
 
 import { register } from "../../modules/user";
 import { option } from "../util/Reusable";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 export default function Join() {
   const [dispatch, navigate, debounce] = [
@@ -25,16 +26,11 @@ export default function Join() {
     [gender, set_gender] = useState(0);
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "회원가입", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "join",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 회원가입 */

@@ -11,8 +11,8 @@ const INIT_TOPBAR_STATE = {
 //action type
 const CHANGEBAR = "CHANGEBAR";
 
-//파트너 정보 받아오기
-export const changeBar = (left, center, right, lfunc, rfunc, size) => ({
+/** 상단바 변경 */
+export const changeBar = ({ left, center, right, lfunc, rfunc, size }) => ({
   type: CHANGEBAR,
   left,
   center,

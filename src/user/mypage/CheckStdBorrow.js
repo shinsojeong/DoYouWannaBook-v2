@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import useMove from "../../hook/useMove";
 
 import { getBorrowStdBookList } from "../../modules/userBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 export default function CheckStdBorrow() {
   const [dispatch, navigate] = [useDispatch(), useMove()];
@@ -14,16 +15,11 @@ export default function CheckStdBorrow() {
 
   useEffect(() => {
     dispatch(getBorrowStdBookList(std_num));
-    dispatch(
-      changeBar(
-        "back",
-        { title: "공유 도서 조회", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userCheckStdBorrow",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate, std_num]);
 
   return (

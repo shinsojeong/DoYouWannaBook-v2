@@ -5,7 +5,8 @@ import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
 
 import { selectBook, searchBook } from "../../modules/libBook";
-import { changeBar } from "../../modules/topBar";
+
+import ChangeHeader from "../../common/util/ChangeHeader";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import "../../styles/home.scss";
@@ -21,16 +22,11 @@ export default function Search() {
   const [keyword, setKeyword] = useState(""); //검색 키워드
 
   useEffect(() => {
-    dispatch(
-      changeBar(
-        "back",
-        { title: "도서 검색", data: null },
-        "null",
-        () => navigate(-1),
-        null,
-        "small"
-      )
-    );
+    ChangeHeader({
+      title: "userSearch",
+      lfunc: () => navigate(-1),
+      dispatch,
+    });
   }, [dispatch, navigate]);
 
   /** 검색 */
