@@ -20,7 +20,7 @@ const GETCHATBOOK = "GETCHATBOOK";
 const REGISTERLENTAL = "REGISTERLENTAL";
 const RESETUSERBOOK = "RESETUSERBOOK";
 
-//학생 대여 검색
+/** 학생 대여 검색 */
 export const searchStdBook = (keyword) => async (dispatch) => {
   try {
     const {
@@ -40,7 +40,7 @@ export const searchStdBook = (keyword) => async (dispatch) => {
   }
 };
 
-//학생 대여 도서 이미지 등록
+/** 학생 대여 도서 이미지 등록 */
 export const uploadImg = (formData) => () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -54,13 +54,13 @@ export const uploadImg = (formData) => () => {
       } else {
         return reject(message);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   });
 };
 
-//학생 대여 도서 등록
+/** 학생 대여 도서 등록 */
 export const createStdBook =
   ({
     std_num,
@@ -105,7 +105,7 @@ export const createStdBook =
     }
   };
 
-//학생 대여 도서 삭제
+/** 학생 대여 도서 삭제 */
 export const deleteStdBook = (stdb_code, navigate) => async (dispatch) => {
   try {
     const {
@@ -130,7 +130,7 @@ export const deleteStdBook = (stdb_code, navigate) => async (dispatch) => {
   }
 };
 
-//내 도서 조회
+/** 내 도서 조회 */
 export const getMyBookList = (std_num) => async (dispatch) => {
   try {
     const {
@@ -152,7 +152,7 @@ export const getMyBookList = (std_num) => async (dispatch) => {
   }
 };
 
-//학생 도서 대여 목록
+/** 학생 도서 대여 목록 */
 export const getBorrowStdBookList = (std_num) => async (dispatch) => {
   try {
     const {
@@ -162,23 +162,16 @@ export const getBorrowStdBookList = (std_num) => async (dispatch) => {
       { withCredentials: true }
     );
 
-    if (status === "OK") {
-      dispatch({
-        type: GETBORROWSTDBOOKLIST,
-        payload: data,
-      });
-    } else {
-      dispatch({
-        type: GETBORROWSTDBOOKLIST,
-        payload: [],
-      });
-    }
+    dispatch({
+      type: GETBORROWSTDBOOKLIST,
+      payload: status === "OK" ? data : [],
+    });
   } catch (err) {
     return console.error(err);
   }
 };
 
-//채팅 - 도서 정보
+//** 채팅 - 도서 정보 */
 export const getChatBook = (stdb_code) => async (dispatch) => {
   try {
     const {
@@ -187,23 +180,16 @@ export const getChatBook = (stdb_code) => async (dispatch) => {
       withCredentials: true,
     });
 
-    if (status === "OK") {
-      dispatch({
-        type: GETCHATBOOK,
-        payload: data,
-      });
-    } else {
-      dispatch({
-        type: GETCHATBOOK,
-        payload: [],
-      });
-    }
+    dispatch({
+      type: GETCHATBOOK,
+      payload: status === "OK" ? data : [],
+    });
   } catch (err) {
     return console.error(err);
   }
 };
 
-//채팅 - 대여 정보 등록
+/** 채팅 - 대여 정보 등록 */
 export const registerLental =
   (stdb_code, stdb_ret_date, borrower) => async (dispatch) => {
     try {
@@ -236,14 +222,14 @@ export const registerLental =
     }
   };
 
-//리덕스 리셋
+/** 리덕스 리셋 */
 export const resetUserbook = () => (dispatch) => {
   dispatch({
     type: RESETUSERBOOK,
   });
 };
 
-//reducer
+/** reducer */
 const userBook = (state = INIT_USERBOOK_STATE, { type, payload }) => {
   switch (type) {
     case SEARCHSTDBOOK:

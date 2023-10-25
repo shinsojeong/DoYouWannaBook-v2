@@ -1,5 +1,4 @@
 import axios from "axios";
-import { changeBar } from "./topBar";
 const url = process.env.REACT_APP_SERVER;
 
 //initial state
@@ -18,7 +17,7 @@ const SENDCHAT = "SENDCHAT";
 const GETCHATDETAIL = "GETCHATDETAIL";
 const RESETCHAT = "RESETCHAT";
 
-//채팅방 생성
+/** 채팅방 생성 */
 export const createChat = (stdb_code, part1, part2) => async (dispatch) => {
   try {
     const {
@@ -48,7 +47,7 @@ export const createChat = (stdb_code, part1, part2) => async (dispatch) => {
   }
 };
 
-//채팅방 리스트 가져오기
+/** 채팅방 리스트 가져오기 */
 export const getChatList = (std_num) => async (dispatch) => {
   try {
     const {
@@ -68,7 +67,7 @@ export const getChatList = (std_num) => async (dispatch) => {
   }
 };
 
-//채팅 보내기
+/** 채팅 전송 */
 export const sendChat = (chat_code, std_num, msg) => async (dispatch) => {
   try {
     const {
@@ -101,7 +100,7 @@ export const sendChat = (chat_code, std_num, msg) => async (dispatch) => {
   }
 };
 
-//채팅 내용 가져오기1 (stdb_code, std_num)
+/** 채팅 내용 가져오기1 (stdb_code, std_num) */
 export const getChatDetail1 =
   (stdb_code, std_num, navigate) => async (dispatch) => {
     try {
@@ -132,7 +131,7 @@ export const getChatDetail1 =
     }
   };
 
-//채팅 내용 가져오기2 (chat_code, std_num)
+/** 채팅 내용 가져오기2 (chat_code, std_num) */
 export const getChatDetail2 =
   (chat_code, std_num, navigate) => async (dispatch) => {
     try {
@@ -163,14 +162,14 @@ export const getChatDetail2 =
     }
   };
 
-//리덕스 리셋
+/** 리덕스 리셋 */
 export const resetChat = () => (dispatch) => {
   dispatch({
     type: RESETCHAT,
   });
 };
 
-//reducer
+/** reducer */
 const chat = (state = INIT_CHAT_STATE, action) => {
   switch (action.type) {
     case CREATECHAT:

@@ -35,7 +35,7 @@ const GETMYPAGEBORROWLIST = "GETMYPAGEBORROWLIST";
 const EXTENDDATE = "EXTENDDATE";
 const RESETLIBBOOK = "RESETLIBBOOK";
 
-//도서관 도서 검색
+/** 도서관 도서 검색 */
 export const searchBook = (keyword) => async (dispatch) => {
   try {
     const {
@@ -55,7 +55,7 @@ export const searchBook = (keyword) => async (dispatch) => {
   }
 };
 
-//도서 상세보기 선택
+/** 도서 상세보기 선택 */
 export const selectBook = (libb_code) => async (dispatch) => {
   try {
     const {
@@ -78,7 +78,7 @@ export const selectBook = (libb_code) => async (dispatch) => {
   }
 };
 
-//추천 도서
+/** 추천 도서 받아오기*/
 export const getRecommendedBook = () => async (dispatch) => {
   try {
     const {
@@ -98,7 +98,7 @@ export const getRecommendedBook = () => async (dispatch) => {
   }
 };
 
-//도서 위치 가져오기
+/** 도서 위치 가져오기 */
 export const getBookLoc = (libb_class) => async (dispatch) => {
   try {
     const {
@@ -119,7 +119,7 @@ export const getBookLoc = (libb_class) => async (dispatch) => {
   }
 };
 
-//도서 대출
+/** 도서 대출 */
 export const borrow = (barcode, std_num) => async (dispatch) => {
   try {
     const {
@@ -148,7 +148,7 @@ export const borrow = (barcode, std_num) => async (dispatch) => {
   }
 };
 
-//대출 내역 조회
+/** 대출 내역 조회 */
 export const getMypageBorrowList = (std_num) => async (dispatch) => {
   try {
     const {
@@ -169,7 +169,7 @@ export const getMypageBorrowList = (std_num) => async (dispatch) => {
   }
 };
 
-//대출 연장
+/** 대출 연장 */
 export const extendDate =
   (std_num, libb_code, libb_ret_date) => async (dispatch) => {
     try {
@@ -198,14 +198,14 @@ export const extendDate =
     }
   };
 
-//리덕스 리셋
+/** 리덕스 리셋 */
 export const resetLibbook = () => (dispatch) => {
   dispatch({
     type: RESETLIBBOOK,
   });
 };
 
-//reducer
+/** reducer */
 const libBook = (state = INIT_LIBBOOK_STATE, action) => {
   switch (action.type) {
     case SEARCHBOOK:

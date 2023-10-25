@@ -22,7 +22,7 @@ const LOGIN = "LOGIN";
 const FINDPW = "FINDPW";
 const LOGOUT = "LOGOUT";
 
-//회원가입
+/** 회원가입 */
 export const register =
   ({ std_num, name, dept, gender, ph_num, email, password, navigate }) =>
   async (dispatch) => {
@@ -57,7 +57,7 @@ export const register =
     }
   };
 
-//로그인
+/** 로그인 */
 export const login =
   ({ std_num, password, navigate }) =>
   async (dispatch) => {
@@ -103,7 +103,7 @@ export const login =
     }
   };
 
-//비밀번호 찾기
+/** 비밀번호 찾기 */
 export const findPw =
   ({ std_num, name, ph_num, email, navigate }) =>
   async (dispatch) => {
@@ -136,7 +136,7 @@ export const findPw =
     }
   };
 
-//로그아웃
+/** 로그아웃 */
 export const logout = (navigate) => async (dispatch) => {
   try {
     const {
@@ -160,7 +160,7 @@ export const logout = (navigate) => async (dispatch) => {
   }
 };
 
-//reducer
+/** reducer */
 const user = (state = INIT_USER_STATE, action) => {
   switch (action.type) {
     case REGISTER:

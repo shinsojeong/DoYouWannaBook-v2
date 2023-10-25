@@ -22,7 +22,7 @@ export const changeBar = ({ left, center, right, lfunc, rfunc, size }) => ({
   size,
 });
 
-//reducer
+/** reducer */
 const topbar = (state = INIT_TOPBAR_STATE, action) => {
   const { type, left, center, right, lfunc, rfunc, size } = action;
 
