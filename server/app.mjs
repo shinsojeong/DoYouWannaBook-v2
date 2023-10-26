@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
-import redis from "redis";
+import { createClient } from "redis";
 import connectRedis from "connect-redis";
 import session from "express-session";
 import dotenv from "dotenv";
@@ -32,9 +32,6 @@ app.set("port", process.env.PORT ? process.env.PORT : 8001);
 //sequelize 연동
 db.sequelize
   .sync({ force: false }) //true:실행 시마다 테이블 재생성
-  .then(() => {
-    console.log("데이터베이스 연결 성공");
-  })
   .catch((err) => {
     console.log(err);
   });
@@ -48,24 +45,31 @@ app.use(
   })
 );
 
-const redisClient = redis.createClient({
+const redisClient = await createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
   password: process.env.REDIS_PASSWORD,
+})
+  .on("error", (err) => console.log("Redis Client Error", err))
+  .connect();
+const redisStore = new connectRedis({
+  client: redisClient,
+  prefix: "dywb:",
 });
-const redisStore = new connectRedis(session);
+app.use(
+  session({
+    store: redisStore,
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
-const sessionOption = {
-  resave: false,
-  saveUninitialized: true,
-  secret: process.env.COOKIE_SECRET,
-  cookie: {
-    httpOnly: true,
-    secure: false,
-  },
-  store: new redisStore({
-    client: redisClient,
-  }),
-};
+
 if (process.env.NODE_ENV === "production") {
   // sessionOption.proxy = true;  //https일 때
   // sessionOption.cookie.secure = true;  //https일 때
@@ -75,7 +79,6 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
 }
-app.use(session(sessionOption));
 app.use(passport.initialize()); //req 객체에 passport 설정 심는 middleware
 app.use(passport.session()); //req.session 객체에 passport 정보 저장하는 middleware
 
@@ -101,7 +104,7 @@ app.listen(app.get("port"), () => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("../build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(path.resolve(), "build", "index.html"));
   });
 }
 
