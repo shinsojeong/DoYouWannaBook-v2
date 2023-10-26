@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./server/app.mjs && react-scripts --openssl-legacy-provider start",
     "client": "react-scripts --openssl-legacy-provider start",
+    "client-build": "react-scripts build",
     "server": "nodemon ./server/app.mjs --ignore sessions/*",
+    "server-build": "parcel ./server/app.mjs",
+    "build": "react-scripts build && parcel ./server/app.mjs",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -81,6 +84,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "parcel-bundler": "^1.12.5",
     "webpack": "^4.44.0",
     "webpack-cli": "^4.9.1"
   }
