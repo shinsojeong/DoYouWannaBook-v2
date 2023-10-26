@@ -1,0 +1,123 @@
+@import "./valiables.scss";
+
+#chat {
+  margin: 40px auto;
+  #book_info {
+    width: 100%;
+    height: 100px;
+    background-color: $Back1;
+    img {
+      width: 80px;
+      margin: 10px 20px;
+      border: 1px solid $BorderGray;
+    }
+    p {
+      position: absolute;
+      line-height: 100px;
+      color: $white;
+      font-weight: bold;
+      margin: 0 auto;
+      display: inline-block;
+    }
+  }
+  #chat_messages {
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+    width: 90%;
+    margin: 0px 0px 0px 20px;
+    padding: 0 0 100px 0;
+    overflow: auto;
+    #you,
+    #me {
+      float: left;
+      width: 70%;
+      padding: 5px 5px;
+      margin: 8px 0px;
+      border: 1px solid $Back1;
+      border-radius: 10px;
+      #message {
+        text-align: left;
+        margin: 0;
+        font-size: small;
+      }
+      #time {
+        margin: 0;
+        text-align: right;
+        font-size: xx-small;
+      }
+    }
+    #you {
+      background-color: $Back1;
+      color: $white;
+      font-weight: bold;
+    }
+    #me {
+      float: right;
+      #message {
+        margin: 0;
+        text-align: left;
+      }
+      #time {
+        margin: 0;
+        text-align: right;
+        font-size: xx-small;
+      }
+    }
+  }
+  #rent_info {
+    width: 100%;
+    height: 40px;
+    line-height: 10px;
+    position: fixed;
+    bottom: 60px;
+    color: $white;
+    background-color: $Back1;
+    text-align: center;
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+  }
+
+  #send {
+    width: 100%;
+    height: 60px;
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: $Back1;
+    input {
+      width: 260px;
+      height: 24px;
+    }
+    button {
+      height: 36px;
+      background-color: $white;
+      color: $Back1;
+    }
+  }
+}
+
+#chat_list {
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  text-align: center;
+  #list_item {
+    padding: 10px 0px;
+    margin: 5px 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px $BorderGray;
+    text-align: left;
+    svg {
+      color: $BorderGray;
+      margin: 0px 5px;
+    }
+    #info * {
+      flex: 1;
+      line-height: 35px;
+    }
+    #std_num {
+      font-weight: 700;
+    }
+  }
+}

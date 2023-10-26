@@ -1,0 +1,66 @@
+@import "./valiables.scss";
+
+#mypage {
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  #profile {
+    width: 100%;
+    box-shadow: 0px 0px 4px $BorderGray;
+    border-radius: 10px;
+    padding: 20px 0;
+    #img {
+      width: 30%;
+      text-align: center;
+      color: $BorderGray;
+    }
+    #info {
+      p {
+        margin: 8px;
+      }
+    }
+  }
+  #list {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px solid $BorderGray;
+    li {
+      padding: 5px 0;
+      margin: 5px 0;
+    }
+  }
+}
+
+#check_borrow,
+#check_std_borrow {
+  margin-bottom: 20px;
+  animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  #table {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0px;
+    border: 1px solid $BorderGray;
+    border-radius: 10px;
+    text-align: center;
+    #info {
+      flex: 1;
+      margin: 0 10px;
+      div {
+        flex: 1;
+        position: relative;
+        p {
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+        }
+      }
+      #title {
+        font-size: medium;
+        font-weight: bold;
+      }
+      button {
+        height: 40px;
+      }
+    }
+  }
+}

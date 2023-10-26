@@ -1,0 +1,29 @@
+@import "./valiables.scss";
+
+.foot_menu {
+  width: 100%;
+  text-align: center;
+  padding: 4px 0px 20px 0px;
+  border-radius: 15px 15px 0 0;
+  background-color: $Back1;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  table {
+    width: 100%;
+  }
+  td {
+    padding: 0%;
+  }
+  tr {
+    width: 100%;
+    text-align: center;
+  }
+  #menu_items {
+    color: $white;
+  }
+  #title {
+    color: $white;
+    font-size: 10px;
+  }
+}
