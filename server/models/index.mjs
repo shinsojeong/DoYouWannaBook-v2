@@ -1,17 +1,21 @@
-import Sequelize from 'sequelize';
-import Chat from './chat.mjs';
-import Libbook from './libbook.mjs';
-import Libclass from './libclass.mjs';
-import Message from './message.mjs';
-import Stdbook from './stdbook.mjs';
-import User from './user.mjs';
+import Sequelize from "sequelize";
+import Chat from "./chat.mjs";
+import Libbook from "./libbook.mjs";
+import Libclass from "./libclass.mjs";
+import Message from "./message.mjs";
+import Stdbook from "./stdbook.mjs";
+import User from "./user.mjs";
 
-//const env = process.env.NODE_ENV || 'development';
-import { development } from '../config/config.mjs';
-//config[env];
+import { dbconfig } from "../config/config.mjs";
+const env = process.env.NODE_ENV;
 const db = {};
 
-const sequelize = new Sequelize(development.database, development.username, development.password, development);
+const sequelize = new Sequelize(
+  dbconfig[env].database,
+  dbconfig[env].username,
+  dbconfig[env].password,
+  dbconfig[env]
+);
 db.sequelize = sequelize;
 
 db.Chat = Chat;
