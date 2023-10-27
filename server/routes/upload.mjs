@@ -1,8 +1,12 @@
-import express from 'express';
-import multer from 'multer';
-import path from 'path';
+import express from "express";
+// import multer from 'multer';
+// import path from 'path';
+import Dropbox from "dropbox";
+import dotenv from "dotenv";
+dotenv.config();
+const env = process.env;
 
-import { isLoggedIn, isAdmin } from './middlewares.mjs';
+import { isLoggedIn, isAdmin } from "./middlewares.mjs";
 
 const router = express.Router();
 
@@ -13,48 +17,65 @@ const router = express.Router();
 //     fs.mkdirSync("uploads");
 // }
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, 'public/uploads/');
-    },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    },
-  }),
-  limits: { fileSize: 5 * 1024 * 1024 },
-});
-  
-router.post('/libimg', isLoggedIn, isAdmin, upload.single('libb'), (req, res) => {
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination(req, file, cb) {
+//       cb(null, 'public/uploads/');
+//     },
+//     filename(req, file, cb) {
+//       const ext = path.extname(file.originalname);
+//       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+//     },
+//   }),
+//   limits: { fileSize: 5 * 1024 * 1024 },
+// });
+
+/** 이미지 업로드 */
+const upload = async (path, file, res) => {
   try {
-    console.log(req.file.originalname+"업로드 완료");
+    const dbx = new Dropbox({ accessToken: env.DROPBOX_APP_SECRET });
+    const name = path + file.name + file.lastModified;
+    await dbx.filesUpload({ path: name, contents: file });
+    const response = await dbx.sharingCreateSharedLinkWithSettings({
+      path: name,
+      settings: {
+        access: "viewer",
+        audience: "public",
+        requested_visibility: "public",
+      },
+    });
     res.send({
       status: "OK",
       code: 200,
       data: {
-        url: `/uploads/${req.file.filename}` 
-      }
+        url: response.result.url,
+      },
     });
-  } catch (error) {
-    return console.error("libImg route 에러"+error);
-  }
-});
-
-router.post('/stdimg', isLoggedIn, upload.single('stdb'), (req, res) => {
-  try {
-    console.log(req.file.originalname+"업로드 완료");
-    res.send({ 
+  } catch (e) {
+    res.send({
       status: "OK",
       code: 200,
       data: {
-        url: `/uploads/${req.file.filename}` 
-      }
+        url: "",
+      },
     });
+  }
+};
+
+router.post("/libimg", isLoggedIn, isAdmin, (req, res) => {
+  try {
+    upload("libb", req.body.libb, res);
   } catch (error) {
-    return console.error("stdImg route 에러"+error);
+    return console.error("libImg route 에러" + error);
   }
 });
 
+router.post("/stdimg", isLoggedIn, (req, res) => {
+  try {
+    upload("stdb", req.body.libb, res);
+  } catch (error) {
+    return console.error("stdImg route 에러" + error);
+  }
+});
 
 export default router;
