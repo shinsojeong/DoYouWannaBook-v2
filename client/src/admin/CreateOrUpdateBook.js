@@ -8,6 +8,7 @@ import useMove from "../hook/useMove";
 import { uploadImg, createBook, updateBook } from "../modules/admin";
 import { changeBar } from "../modules/topBar";
 import { roomOp, bookshelfOp, shelfOp } from "../common/util/Reusable";
+import { imgToBase64ByFileReader } from "../common/util/imageToBase64";
 
 export default function CreateBook() {
   const [dispatch, navigate, debounce] = [
@@ -47,16 +48,23 @@ export default function CreateBook() {
   );
 
   /** 이미지 업로드 */
-  const upload = async (image) => {
-    const formData = new FormData();
-    formData.append("libb", image);
-    const url = uploadImg(formData);
-    return url;
-  };
+  // const upload = async (image) => {
+  //   const formData = new FormData();
+  //   formData.append("libb", image);
+  //   const url = uploadImg(formData);
+  //   return url;
+  // };
 
   /** 도서 등록/수정 */
   const submit = debounce(async () => {
-    let libb_img = (await upload(img[0])) ?? last_img;
+    let libb_img = "";
+    try {
+      if (img.length > 0) libb_img = await imgToBase64ByFileReader(img[0]);
+      else libb_img = last_img;
+    } catch (e) {
+      libb_img = last_img;
+    }
+    // let libb_img = (await upload(img[0])) ?? last_img;
     if (type === "create") {
       dispatch(
         createBook({

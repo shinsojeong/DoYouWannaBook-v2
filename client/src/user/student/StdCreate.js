@@ -7,6 +7,7 @@ import useMove from "../../hook/useMove";
 import { uploadImg, createStdBook } from "../../modules/userBook";
 
 import ChangeHeader from "../../common/util/ChangeHeader";
+import { imgToBase64ByFileReader } from "../../common/util/imageToBase64";
 
 export default function StdCreate() {
   const [dispatch, navigate, debounce] = [
@@ -42,17 +43,23 @@ export default function StdCreate() {
   });
 
   /** 이미지 업로드 */
-  const upload = async (image) => {
-    const formData = new FormData();
-    formData.append("stdb", image);
-    const url = uploadImg(formData);
-    return url;
-  };
+  // const upload = async (image) => {
+  //   const formData = new FormData();
+  //   formData.append("stdb", image);
+  //   const url = uploadImg(formData);
+  //   return url;
+  // };
 
   /** 상단바 우측 함수: 도서 등록 */
   const submit = debounce(async () => {
     let stdb_url = "";
-    if (stdb.length > 0) stdb_url = await upload(stdb[0]);
+    try {
+      if (stdb.length > 0) stdb_url = await imgToBase64ByFileReader(stdb[0]);
+    } catch (e) {
+      stdb_url = "";
+    }
+    // let stdb_url = "";
+    // if (stdb.length > 0) stdb_url = await upload(stdb[0]);
 
     dispatch(
       createStdBook({

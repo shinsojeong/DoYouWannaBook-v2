@@ -7,6 +7,7 @@ import useDebounce from "../hook/useDebounce";
 import { getBook, searchBook, deleteBook } from "../modules/admin";
 
 import ChangeHeader from "../common/util/ChangeHeader";
+import { imgToBase64ByFileReader } from "../common/util/imageToBase64";
 
 import { AiOutlineSearch } from "react-icons/ai";
 
