@@ -45,7 +45,7 @@ export default function StdCreate() {
   const upload = async (image) => {
     const formData = new FormData();
     formData.append("stdb", image);
-    const url = dispatch(uploadImg(formData));
+    const url = uploadImg(formData);
     return url;
   };
 

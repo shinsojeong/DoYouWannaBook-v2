@@ -89,7 +89,7 @@ export const getBook = (libb_code, navigate) => async (dispatch) => {
 };
 
 /** 도서 이미지 등록 */
-export const uploadImg = (formData) => async () => {
+export const uploadImg = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const {
@@ -150,7 +150,7 @@ export const createBook =
         }
       );
 
-      if (data.code === 406) {
+      if (data.code === 406 || data.status === "ERR") {
         alert(data.message);
         return navigate("/user/home");
       } else if (data.status === "OK") {
@@ -216,6 +216,9 @@ export const updateBook =
       if (code === 406) {
         alert(message);
         return navigate("/user/home");
+      }
+      if (status === "ERR") {
+        alert(message);
       } else if (status === "OK") {
         dispatch({
           type: UPDATEBOOK,

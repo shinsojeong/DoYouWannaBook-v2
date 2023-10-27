@@ -50,15 +50,13 @@ export default function CreateBook() {
   const upload = async (image) => {
     const formData = new FormData();
     formData.append("libb", image);
-    const url = dispatch(uploadImg(formData));
+    const url = uploadImg(formData);
     return url;
   };
 
   /** 도서 등록/수정 */
   const submit = debounce(async () => {
-    let libb_img = last_img;
-    if (img.length > 0) libb_img = await upload(img[0]);
-
+    let libb_img = (await upload(img[0])) ?? last_img;
     if (type === "create") {
       dispatch(
         createBook({

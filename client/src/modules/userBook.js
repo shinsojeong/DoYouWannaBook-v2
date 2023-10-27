@@ -41,7 +41,7 @@ export const searchStdBook = (keyword) => async (dispatch) => {
 };
 
 /** 학생 대여 도서 이미지 등록 */
-export const uploadImg = (formData) => () => {
+export const uploadImg = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const {
