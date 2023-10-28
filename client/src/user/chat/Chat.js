@@ -23,7 +23,7 @@ export default function Chat() {
 
   const scrollRef = useRef(); //스크롤을 위한 ref
 
-  const std_num = useSelector((state) => state.user.user.std_num);
+  const std_num = parseInt(useSelector((state) => state.user.user.std_num));
   const { stdb_code, stdb_img, stdb_title, lender, borrower, stdb_ret_date } =
     useSelector((state) => state.userBook.chat_book);
   const { chat_code, msg, part1, part2 } = useSelector(
@@ -89,7 +89,7 @@ export default function Chat() {
       <div id="chat_messages" ref={scrollRef}>
         {msg.length > 0 &&
           msg.map(({ sender, msg, created_at }) => {
-            return sender.toString() === std_num ? (
+            return sender === std_num ? (
               <div id="me" key={created_at}>
                 <p id="message">{msg}</p>
                 <p id="time">{created_at.toString().slice(0, 10)}</p>

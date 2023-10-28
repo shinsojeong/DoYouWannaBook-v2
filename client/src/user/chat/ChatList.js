@@ -18,7 +18,7 @@ export default function ChatList() {
     useDebounce(),
   ];
 
-  const std_num = useSelector((state) => state.user.user.std_num);
+  const std_num = parseInt(useSelector((state) => state.user.user.std_num));
   const chat_list = useSelector((state) => state.chat.chat_list);
 
   useEffect(() => {
@@ -49,9 +49,7 @@ export default function ChatList() {
               >
                 <CgProfile size="70" />
                 <div className="flex-col" id="info">
-                  <span id="std_num">
-                    {borrower !== std_num ? part1 : part2}
-                  </span>
+                  <span id="std_num">{std_num === part1 ? part2 : part1}</span>
                   <div>
                     {Messages.length > 0
                       ? Messages[0].msg
