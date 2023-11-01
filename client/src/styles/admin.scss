@@ -1,21 +1,21 @@
 @import "./valiables.scss";
 
 #home {
-  margin-top: 80px;
+  margin-top: 100px;
   margin-bottom: 20px;
   #profile {
-    width: 100%;
-    padding: 20px 0;
-    box-shadow: 0 0 4px $BorderGray;
-    border-radius: 10px;
-    #td1 {
-      width: 150px;
-      text-align: center;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 10px $BorderGray;
+    border-radius: 200px;
+    text-align: center;
+    margin: 0px auto;
+    img {
+      margin: 33px auto 5px;
     }
-    #td2 {
-      flex: 1;
-      line-height: 37px;
-      font-weight: 600;
+    span {
+      font-weight: 500;
+      margin-bottom: 5px;
     }
   }
   #menu {
@@ -25,20 +25,22 @@
     font-weight: bold;
     #bookMenu {
       width: 100%;
-      padding-bottom: 40px;
+      margin: 40px auto;
       text-align: center;
-      border-bottom: 1px solid $BorderGray;
       #icon1 {
-        color: $Back1;
+        color: $v2Back1;
         margin: 0 auto;
       }
       #icon2 {
-        color: $Back3;
+        color: $v2Back2;
         margin: 0 auto;
       }
     }
-    p {
+    button {
+      width: 100%;
       padding: 10px 0;
+      margin: 30px 0;
+      font-size: medium;
     }
   }
 }
@@ -50,9 +52,9 @@
   * {
     text-align: center;
   }
+  margin-top: 80px;
   margin-bottom: 40px;
   #Read_only {
-    background-color: $BorderGray;
     color: $white;
   }
   .input {
@@ -69,11 +71,13 @@
   #input_img {
     margin-top: 20px;
     label {
-      padding: 5px 10px;
-      background-color: $Back1;
+      width: 80%;
+      display: block;
+      padding: 10px 0;
+      margin: 0 auto;
+      background-color: $v2Back2;
       color: $white;
       border-radius: 5px;
-      box-shadow: 2px 2px 2px $BorderGray;
     }
   }
 }
@@ -81,6 +85,7 @@
 #search_book {
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
+  margin-top: 80px;
   #search {
     .search_input {
       width: 90%;
@@ -88,12 +93,12 @@
     }
     #search_button {
       width: 27px;
-      top: 67px;
-      right: 40px;
+      top: 85px;
+      right: 44px;
       margin: 0 auto;
       position: absolute;
       float: right;
-      color: $Back2;
+      color: $v2Back2;
     }
   }
   #search_result {
@@ -104,9 +109,9 @@
       animation: fadein 2s;
       -webkit-animation: fadein 2s;
       width: 90%;
-      margin: 10px auto;
+      margin: 20px auto;
       padding: 10px;
-      border: 1px solid $BorderGray;
+      box-shadow: $BorderGray 0px 0px 3px;
       border-radius: 10px;
       #result_item_wrap {
         padding-bottom: 10px;
@@ -135,7 +140,7 @@
         margin: 5px 10px;
       }
       #del_btn {
-        background-color: $Back3;
+        background-color: $v2Back2;
       }
     }
   }

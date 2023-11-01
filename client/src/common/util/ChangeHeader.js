@@ -56,7 +56,7 @@ const obj = {
     left: "back",
     center: { title: "비밀번호 찾기", data: null },
   },
-  finePwRes: {
+  findPwRes: {
     center: { title: "비밀번호 찾기", data: null },
   },
   join: {

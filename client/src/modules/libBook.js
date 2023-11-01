@@ -191,6 +191,7 @@ export const extendDate =
         dispatch({
           type: EXTENDDATE,
         });
+        dispatch(getMypageBorrowList(std_num));
         return alert(message);
       }
     } catch (err) {

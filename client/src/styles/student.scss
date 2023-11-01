@@ -7,7 +7,7 @@
 }
 
 #std_main {
-  margin-top: 60px;
+  margin-top: 80px;
   text-align: center;
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
@@ -20,7 +20,7 @@
       border-radius: 5px;
       animation: fadein 2s;
       -webkit-animation: fadein 2s;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       img {
         margin-left: 10px;
       }
@@ -64,7 +64,7 @@
   }
   #menu_icon {
     position: fixed;
-    top: 10px;
+    top: 15px;
     left: 10px;
     z-index: 2;
     color: $white;
@@ -75,12 +75,12 @@
   }
   #search_button {
     width: 27px;
-    top: 67px;
-    right: 40px;
+    top: 90px;
+    right: 44px;
     margin: 0 auto;
     position: absolute;
     float: right;
-    color: $Back2;
+    color: $v2Back2;
   }
   #hidden {
     height: 0;
@@ -91,11 +91,12 @@
   text-align: center;
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
+  margin-top: 80px;
   .list_item {
     padding: 10px 0;
     border: 1px solid $BorderGray;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     #table1 {
       margin: 0 auto;
       padding-bottom: 15px;
@@ -145,6 +146,7 @@
   text-align: center;
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
+  margin-top: 80px;
   .input {
     width: 230px;
     height: 24px;
@@ -160,7 +162,6 @@
     width: 232px;
     height: 80px;
     padding: 5px;
-    border: 1px solid $BorderGray;
     border-radius: 5px;
   }
   #input_img {
@@ -170,16 +171,14 @@
     text-align: center;
     p {
       text-align: left;
-      margin: 5px 5px;
+      margin: 5px 15px 5px 0;
       font-weight: bold;
       display: inline-block;
     }
     #upload {
       padding: 5px 20px;
-      font-weight: bold;
       color: $white;
-      background-color: $Back1;
-      border: 1px solid $Back1;
+      background-color: $v2Back2;
       border-radius: 5px;
     }
   }

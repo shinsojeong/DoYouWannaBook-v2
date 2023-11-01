@@ -124,7 +124,7 @@ export default function Join() {
         value={name}
       />
       <select
-        className="inputSelect"
+        className="input_select"
         placeholder="학과"
         id="dept"
         required

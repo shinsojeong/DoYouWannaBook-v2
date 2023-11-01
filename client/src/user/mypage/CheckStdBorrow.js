@@ -41,7 +41,7 @@ export default function CheckStdBorrow() {
                 <div className="flex-col" id="info">
                   <p id="title">{stdb_title}</p>
                   <p>{lender}의 도서</p>
-                  <p>{stdb_ret_date.slice(0, 10)} 반납 필수</p>
+                  <p>{stdb_ret_date && stdb_ret_date.slice(0, 10)} 반납 필수</p>
                 </div>
               </div>
             );

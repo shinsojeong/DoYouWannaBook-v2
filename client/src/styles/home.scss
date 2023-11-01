@@ -4,12 +4,12 @@
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
   #search_book {
-    padding-bottom: 30px;
-    border-bottom: 1px solid $tableBorder;
+    padding-bottom: 50px;
+    border-bottom: 1px solid $BorderGray;
     text-align: center;
     .title {
       margin: 10px auto;
-      font-weight: bold;
+      font-weight: 600;
       text-align: left;
     }
     #search_input {
@@ -18,22 +18,22 @@
     }
     #search_button {
       width: 27px;
-      top: 117px !important;
-      right: 40px;
+      top: 138px !important;
+      right: 44px;
       margin: 0 auto;
       position: absolute;
       float: right;
-      color: $Back2;
+      color: $v2Back2;
     }
   }
 
   #recommended_book {
-    padding-top: 20px;
+    padding-top: 40px;
     overflow-x: scroll;
     .title {
       margin: 10px auto;
       position: absolute;
-      font-weight: bold;
+      font-weight: 600;
       text-align: left;
     }
     #list {
@@ -79,22 +79,21 @@
     }
     #search_button {
       width: 27px;
-      top: 66px;
-      right: 40px;
+      top: 89px;
+      right: 44px;
       margin: 0 auto;
       position: absolute;
       float: right;
-      color: $Back2;
+      color: $v2Back2;
     }
   }
   #search_result {
     #item_wrap {
-      border: 1px solid $BorderGray;
       border-radius: 10px;
       padding: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       text-align: center;
-      box-shadow: 2px 2px 2px $BorderGray;
+      box-shadow: 0px 0px 3px $BorderGray;
       #info {
         margin: 5px;
         * {
@@ -108,6 +107,7 @@
       button {
         width: 100%;
         margin-top: 10px;
+        padding: 10px 0;
       }
     }
   }
@@ -116,11 +116,11 @@
 #search_detail {
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
-  width: 80%;
+  margin-top: 80px;
   margin-bottom: 20px;
   text-align: center;
   .sub_title {
-    font-weight: bold;
+    font-weight: 600;
     text-align: right;
     margin-right: 10px;
   }
@@ -138,18 +138,18 @@
     }
     #book_name {
       font-size: large;
-      font-weight: bold;
+      font-weight: 600;
     }
     img {
-      margin: 10px auto;
+      margin: 20px auto;
     }
   }
   #location {
     border-collapse: separate;
     border-spacing: 0 10px;
     .title {
-      font-size: large;
-      font-weight: bold;
+      font-size: $x-large;
+      font-weight: 600;
       text-align: left;
     }
     .flex-row {
@@ -160,8 +160,7 @@
       margin: 0px 15px;
       color: $white;
       font-weight: bold;
-      background-color: $Back1;
-      border: 1px solid $Back2;
+      background-color: $v2Back1;
       border-radius: 5px;
     }
   }
@@ -173,17 +172,15 @@
   -webkit-animation: fadein 2s;
   margin: 100px auto 60px auto;
   #highlight {
-    background-color: $Back3 !important;
+    background-color: $v2Back2 !important;
   }
   #location1 {
     margin: 20px 0px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $BorderGray;
     .boxRow {
       width: 90%;
       height: 70px;
       margin: 0 auto;
-      background-color: $Back1;
+      background-color: #d0d0d0;
       text-align: center;
       .box {
         width: 17px;
@@ -192,6 +189,7 @@
         display: inline-block;
         position: relative;
         background-color: $white-;
+        border-radius: 10px;
       }
     }
     #door {
@@ -202,20 +200,27 @@
       text-align: center;
       font-weight: bold;
       color: $white;
-      background-color: $Back1;
+      background-color: $v2Back2;
+      border-radius: 10px;
     }
   }
   #location2 {
+    width: 90%;
+    margin: 40px auto;
+    padding: 40px 0 0;
+    border-top: 1px solid $BorderGray;
     #bookshelf {
       width: 120px;
       height: 180px;
       padding: 5px;
-      background-color: $Back1;
+      background-color: #d0d0d0;
+      border-radius: 10px;
       .shelf {
         width: 100px;
         height: 30px;
         margin: 10px auto;
         background-color: $white-;
+        border-radius: 10px;
       }
     }
     #book_info {
@@ -225,7 +230,7 @@
       right: 0px;
       position: relative;
       #title {
-        font-weight: bold;
+        font-weight: 600;
         padding-bottom: 10px;
         margin-bottom: 10px;
       }

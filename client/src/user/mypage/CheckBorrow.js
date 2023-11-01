@@ -32,7 +32,6 @@ export default function CheckBorrow() {
   /** 대출 연장 */
   const extend = debounce((libb_code, libb_ret_date) => {
     dispatch(extendDate(std_num, libb_code, libb_ret_date));
-    dispatch(getMypageBorrowList(std_num));
   });
 
   return (

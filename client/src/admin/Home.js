@@ -10,7 +10,7 @@ import { logout } from "../modules/user";
 import ChangeHeader from "../common/util/ChangeHeader";
 
 import { AiOutlineBook } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
+import AdminProfile from "../source/AdminProfile.svg";
 
 import "../styles/admin.scss";
 
@@ -46,27 +46,25 @@ export default function Home() {
   return (
     <div id="home" className="contents">
       <div id="profile" className="flex-row">
-        <span id="td1">
-          <CgProfile size="70" />
-        </span>
-        <div className="flex-col">
-          <span id="td2">{std_num}</span>
-          <span id="td2">{name}</span>
+        <div className="flex-col" id="item">
+          <img src={AdminProfile} width="70" alt="img" id="icon" />
+          <span>{name}</span>
+          <span>{std_num}</span>
         </div>
       </div>
 
       <div id="menu">
         <div id="bookMenu" className="flex-row">
           <div onClick={() => goTo("/admin/book/create")} className="flex-col">
-            <AiOutlineBook size="100px" id="icon1" />
+            <AiOutlineBook size="70px" id="icon1" />
             <span name="/admin/book/create">도서 등록</span>
           </div>
           <div onClick={() => goTo("/admin/book/search")} className="flex-col">
-            <AiOutlineBook size="100px" id="icon2" />
+            <AiOutlineBook size="70px" id="icon2" />
             <span>조회/수정/삭제</span>
           </div>
         </div>
-        <p onClick={out}>로그아웃</p>
+        <button onClick={out}>로그아웃</button>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@
 #mypage {
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
+  margin-top: 80px;
   #profile {
     width: 100%;
     box-shadow: 0px 0px 4px $BorderGray;
@@ -24,21 +25,22 @@
     padding-top: 10px;
     border-top: 1px solid $BorderGray;
     li {
-      padding: 5px 0;
-      margin: 5px 0;
+      padding: 8px 0;
+      margin: 8px 0;
     }
   }
 }
 
 #check_borrow,
 #check_std_borrow {
+  margin-top: 80px;
   margin-bottom: 20px;
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
   #table {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
-    margin: 8px 0px;
+    margin: 20px 0px;
     border: 1px solid $BorderGray;
     border-radius: 10px;
     text-align: center;

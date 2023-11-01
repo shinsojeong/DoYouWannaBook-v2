@@ -1,11 +1,12 @@
 @import "./valiables.scss";
 
 #chat {
-  margin: 40px auto;
+  margin: 0px auto;
   #book_info {
     width: 100%;
     height: 100px;
-    background-color: $Back1;
+    padding: 50px 0 0;
+    background-color: $v2Back2;
     img {
       width: 80px;
       margin: 10px 20px;
@@ -31,14 +32,14 @@
     #me {
       float: left;
       width: 70%;
-      padding: 5px 5px;
+      padding: 8px 5px;
       margin: 8px 0px;
-      border: 1px solid $Back1;
+      border: 1px solid $v2Back1;
       border-radius: 10px;
       #message {
         text-align: left;
         margin: 0;
-        font-size: small;
+        font-size: medium;
       }
       #time {
         margin: 0;
@@ -47,7 +48,7 @@
       }
     }
     #you {
-      background-color: $Back1;
+      background-color: $v2Back2;
       color: $white;
       font-weight: bold;
     }
@@ -71,7 +72,7 @@
     position: fixed;
     bottom: 60px;
     color: $white;
-    background-color: $Back1;
+    background-color: $v2Back1;
     text-align: center;
     animation: fadein 2s;
     -webkit-animation: fadein 2s;
@@ -85,15 +86,19 @@
     position: fixed;
     bottom: 0;
     text-align: center;
-    background-color: $Back1;
+    background-color: $v2Back1;
     input {
-      width: 260px;
-      height: 24px;
+      width: 240px;
+      height: 30px;
+      margin-right: 10px;
     }
     button {
-      height: 36px;
+      width: 50px;
+      height: 41px;
       background-color: $white;
-      color: $Back1;
+      color: $v2Back2;
+      font-weight: 600;
+      padding: 5px;
     }
   }
 }
@@ -102,6 +107,7 @@
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
   text-align: center;
+  margin-top: 80px;
   #list_item {
     padding: 10px 0px;
     margin: 5px 0px;
@@ -110,7 +116,7 @@
     text-align: left;
     svg {
       color: $BorderGray;
-      margin: 0px 5px;
+      margin: 0px 15px;
     }
     #info * {
       flex: 1;

@@ -1,44 +1,19 @@
 //Background
-$Back0: #76d31e;
-$Back1: #77d82d;
-$Back2: #5dc40f;
-$Back3: #54ae0f;
+$v2Back1: #97ea53;
+$v2Back2: #80c547;
+$v2Back3: #4acd16;
+$v2Background: linear-gradient(180deg, $v2Back1 40%, $v2Back2 100%);
 
 $white: #ffffff;
 $white-: #f4f4f4;
 
-$BackBlue: #0078ff;
-$BackSkyBlue: #449eec;
-$BackSkyBlue-: #5fc3e4;
-$BackSky: #14d3ff;
-$BackSky-: #9de5f5;
-$BackWhiteGray: #e3e3e3;
-$BackGray: #c2c2c2;
 $BackDarkGray: #999999;
-$BackExcel: #1ddb16;
 
 //border
-$BorderGray: #a2a2a2;
-$BorderExcel: #00b700;
-
-//input
-$inputWhite: #fcfcfc;
-$inputGray: #9d9d9d;
+$BorderGray: #bbb;
 
 //font color
 $fontGray: #434343;
-$fontGray-: #878787;
-$fontWhite: #fcfcfc;
-$fontOrange: #fd8242;
-
-//table
-$tableBorder: #878787;
-$tableBorder-: #e3e3e3;
-$tableBack1: #f2f2f2;
-$tableBack2: #f6f6f6;
-
-//shadow
-$shadowGray: #bdbdbd;
 
 //size
 $xxx-small: 0.8em;

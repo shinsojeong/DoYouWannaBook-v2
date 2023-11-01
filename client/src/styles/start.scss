@@ -5,7 +5,7 @@
   height: 100vh;
   position: fixed;
   text-align: center;
-  background-color: $Back0;
+  background: $v2Background;
   #logo {
     padding: 120px 0;
     animation: fadein 2s;
@@ -18,7 +18,7 @@
   height: 100vh;
   position: fixed;
   text-align: center;
-  background-color: $Back0;
+  background: $v2Background;
   * {
     animation: fadein 2s;
     -webkit-animation: fadein 2s;
@@ -39,8 +39,8 @@
     width: 214px;
     height: 40px;
     display: block;
-    margin: 5px auto;
-    background-color: $Back2;
+    margin: 10px auto;
+    background-color: $v2Back3;
   }
   #login_btn {
     margin-top: 30px;
@@ -70,7 +70,6 @@
   animation: fadein 2s;
   -webkit-animation: fadein 2s;
   p {
-    font-weight: bold;
     margin: 0 auto;
     margin-top: 180px;
     margin-bottom: 60px;
@@ -94,10 +93,10 @@
   #gender_input {
     margin: 10px auto;
     label {
-      margin-left: 6px;
+      margin: 0 6px;
     }
   }
-  .inputSelect {
+  .input_select {
     width: 214px;
     height: 38px;
     display: block;
