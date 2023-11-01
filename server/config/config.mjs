@@ -6,7 +6,7 @@ export const dbconfig = {
   development: {
     username: env.DB_DEV_USERNAME,
     password: env.DB_DEV_PASSWORD,
-    database: env.DB_DEV_DATABASE_DEV,
+    database: env.DB_DEV_DATABASE,
     host: env.DB_DEV_HOST,
     port: env.DB_DEV_PORT,
     dialect: "mysql",
