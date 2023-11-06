@@ -1,37 +1,33 @@
-import { Server } from "socket.io";
-import { createServer } from "http";
 import Message from "../models/message.mjs";
 
-export const socketIO = (app) => {
-  const server = createServer(app);
-  const io = new Server(server, {
-    cors: {
-      origin: "https://web-front-euegqv2llo71vvuq.sel5.cloudtype.app/",
-    },
-  });
+const clients = new Set();
 
-  io.on("connect", (socket) => {
+export const socketIO = (wss) => {
+  wss.on("connection", (ws) => {
+    clients.add(ws);
     //채팅방 입장
-    socket.on("enter", ({ chat_code, std_num }) => {
-      socket.join(chat_code);
-      socket["std_num"] = std_num;
+    ws.on("enter", ({ chat_code, std_num }) => {
+      ws.join(chat_code);
+      ws["std_num"] = std_num;
     });
 
     //메세지 전송
-    socket.on("send", async ({ chat_code, sender, msg }) => {
+    ws.on("send", async ({ chat_code, sender, msg }) => {
       try {
         await Message.create({
           msg,
           chat: chat_code,
           sender,
         });
-        socket.sockets(chat_code).emit("send", { sender, msg });
+        ws.sockets(chat_code).emit("send", { sender, msg });
       } catch (error) {
         console.error(error);
       }
     });
 
     // 연결해제
-    socket.on("disconnect");
+    ws.on("disconnect", () => {
+      clients.delete(ws);
+    });
   });
 };

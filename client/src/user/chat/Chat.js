@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { io } from "socket.io-client";
 
 import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
@@ -11,13 +10,11 @@ import { changeBar } from "../../modules/topBar";
 
 import "../../styles/chat.scss";
 
-const socket = io(process.env.REACT_APP_SERVER, {
-  path: "/socket.io",
-  transports: ["websocket"],
-  withCredentials: true,
-});
-
 export default function Chat() {
+  const socket = new WebSocket(
+    "wss://port-0-doyouwannabook-euegqv2llo71vvuq.sel5.cloudtype.app/443"
+  );
+
   const [dispatch, navigate, debounce] = [
     useDispatch(),
     useMove(),
@@ -52,13 +49,14 @@ export default function Chat() {
 
   /** 소켓 초기화 */
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("소켓 연결 완료");
-      socket.emit("enter", { chat_code, std_num });
-    });
-    socket.on("send", ({ sender, msg }) => {
-      dispatch(sendChat(chat_code, sender, msg));
-    });
+    socket.onopen = (socket) => {
+      socket.on("connect", (socket) => {
+        socket.emit("enter", { chat_code, std_num });
+      });
+      socket.on("send", ({ sender, msg }) => {
+        dispatch(sendChat(chat_code, sender, msg));
+      });
+    };
 
     return () => {
       socket.off("send");

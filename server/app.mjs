@@ -9,7 +9,9 @@ import passport from "passport";
 import cors from "cors";
 import helmet from "helmet";
 import hpp from "hpp";
+import http from "http";
 import path from "path";
+import { WebSocketServer } from "ws";
 
 import { socketIO } from "./routes/socket.mjs";
 
@@ -28,9 +30,6 @@ dotenv.config();
 const app = express();
 passportConfig(); //passport 설정
 app.set("port", process.env.PORT ? process.env.PORT : 8001);
-
-//소켓 설정
-socketIO(app);
 
 //sequelize 연동
 db.sequelize
@@ -111,3 +110,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(path.resolve(), "build", "index.html"));
   });
 }
+
+//소켓 설정
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
+socketIO(wss);
