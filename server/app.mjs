@@ -7,11 +7,11 @@ import session from "express-session";
 import dotenv from "dotenv";
 import passport from "passport";
 import cors from "cors";
-//import httpModule from 'http';
-//import { Server } from 'socket.io';
 import helmet from "helmet";
 import hpp from "hpp";
 import path from "path";
+
+import { socketIO } from "./routes/socket.mjs";
 
 import adminRouter from "./routes/admin.mjs";
 import authRouter from "./routes/auth.mjs";
@@ -28,6 +28,9 @@ dotenv.config();
 const app = express();
 passportConfig(); //passport 설정
 app.set("port", process.env.PORT ? process.env.PORT : 8001);
+
+//소켓 설정
+socketIO(app);
 
 //sequelize 연동
 db.sequelize
@@ -108,21 +111,3 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(path.resolve(), "build", "index.html"));
   });
 }
-
-//socket
-// const http = httpModule.createServer(app);
-// const io = new Server(http);
-
-// io.on("connection", (socket) => {
-//     socket.on("join", (userid) => {  //join 이벤트로 데이터 받음
-//         socket.join(userid);  //userid로 방 생성
-//     });
-
-//     socket.on("send", (touserid) => {  //send 이벤트로 데이터 받음
-//         io.to(touserid).emit("user", touserid);
-//     });
-
-//     socket.on("disconnetcion", () => {
-
-//     })
-// });

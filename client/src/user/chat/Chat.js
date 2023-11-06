@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { io } from "socket.io-client";
 
 import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
-
-// import io from 'socket.io-client';
 
 import { sendChat } from "../../modules/chat";
 import { registerLental } from "../../modules/userBook";
@@ -12,7 +11,11 @@ import { changeBar } from "../../modules/topBar";
 
 import "../../styles/chat.scss";
 
-// const socket = io(process.env.REACT_APP_CLIENT);
+const socket = io(process.env.REACT_APP_SERVER, {
+  path: "/socket.io",
+  transports: ["websocket"],
+  withCredentials: true,
+});
 
 export default function Chat() {
   const [dispatch, navigate, debounce] = [
@@ -44,13 +47,24 @@ export default function Chat() {
         size: "small",
       })
     );
-
-    //socket 연결
-    // socket.emit("join", chat_code);
-    // socket.on("user", message);
-
     scrollToBottom();
   }, [dispatch, navigate, part1, part2, std_num]);
+
+  /** 소켓 초기화 */
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("소켓 연결 완료");
+      socket.emit("enter", { chat_code, std_num });
+    });
+    socket.on("send", ({ sender, msg }) => {
+      dispatch(sendChat(chat_code, sender, msg));
+    });
+
+    return () => {
+      socket.off("send");
+      socket.disconnect();
+    };
+  }, [chat_code, std_num, dispatch]);
 
   /** 대여 정보 등록하기 */
   const register = debounce(() => {
@@ -63,8 +77,7 @@ export default function Chat() {
 
   /** 메세지 전송 */
   const sendMessage = debounce(async () => {
-    dispatch(sendChat(chat_code, std_num, message));
-    // socket.emit("send", message);
+    socket.emit("send", { chat_code, sender: std_num, msg: message });
     scrollToBottom();
     setMessage("");
   });

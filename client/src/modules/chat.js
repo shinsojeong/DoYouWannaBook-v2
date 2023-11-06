@@ -70,31 +70,15 @@ export const getChatList = (std_num) => async (dispatch) => {
 /** 채팅 전송 */
 export const sendChat = (chat_code, std_num, msg) => async (dispatch) => {
   try {
-    const {
-      data: { status },
-    } = await axios.post(
-      `${url}/chat/send_chat`,
-      {
+    dispatch({
+      type: SENDCHAT,
+      payload: {
         chat_code,
-        std_num,
         msg,
+        std_num,
+        created_at: new Date(),
       },
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (status === "OK") {
-      dispatch({
-        type: SENDCHAT,
-        payload: {
-          chat_code,
-          msg,
-          std_num,
-          created_at: new Date(),
-        },
-      });
-    }
+    });
   } catch (err) {
     return console.error(err);
   }
