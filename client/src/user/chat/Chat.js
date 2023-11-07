@@ -1,5 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
+import io from "socket.io-client";
 
 import useDebounce from "../../hook/useDebounce";
 import useMove from "../../hook/useMove";
@@ -11,8 +18,13 @@ import { changeBar } from "../../modules/topBar";
 import "../../styles/chat.scss";
 
 export default function Chat() {
-  const socket = new WebSocket(
-    "wss://port-0-doyouwannabook-euegqv2llo71vvuq.sel5.cloudtype.app/443"
+  const socket = useMemo(
+    () =>
+      io("https://port-0-doyouwannabook-euegqv2llo71vvuq.sel5.cloudtype.app", {
+        transports: ["websocket"],
+        withCredentials: true,
+      }),
+    []
   );
 
   const [dispatch, navigate, debounce] = [
@@ -45,24 +57,24 @@ export default function Chat() {
       })
     );
     scrollToBottom();
-  }, [dispatch, navigate, part1, part2, std_num]);
+  }, []);
 
   /** 소켓 초기화 */
   useEffect(() => {
-    socket.onopen = (socket) => {
-      socket.on("connect", (socket) => {
+    if (socket) {
+      socket.on("connect", () => {
         socket.emit("enter", { chat_code, std_num });
       });
       socket.on("send", ({ sender, msg }) => {
         dispatch(sendChat(chat_code, sender, msg));
       });
-    };
+    }
 
     return () => {
       socket.off("send");
       socket.disconnect();
     };
-  }, [chat_code, std_num, dispatch]);
+  }, [socket]);
 
   /** 대여 정보 등록하기 */
   const register = debounce(() => {
@@ -76,13 +88,18 @@ export default function Chat() {
   /** 메세지 전송 */
   const sendMessage = debounce(async () => {
     socket.emit("send", { chat_code, sender: std_num, msg: message });
-    scrollToBottom();
+    dispatch(sendChat(chat_code, std_num, message));
     setMessage("");
   });
 
   /** 스크롤 */
-  const scrollToBottom = () =>
-    scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  const scrollToBottom = useCallback(() => {
+    scrollRef?.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [scrollRef]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [scrollRef, msg]);
 
   return (
     <div id="chat" className="contents">
@@ -108,9 +125,7 @@ export default function Chat() {
             ) : (
               <div id="you" key={created_at}>
                 <p id="message">{msg}</p>
-                <p id="time">
-                  {created_at.slice(0, 10) + " " + created_at.slice(11, 19)}
-                </p>
+                <p id="time">{created_at.toString().slice(0, 10)}</p>
               </div>
             );
           })}

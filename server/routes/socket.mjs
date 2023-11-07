@@ -19,7 +19,7 @@ export const socketIO = (wss) => {
           chat: chat_code,
           sender,
         });
-        ws.sockets(chat_code).emit("send", { sender, msg });
+        ws.to(chat_code).emit("send", { sender, msg });
       } catch (error) {
         console.error(error);
       }

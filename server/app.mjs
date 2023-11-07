@@ -11,7 +11,7 @@ import helmet from "helmet";
 import hpp from "hpp";
 import http from "http";
 import path from "path";
-import { WebSocketServer } from "ws";
+import { Server } from "socket.io";
 
 import { socketIO } from "./routes/socket.mjs";
 
@@ -99,9 +99,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 });
 
-app.listen(app.get("port"), () => {
-  console.log(app.get("port"), "번 포트에서 대기 중");
-});
+// app.listen(app.get("port"), () => {
+//   console.log(app.get("port"), "번 포트에서 대기 중");
+// });
 
 //react build 연동
 if (process.env.NODE_ENV === "production") {
@@ -113,5 +113,14 @@ if (process.env.NODE_ENV === "production") {
 
 //소켓 설정
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+const wss = new Server(server, {
+  cors: {
+    origin: "https://web-front-euegqv2llo71vvuq.sel5.cloudtype.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 socketIO(wss);
+server.listen(8001, () => {
+  console.log("socket server running");
+});
